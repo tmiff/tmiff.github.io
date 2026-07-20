@@ -1,0 +1,42 @@
+---
+import { ArrowRight, CalendarX2 } from "lucide-astro";
+import PageHero from "../PageHero.astro";
+import SectionBlock from "../SectionBlock.astro";
+import { getPageContent } from "../../config/content";
+import { pagePath } from "../../config/paths";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import records from "../../content/winners/records.json";
+import type { Locale, WinnerRecord } from "../../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = getPageContent(locale, "winners");
+const winners = records as WinnerRecord[];
+---
+
+<BaseLayout locale={locale} pageKey="winners" title={content.seoTitle} description={content.intro}>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  <section class="band band--light">
+    <div class="container winners-index">
+      {winners.length === 0 ? (
+        <div class="empty-state">
+          <CalendarX2 size={34} aria-hidden="true" />
+          <h2>{locale === "ja" ? "公開済みの受賞結果はありません。" : "No award results have been published."}</h2>
+          <p>{locale === "ja" ? "最初の月次サイクル完了後、承認済み結果だけを掲載します。" : "Only approved results will be added after the first monthly cycle is complete."}</p>
+        </div>
+      ) : (
+        <ol class="cycle-list">
+          {winners.map((cycle) => (
+            <li>
+              <div><span>{cycle.cycleId}</span><h2>{cycle.localeTitles[locale]}</h2></div>
+              <a class="text-link" href={`${pagePath(locale, "winners")}${cycle.cycleId}/`}>{locale === "ja" ? "結果を見る" : "View results"}<ArrowRight size={17} /></a>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  </section>
+  <div class="container content-sections winners-notes">
+    {content.sections.slice(1).map((section, index) => <SectionBlock section={section} index={index} />)}
+  </div>
+</BaseLayout>

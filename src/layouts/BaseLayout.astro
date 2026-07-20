@@ -1,0 +1,48 @@
+---
+import PreviewBanner from "../components/PreviewBanner.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { alternateLocalePath, pagePath } from "../config/paths";
+import { festivalName, siteConfig } from "../config/site";
+import "../styles/global.css";
+import type { Locale, PageKey } from "../types";
+
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { locale, pageKey, title, description, noindex = false } = Astro.props;
+const fullTitle = `${title} | ${festivalName(locale)}`;
+const canonical = new URL(pagePath(locale, pageKey), Astro.site || "https://example.invalid");
+const alternate = new URL(alternateLocalePath(locale, pageKey), Astro.site || "https://example.invalid");
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F7F6F2" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {(noindex || !siteConfig.isRelease) && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale === "en" ? "ja" : "en"} href={alternate} />
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{locale === "ja" ? "本文へ移動" : "Skip to content"}</a>
+    {!siteConfig.isRelease && <PreviewBanner locale={locale} />}
+    <SiteHeader locale={locale} pageKey={pageKey} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter locale={locale} />
+  </body>
+</html>

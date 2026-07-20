@@ -1,0 +1,20 @@
+---
+import { AlertCircle, Info, ShieldCheck } from "lucide-astro";
+
+interface Props {
+  title: string;
+  body: string;
+  tone?: "info" | "warning" | "safe";
+}
+
+const { title, body, tone = "info" } = Astro.props;
+const Icon = tone === "warning" ? AlertCircle : tone === "safe" ? ShieldCheck : Info;
+---
+
+<aside class:list={["status-callout", `status-callout--${tone}`]}>
+  <Icon size={22} aria-hidden="true" />
+  <div>
+    <h2>{title}</h2>
+    <p>{body}</p>
+  </div>
+</aside>

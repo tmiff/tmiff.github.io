@@ -1,0 +1,27 @@
+---
+import { Image as ImageIcon } from "lucide-astro";
+import { getImageSlot } from "../config/images";
+import type { Locale } from "../types";
+
+interface Props {
+  id: string;
+  locale: Locale;
+}
+
+const { id, locale } = Astro.props;
+const slot = getImageSlot(id);
+const ready = slot.approvalStatus === "approved" && slot.rightsStatus !== "pending-generation";
+---
+
+<figure class="editorial-image" style={`--image-ratio: ${slot.width} / ${slot.height}`} data-image-slot={slot.id}>
+  {ready ? (
+    <img src={slot.file} width={slot.width} height={slot.height} alt={slot.alt[locale]} loading="lazy" decoding="async" />
+  ) : (
+    <div class="image-placeholder" role="img" aria-label={slot.alt[locale]}>
+      <ImageIcon size={28} aria-hidden="true" />
+      <strong>{locale === "ja" ? "画像生成・承認待ち" : "Image pending generation and approval"}</strong>
+      <span>{slot.id} · {slot.width} × {slot.height} · {slot.ratio}</span>
+    </div>
+  )}
+  <figcaption class="visually-hidden">{slot.alt[locale]}</figcaption>
+</figure>

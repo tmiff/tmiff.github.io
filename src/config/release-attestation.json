@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": null,
+  "sourceCommit": null,
+  "gates": {
+    "dedicatedGmailConfigured": false,
+    "coOrganizerConfigured": false,
+    "filmFreewayConfigured": false,
+    "openAiKeyConfigured": false,
+    "turnstileSecretConfigured": false,
+    "googleWorkspaceConfigured": false,
+    "mediaAnalysisWorkflowApproved": false,
+    "contactAndDraftTestPassed": false,
+    "dualApprovalTestPassed": false,
+    "publicationAndCertificateTestPassed": false,
+    "backupRestoreTestPassed": false,
+    "testMonthPassed": false
+  }
+}

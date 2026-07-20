@@ -1,0 +1,29 @@
+---
+import AwardGrid from "../AwardGrid.astro";
+import EditorialImage from "../EditorialImage.astro";
+import PageHero from "../PageHero.astro";
+import SectionBlock from "../SectionBlock.astro";
+import { getPageContent } from "../../config/content";
+import awards from "../../config/awards.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Locale } from "../../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = getPageContent(locale, "awards");
+const details = content.sections.filter((item) => item.id !== "categories");
+---
+
+<BaseLayout locale={locale} pageKey="awards" title={content.seoTitle} description={content.intro}>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  <div class="container editorial-image-wrap"><EditorialImage id="awards-materials" locale={locale} /></div>
+  <section class="band band--ink">
+    <div class="container division-labels">
+      {awards.divisions.map((division) => <span>{division[locale]}</span>)}
+    </div>
+    <div class="container"><AwardGrid locale={locale} /></div>
+  </section>
+  <div class="container content-sections">
+    {details.map((section, index) => <SectionBlock section={section} index={index} />)}
+  </div>
+</BaseLayout>

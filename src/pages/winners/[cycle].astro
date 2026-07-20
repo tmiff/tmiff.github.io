@@ -1,0 +1,13 @@
+---
+import WinnerCyclePage from "../../components/pages/WinnerCyclePage.astro";
+import records from "../../content/winners/records.json";
+import type { WinnerRecord } from "../../types";
+
+export function getStaticPaths() {
+  return (records as WinnerRecord[]).map((cycle) => ({ params: { cycle: cycle.cycleId }, props: { cycle } }));
+}
+
+interface Props { cycle: WinnerRecord }
+const { cycle } = Astro.props;
+---
+<WinnerCyclePage locale="en" cycle={cycle} />

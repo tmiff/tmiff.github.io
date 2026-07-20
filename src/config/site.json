@@ -1,0 +1,21 @@
+{
+  "status": "preview",
+  "festivalName": "The Monthly International Film Festival",
+  "festivalNameJa": "The Monthly International Film Festival",
+  "organizerName": "",
+  "country": "",
+  "locationDisplay": "",
+  "contactEmail": "",
+  "coOrganizerEmails": [],
+  "filmFreewayUrl": "",
+  "submissionFeeDisplayEn": "",
+  "submissionFeeDisplayJa": "",
+  "refundPolicyApproved": false,
+  "signatureName": "",
+  "githubOrganization": "",
+  "legalApproved": false,
+  "venueStatus": "unconfirmed",
+  "venueClaimEnabled": false,
+  "defaultLocale": "en",
+  "supportedLocales": ["en", "ja"]
+}

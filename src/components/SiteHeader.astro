@@ -1,0 +1,77 @@
+---
+import { Globe2, Menu, X } from "lucide-astro";
+import { alternateLocalePath, navigationLabels, pagePath, primaryNavigation } from "../config/paths";
+import { festivalName } from "../config/site";
+import type { Locale, PageKey } from "../types";
+
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+}
+
+const { locale, pageKey } = Astro.props;
+const labels = navigationLabels[locale];
+const languageLabel = locale === "ja" ? "English" : "日本語";
+---
+
+<header class="site-header" data-site-header>
+  <div class="container site-header__inner">
+    <a class="brand" href={pagePath(locale, "home")} aria-label={`${festivalName(locale)} home`}>
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">{festivalName(locale)}</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label={locale === "ja" ? "メインナビゲーション" : "Primary navigation"}>
+      {primaryNavigation.map((key) => (
+        <a href={pagePath(locale, key)} aria-current={pageKey === key ? "page" : undefined}>
+          {labels[key]}
+        </a>
+      ))}
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="language-link" href={alternateLocalePath(locale, pageKey)}>
+        <Globe2 size={17} aria-hidden="true" />
+        <span>{languageLabel}</span>
+      </a>
+      <a class="button button--small" href={pagePath(locale, "submit")}>{labels.submit}</a>
+      <button
+        class="icon-button menu-button"
+        type="button"
+        aria-label={locale === "ja" ? "メニューを開く" : "Open menu"}
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+        data-menu-button
+      >
+        <Menu class="menu-icon-open" size={22} aria-hidden="true" />
+        <X class="menu-icon-close" size={22} aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-navigation" class="mobile-nav" aria-label={locale === "ja" ? "モバイルナビゲーション" : "Mobile navigation"} data-mobile-nav hidden>
+    <div class="container mobile-nav__inner">
+      {primaryNavigation.map((key) => (
+        <a href={pagePath(locale, key)} aria-current={pageKey === key ? "page" : undefined}>
+          {labels[key]}
+        </a>
+      ))}
+      <a href={pagePath(locale, "faq")}>{labels.faq}</a>
+      <a href={pagePath(locale, "contact")}>{labels.contact}</a>
+      <a href={alternateLocalePath(locale, pageKey)}>{languageLabel}</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector("[data-site-header]");
+  const button = header?.querySelector("[data-menu-button]");
+  const menu = header?.querySelector("[data-mobile-nav]");
+
+  button?.addEventListener("click", () => {
+    const open = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!open));
+    if (menu instanceof HTMLElement) menu.hidden = open;
+    document.body.classList.toggle("menu-open", !open);
+  });
+</script>

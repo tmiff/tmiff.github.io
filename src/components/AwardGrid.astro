@@ -1,0 +1,21 @@
+---
+import { Award } from "lucide-astro";
+import awards from "../config/awards.json";
+import type { Locale } from "../types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<div class="award-grid" role="list">
+  {awards.categories.map((award, index) => (
+    <article class="award-card" role="listitem">
+      <div class="award-card__index">{String(index + 1).padStart(2, "0")}</div>
+      <Award size={22} aria-hidden="true" />
+      <h3>{award[locale]}</h3>
+    </article>
+  ))}
+</div>

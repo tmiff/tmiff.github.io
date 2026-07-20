@@ -1,0 +1,28 @@
+---
+import EditorialImage from "../EditorialImage.astro";
+import PageHero from "../PageHero.astro";
+import ProcessTimeline from "../ProcessTimeline.astro";
+import StatusCallout from "../StatusCallout.astro";
+import { getPageContent } from "../../config/content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Locale } from "../../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = getPageContent(locale, "selection");
+---
+
+<BaseLayout locale={locale} pageKey="selection" title={content.seoTitle} description={content.intro}>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  <div class="container editorial-image-wrap"><EditorialImage id="selection-process" locale={locale} /></div>
+  <section class="band" aria-label={locale === "ja" ? "月次選考工程" : "Monthly selection stages"}>
+    <div class="container timeline-wrap"><ProcessTimeline locale={locale} sections={content.sections} /></div>
+  </section>
+  <div class="container callout-wrap callout-wrap--bottom">
+    <StatusCallout
+      tone="safe"
+      title={locale === "ja" ? "公開前の停止条件" : "Release stopping conditions"}
+      body={locale === "ja" ? "承認不足、AI拒否、テンプレート欠損、公開失敗のいずれかがある場合、旧サイトを維持し、受賞通知を送信しません。" : "Missing approval, an AI refusal, a missing template, or a publication failure preserves the previous site and blocks winner notifications."}
+    />
+  </div>
+</BaseLayout>

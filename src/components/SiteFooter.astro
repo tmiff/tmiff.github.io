@@ -1,0 +1,55 @@
+---
+import { navigationLabels, pagePath } from "../config/paths";
+import { festivalName, siteConfig } from "../config/site";
+import type { Locale } from "../types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const labels = navigationLabels[locale];
+const year = new Date().getUTCFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand brand--footer" href={pagePath(locale, "home")}>
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">{festivalName(locale)}</span>
+      </a>
+      <p>{locale === "ja" ? "毎月オンラインで受賞結果を発表する映画賞プログラム。" : "A monthly online film awards program."}</p>
+      {siteConfig.venueStatus === "unconfirmed" && (
+        <p class="footer-note">{locale === "ja" ? "一般向け会場上映は現在未定です。" : "No public venue screening is currently announced."}</p>
+      )}
+    </div>
+
+    <div>
+      <h2>{locale === "ja" ? "参加" : "Participate"}</h2>
+      <a href={pagePath(locale, "submit")}>{labels.submit}</a>
+      <a href={pagePath(locale, "rules")}>{labels.rules}</a>
+      <a href={pagePath(locale, "selection")}>{labels.selection}</a>
+      <a href={pagePath(locale, "awards")}>{labels.awards}</a>
+    </div>
+
+    <div>
+      <h2>{locale === "ja" ? "情報" : "Information"}</h2>
+      <a href={pagePath(locale, "winners")}>{labels.winners}</a>
+      <a href={pagePath(locale, "verify")}>{labels.verify}</a>
+      <a href={pagePath(locale, "faq")}>{labels.faq}</a>
+      <a href={pagePath(locale, "contact")}>{labels.contact}</a>
+    </div>
+
+    <div>
+      <h2>{locale === "ja" ? "方針" : "Policies"}</h2>
+      <a href={pagePath(locale, "privacy")}>{labels.privacy}</a>
+      <a href={pagePath(locale, "terms")}>{labels.terms}</a>
+      <a href={pagePath(locale, "accessibility")}>{labels.accessibility}</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {year} {festivalName(locale)}</span>
+    <span>{siteConfig.status === "preview" ? (locale === "ja" ? "公開前プレビュー" : "Pre-release preview") : ""}</span>
+  </div>
+</footer>

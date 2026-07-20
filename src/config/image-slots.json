@@ -1,0 +1,70 @@
+[
+  {
+    "id": "home-hero",
+    "page": "home",
+    "file": "/images/home-hero.webp",
+    "width": 2400,
+    "height": 1350,
+    "ratio": "16:9",
+    "safeCrop": { "x": "20%-80%", "y": "15%-85%" },
+    "alt": {
+      "en": "A cinematic production space represented as an original editorial image",
+      "ja": "映画制作の空間を表現したオリジナルのエディトリアル画像"
+    },
+    "prompt": "Photorealistic cinematic still of an empty independent film production space at dawn, practical tungsten work lights, visible cinema camera and marked floor, no people, no audience, no logos, no text, documentary realism, wide horizontal composition with quiet center-left negative space for title, original fictional location, not evidence of a past event.",
+    "rightsStatus": "pending-generation",
+    "approvalStatus": "pending",
+    "sourceRecord": null
+  },
+  {
+    "id": "about-editorial",
+    "page": "about",
+    "file": "/images/about-editorial.webp",
+    "width": 1800,
+    "height": 1200,
+    "ratio": "3:2",
+    "safeCrop": { "x": "10%-90%", "y": "10%-90%" },
+    "alt": {
+      "en": "Film notes and production materials arranged for close review",
+      "ja": "丁寧な確認のために並べられた映画ノートと制作資料"
+    },
+    "prompt": "Photorealistic editorial tabletop scene with screenplay pages, neutral sticky notes, film slate and light meter, no readable names, no logos, natural side light, restrained red pencil accent, original fictional materials, documentary realism, horizontal 3:2 composition.",
+    "rightsStatus": "pending-generation",
+    "approvalStatus": "pending",
+    "sourceRecord": null
+  },
+  {
+    "id": "selection-process",
+    "page": "selection-process",
+    "file": "/images/selection-process.webp",
+    "width": 1800,
+    "height": 1200,
+    "ratio": "3:2",
+    "safeCrop": { "x": "12%-88%", "y": "12%-88%" },
+    "alt": {
+      "en": "A calibrated film review workspace with two viewing positions",
+      "ja": "二つの視聴席を備えた調整済みの作品確認環境"
+    },
+    "prompt": "Photorealistic film review workspace with two empty chairs, calibrated monitor showing an abstract non-identifiable frame, notebooks and headphones, no people, no personal data, no logos, neutral daylight, original fictional setting, horizontal 3:2 composition.",
+    "rightsStatus": "pending-generation",
+    "approvalStatus": "pending",
+    "sourceRecord": null
+  },
+  {
+    "id": "awards-materials",
+    "page": "awards",
+    "file": "/images/awards-materials.webp",
+    "width": 1800,
+    "height": 1200,
+    "ratio": "3:2",
+    "safeCrop": { "x": "10%-90%", "y": "8%-92%" },
+    "alt": {
+      "en": "Original certificate paper and laurel production materials without recipient data",
+      "ja": "受賞者情報を含まない証書用紙とローレル制作素材"
+    },
+    "prompt": "Photorealistic editorial still of premium unprinted certificate paper, embossing tools and a small red ribbon accent on a clean black and off-white worktable, no names, no logos, no award claims, original fictional materials, horizontal 3:2 composition.",
+    "rightsStatus": "pending-generation",
+    "approvalStatus": "pending",
+    "sourceRecord": null
+  }
+]

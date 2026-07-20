@@ -1,0 +1,61 @@
+---
+import { ShieldCheck } from "lucide-astro";
+import { getPageContent } from "../../config/content";
+import { pagePath } from "../../config/paths";
+import awards from "../../config/awards.json";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Locale, WinnerRecord } from "../../types";
+
+interface Props {
+  locale: Locale;
+  cycle: WinnerRecord;
+}
+
+const { locale, cycle } = Astro.props;
+const base = getPageContent(locale, "winners");
+const categoryMap = new Map(awards.categories.map((item) => [item.id, item[locale]]));
+const divisionMap = new Map(awards.divisions.map((item) => [item.id, item[locale]]));
+---
+
+<BaseLayout locale={locale} pageKey="winners" title={cycle.localeTitles[locale]} description={base.intro}>
+  <header class="page-hero page-hero--compact">
+    <div class="container page-hero__inner">
+      <p class="eyebrow">{cycle.cycleId}</p>
+      <h1>{cycle.localeTitles[locale]}</h1>
+      <p class="page-hero__intro">{locale === "ja" ? "2名承認と公開検証が完了した公式月次結果です。" : "Official monthly results published after dual approval and release verification."}</p>
+    </div>
+  </header>
+  <section class="band band--light">
+    <div class="container winner-results">
+      {(cycle.noAwardDivisions || []).map((divisionId) => (
+        <div class="no-award-notice">
+          <strong>{divisionMap.get(divisionId)}</strong>
+          <span>{locale === "ja" ? "応募資格を満たす作品が0本のため、この部門は該当なしです。" : "No award was issued because this division had zero eligible submissions."}</span>
+        </div>
+      ))}
+      {cycle.awards.map((award) => (
+        <article class="winner-card">
+          {award.stillUrl && award.stillAlt && <img src={award.stillUrl} alt={award.stillAlt[locale]} loading="lazy" />}
+          <div>
+            <p class="eyebrow">{divisionMap.get(award.divisionId)}</p>
+            <h2>{categoryMap.get(award.categoryId)}</h2>
+            <p class="winner-card__film">{award.filmTitle}</p>
+            <p>{award.recipientName} · {award.recipientCredit}</p>
+            <a class="text-link" href={`${pagePath(locale, "verify")}?id=${encodeURIComponent(award.certificateId)}`}><ShieldCheck size={17} />{award.certificateId}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .winner-results { display: grid; gap: 18px; }
+  .winner-card { display: grid; grid-template-columns: minmax(220px, .36fr) minmax(0, .64fr); gap: 34px; padding: 28px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+  .winner-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .winner-card h2 { margin-bottom: 12px; font-size: 27px; }
+  .winner-card__film { font-size: 20px; font-weight: 700; }
+  .no-award-notice { display: grid; gap: 6px; padding: 20px 24px; border-left: 4px solid var(--muted); background: var(--paper); }
+  .no-award-notice span { color: var(--muted); }
+  @media (max-width: 680px) { .winner-card { grid-template-columns: 1fr; padding: 20px; } }
+</style>

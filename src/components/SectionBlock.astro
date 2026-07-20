@@ -1,0 +1,29 @@
+---
+import { Check } from "lucide-astro";
+import type { ContentSection } from "../types";
+
+interface Props {
+  section: ContentSection;
+  index?: number;
+  numbered?: boolean;
+}
+
+const { section, index = 0, numbered = false } = Astro.props;
+---
+
+<section class="content-section" id={section.id}>
+  <div class="content-section__heading">
+    {numbered && <span class="section-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>}
+    <h2>{section.title}</h2>
+  </div>
+  <div class="content-section__body">
+    {section.body.map((paragraph) => <p>{paragraph}</p>)}
+    {section.items.length > 0 && (
+      <ul class="check-list">
+        {section.items.map((item) => (
+          <li><Check size={17} aria-hidden="true" /><span>{item}</span></li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>

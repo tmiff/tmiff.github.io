@@ -1,0 +1,103 @@
+---
+import { ArrowRight, Bot, CalendarClock, CheckCheck, Film, Users } from "lucide-astro";
+import AwardGrid from "../AwardGrid.astro";
+import HomeHero from "../HomeHero.astro";
+import SectionBlock from "../SectionBlock.astro";
+import StatusCallout from "../StatusCallout.astro";
+import { getPageContent, getSection } from "../../config/content";
+import { pagePath } from "../../config/paths";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Locale } from "../../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = getPageContent(locale, "home");
+const cycle = getSection(locale, "home", "monthly-cycle");
+const review = getSection(locale, "home", "review-standard");
+const venue = getSection(locale, "home", "no-venue");
+const steps = [Film, Bot, Users, CheckCheck];
+---
+
+<BaseLayout locale={locale} pageKey="home" title={content.seoTitle} description={content.intro}>
+  <HomeHero locale={locale} content={content} />
+
+  <section class="band band--light" aria-labelledby="cycle-title">
+    <div class="container section-intro">
+      <div>
+        <p class="eyebrow">{locale === "ja" ? "月次運営" : "Monthly operation"}</p>
+        <h2 id="cycle-title">{cycle.title}</h2>
+      </div>
+      <p>{cycle.body[0]}</p>
+    </div>
+    <div class="container step-grid">
+      {cycle.items.map((item, index) => {
+        const Icon = steps[index];
+        return (
+          <article class="step-card">
+            <span class="step-card__number">{String(index + 1).padStart(2, "0")}</span>
+            <Icon size={24} aria-hidden="true" />
+            <h3>{item}</h3>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="fact-strip" aria-label={locale === "ja" ? "主要な運営条件" : "Key operating facts"}>
+    <div class="container fact-strip__inner">
+      <div><strong>35:00</strong><span>{locale === "ja" ? "短編の上限" : "Short-film maximum"}</span></div>
+      <div><strong>5</strong><span>{locale === "ja" ? "各部門の最大候補数" : "Maximum finalists per division"}</span></div>
+      <div><strong>9 × 2</strong><span>{locale === "ja" ? "月次の賞" : "Monthly award categories"}</span></div>
+      <div><strong>2</strong><span>{locale === "ja" ? "受賞確定に必要な承認" : "Approvals required per award"}</span></div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="review-title">
+    <div class="container split-section">
+      <div>
+        <p class="eyebrow">{locale === "ja" ? "選考責任" : "Decision accountability"}</p>
+        <SectionBlock section={review} />
+        <a class="text-link" href={pagePath(locale, "selection")}>
+          {locale === "ja" ? "全工程を確認" : "Review the full process"}<ArrowRight size={17} aria-hidden="true" />
+        </a>
+      </div>
+      <div class="process-summary" aria-hidden="true">
+        <div><Bot size={28} /><span>AI</span></div>
+        <span class="process-summary__line"></span>
+        <div><Users size={28} /><span>{locale === "ja" ? "人" : "Human"}</span></div>
+        <span class="process-summary__line"></span>
+        <div><CheckCheck size={28} /><span>{locale === "ja" ? "承認" : "Approval"}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--ink" aria-labelledby="awards-title">
+    <div class="container section-intro section-intro--light">
+      <div>
+        <p class="eyebrow eyebrow--light">{locale === "ja" ? "受賞項目" : "Award structure"}</p>
+        <h2 id="awards-title">{locale === "ja" ? "各部門に9つの賞" : "Nine awards in each division"}</h2>
+      </div>
+      <p>{locale === "ja" ? "短編部門と長編部門に同じ賞構成を適用します。" : "The short and feature divisions use the same canonical award list."}</p>
+    </div>
+    <div class="container"><AwardGrid locale={locale} /></div>
+    <div class="container section-link-row">
+      <a class="text-link text-link--light" href={pagePath(locale, "awards")}>
+        {locale === "ja" ? "授与ルールと証書を見る" : "View allocation rules and certificates"}<ArrowRight size={17} aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+
+  <section class="band band--light">
+    <div class="container">
+      <StatusCallout tone="info" title={venue.title} body={venue.body[0]} />
+      <div class="final-cta">
+        <CalendarClock size={26} aria-hidden="true" />
+        <div>
+          <p class="eyebrow">{locale === "ja" ? "応募前に確認" : "Before submitting"}</p>
+          <h2>{locale === "ja" ? "規約と月次締切を確認してください。" : "Review the rules and monthly deadline."}</h2>
+        </div>
+        <a class="button" href={pagePath(locale, "submit")}>{locale === "ja" ? "応募案内へ" : "Go to submission guidance"}<ArrowRight size={18} aria-hidden="true" /></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

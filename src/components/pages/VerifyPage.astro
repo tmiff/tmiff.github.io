@@ -1,0 +1,83 @@
+---
+import { Search, ShieldCheck } from "lucide-astro";
+import PageHero from "../PageHero.astro";
+import SectionBlock from "../SectionBlock.astro";
+import { getPageContent } from "../../config/content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Locale } from "../../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = getPageContent(locale, "verify");
+---
+
+<BaseLayout locale={locale} pageKey="verify" title={content.seoTitle} description={content.intro}>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} compact />
+  <section class="band band--light">
+    <div class="container verify-tool">
+      <form class="verify-form" data-verify-form>
+        <label for="certificate-id">{locale === "ja" ? "証書ID" : "Certificate ID"}</label>
+        <div class="verify-form__row">
+          <input id="certificate-id" name="certificateId" type="text" inputmode="text" autocomplete="off" maxlength="80" placeholder="MFF-YYYYMM-DIV-AWARD-XXXX" required />
+          <button class="button" type="submit"><Search size={18} aria-hidden="true" />{locale === "ja" ? "照合" : "Verify"}</button>
+        </div>
+      </form>
+      <div class="verify-result" data-verify-result aria-live="polite">
+        <ShieldCheck size={26} aria-hidden="true" />
+        <p>{locale === "ja" ? "証書IDを入力すると公開記録を照合します。" : "Enter a certificate ID to check the public record."}</p>
+      </div>
+    </div>
+  </section>
+  <div class="container content-sections">
+    {content.sections.map((section, index) => <SectionBlock section={section} index={index} />)}
+  </div>
+</BaseLayout>
+
+<script is:inline define:vars={{ locale }}>
+  const form = document.querySelector("[data-verify-form]");
+  const result = document.querySelector("[data-verify-result]");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const id = String(data.get("certificateId") || "").trim().toUpperCase();
+    if (!result || !id) return;
+    result.className = "verify-result verify-result--loading";
+    result.textContent = locale === "ja" ? "照合中です。" : "Checking...";
+    try {
+      const response = await fetch("/data/certificates.json", { cache: "no-store" });
+      if (!response.ok) throw new Error("data unavailable");
+      const records = await response.json();
+      const record = records.find((item) => String(item.certificateId).toUpperCase() === id && item.status === "valid");
+      if (!record) {
+        result.className = "verify-result verify-result--invalid";
+        result.textContent = locale === "ja" ? "有効な公開記録が見つかりません。IDを確認してください。" : "No valid public record was found. Check the identifier.";
+        return;
+      }
+      result.className = "verify-result verify-result--valid";
+      result.innerHTML = "";
+      const title = document.createElement("h2");
+      title.textContent = locale === "ja" ? "有効な証書" : "Valid certificate";
+      const details = document.createElement("dl");
+      const fields = locale === "ja"
+        ? [["対象月", record.cycleId], ["部門", record.divisionJa], ["賞", record.awardJa], ["作品", record.filmTitle], ["受賞者", record.recipientName], ["発行日", record.issuedAt]]
+        : [["Cycle", record.cycleId], ["Division", record.divisionEn], ["Award", record.awardEn], ["Film", record.filmTitle], ["Recipient", record.recipientName], ["Issued", record.issuedAt]];
+      for (const [label, value] of fields) {
+        const dt = document.createElement("dt"); dt.textContent = label;
+        const dd = document.createElement("dd"); dd.textContent = value;
+        details.append(dt, dd);
+      }
+      result.append(title, details);
+    } catch {
+      result.className = "verify-result verify-result--invalid";
+      result.textContent = locale === "ja" ? "現在、照合データを取得できません。" : "Verification data is currently unavailable.";
+    }
+  });
+
+  const requestedId = new URLSearchParams(window.location.search).get("id");
+  const certificateInput = document.querySelector("#certificate-id");
+  if (requestedId && certificateInput instanceof HTMLInputElement && form instanceof HTMLFormElement) {
+    certificateInput.value = requestedId.trim().toUpperCase();
+    form.requestSubmit();
+  }
+</script>

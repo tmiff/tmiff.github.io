@@ -1,0 +1,92 @@
+---
+import { Mail } from "lucide-astro";
+import PageHero from "../PageHero.astro";
+import SectionBlock from "../SectionBlock.astro";
+import StatusCallout from "../StatusCallout.astro";
+import { getPageContent } from "../../config/content";
+import { siteConfig } from "../../config/site";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { Locale } from "../../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = getPageContent(locale, "contact");
+const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSiteKey);
+---
+
+<BaseLayout locale={locale} pageKey="contact" title={content.seoTitle} description={content.intro}>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  <section class="band band--light">
+    <div class="container contact-layout">
+      <div>
+        <p class="eyebrow">{locale === "ja" ? "問い合わせフォーム" : "Inquiry form"}</p>
+        <h2>{locale === "ja" ? "必要な情報だけを送信してください。" : "Send only the information required to answer the question."}</h2>
+        {!configured && (
+          <StatusCallout tone="warning" title={locale === "ja" ? "フォーム連携は未設定です" : "Form integration is not configured"} body={locale === "ja" ? "Apps Script URLとTurnstile公開キーの設定後に送信機能が有効になります。" : "Submission is enabled after the Apps Script URL and Turnstile site key are configured."} />
+        )}
+        {siteConfig.contactEmail && (
+          <p class="contact-email"><Mail size={18} aria-hidden="true" /><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
+        )}
+      </div>
+      <form class="contact-form" method="post" action={configured ? siteConfig.contactEndpoint : undefined} target="contact-response" data-contact-form data-configured={String(configured)}>
+        <input type="hidden" name="locale" value={locale} />
+        <input type="hidden" name="formVersion" value="1" />
+        <label class="honeypot" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off" disabled={!configured} /></label>
+        <div class="form-row">
+          <label>{locale === "ja" ? "氏名" : "Name"}<input type="text" name="name" autocomplete="name" maxlength="120" required disabled={!configured} /></label>
+          <label>{locale === "ja" ? "メールアドレス" : "Email"}<input type="email" name="email" autocomplete="email" maxlength="254" required disabled={!configured} /></label>
+        </div>
+        <div class="form-row">
+          <label>{locale === "ja" ? "問い合わせ種別" : "Topic"}
+            <select name="topic" required disabled={!configured}>
+              <option value="">{locale === "ja" ? "選択してください" : "Select a topic"}</option>
+              <option value="submission">{locale === "ja" ? "応募" : "Submission"}</option>
+              <option value="payment">{locale === "ja" ? "支払い" : "Payment"}</option>
+              <option value="result">{locale === "ja" ? "選考結果" : "Result"}</option>
+              <option value="certificate">{locale === "ja" ? "証書" : "Certificate"}</option>
+              <option value="accessibility">{locale === "ja" ? "アクセシビリティ" : "Accessibility"}</option>
+              <option value="other">{locale === "ja" ? "その他" : "Other"}</option>
+            </select>
+          </label>
+          <label>{locale === "ja" ? "FilmFreeway応募ID（任意）" : "FilmFreeway submission ID (optional)"}<input type="text" name="submissionId" maxlength="80" disabled={!configured} /></label>
+        </div>
+        <label>{locale === "ja" ? "本文" : "Message"}<textarea name="message" rows="8" minlength="10" maxlength="5000" required disabled={!configured}></textarea></label>
+        <label class="consent-row"><input type="checkbox" name="privacyAccepted" value="true" required disabled={!configured} /><span>{locale === "ja" ? "問い合わせ対応のために情報が処理されることを確認しました。" : "I understand that this information will be processed to handle my inquiry."}</span></label>
+        {configured && <div class="cf-turnstile" data-sitekey={siteConfig.turnstileSiteKey} data-action="contact"></div>}
+        <button class="button" type="submit" disabled={!configured}>{locale === "ja" ? "問い合わせを送信" : "Send inquiry"}</button>
+        <p class="form-status" data-form-status aria-live="polite"></p>
+      </form>
+      <iframe class="response-frame" name="contact-response" title={locale === "ja" ? "問い合わせ送信結果" : "Inquiry response"} data-contact-frame></iframe>
+    </div>
+  </section>
+  <div class="container content-sections">
+    {content.sections.map((section, index) => <SectionBlock section={section} index={index} />)}
+  </div>
+  <div class="container callout-wrap callout-wrap--bottom">
+    <StatusCallout tone="safe" title={locale === "ja" ? "サーバー側で検証" : "Server-side verification"} body={locale === "ja" ? "受付番号はTurnstile検証と入力検証が成功した場合だけ発行されます。" : "A receipt number is issued only after Turnstile and input validation succeed."} />
+  </div>
+  {configured && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+</BaseLayout>
+
+<script>
+  const form = document.querySelector("[data-contact-form]");
+  const frame = document.querySelector("[data-contact-frame]");
+  const status = document.querySelector("[data-form-status]");
+  const submit = form?.querySelector("button[type='submit']");
+
+  form?.addEventListener("submit", () => {
+    if (status) status.textContent = document.documentElement.lang === "ja" ? "送信中です。" : "Sending...";
+    if (submit instanceof HTMLButtonElement) submit.disabled = true;
+  });
+
+  window.addEventListener("message", (event) => {
+    const allowed = event.origin === "https://script.google.com" || event.origin.endsWith(".googleusercontent.com");
+    if (!allowed || !(frame instanceof HTMLIFrameElement) || event.source !== frame.contentWindow) return;
+    if (!event.data || event.data.type !== "festival-contact-result") return;
+    if (status) status.textContent = event.data.message;
+    if (event.data.ok && form instanceof HTMLFormElement) form.reset();
+    if (submit instanceof HTMLButtonElement) submit.disabled = false;
+    const turnstileWindow = window as typeof window & { turnstile?: { reset?: () => void } };
+    turnstileWindow.turnstile?.reset?.();
+  });
+</script>

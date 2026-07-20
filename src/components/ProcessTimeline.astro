@@ -1,0 +1,31 @@
+---
+import { Bot, CheckCheck, Eye, FileUp, Radio } from "lucide-astro";
+import type { ContentSection, Locale } from "../types";
+
+interface Props {
+  locale: Locale;
+  sections: ContentSection[];
+}
+
+const { locale, sections } = Astro.props;
+const icons = [FileUp, Bot, Eye, CheckCheck, Radio];
+const dates = locale === "ja"
+  ? ["前月21日 - 当月20日", "21日 - 22日", "23日 - 27日", "28日 - 29日", "月末12:00 JST"]
+  : ["Previous 21st - current 20th", "21st - 22nd", "23rd - 27th", "28th - 29th", "Month-end, 12:00 JST"];
+---
+
+<ol class="process-timeline">
+  {sections.map((section, index) => {
+    const Icon = icons[index];
+    return (
+      <li id={section.id}>
+        <div class="process-timeline__marker"><Icon size={21} aria-hidden="true" /></div>
+        <div class="process-timeline__date">{dates[index]}</div>
+        <div class="process-timeline__content">
+          <h2>{section.title}</h2>
+          {section.body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </li>
+    );
+  })}
+</ol>

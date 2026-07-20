@@ -1,0 +1,21 @@
+---
+import { AlertCircle } from "lucide-astro";
+import type { Locale } from "../types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<div class="preview-banner" role="status">
+  <div class="container preview-banner__inner">
+    <AlertCircle size={16} aria-hidden="true" />
+    <span>
+      {locale === "ja"
+        ? "公開前プレビュー: 映画祭名、主催者情報、応募条件、連携設定、画像は未確定です。"
+        : "Pre-release preview: festival identity, submission terms, integrations, and images are not yet approved."}
+    </span>
+  </div>
+</div>

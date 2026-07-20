@@ -1,0 +1,20 @@
+{
+  "divisions": [
+    { "id": "short", "en": "Short Film", "ja": "短編部門" },
+    { "id": "feature", "en": "Feature Film", "ja": "長編部門" }
+  ],
+  "categories": [
+    { "id": "best-director", "en": "Best Director", "ja": "最優秀監督賞" },
+    { "id": "best-cinematography", "en": "Best Cinematography", "ja": "最優秀撮影賞" },
+    { "id": "best-supporting-actress", "en": "Best Supporting Actress", "ja": "最優秀助演女優賞" },
+    { "id": "best-producer", "en": "Best Producer", "ja": "最優秀プロデューサー賞" },
+    { "id": "best-writer", "en": "Best Writer", "ja": "最優秀脚本賞" },
+    { "id": "best-actor", "en": "Best Actor", "ja": "最優秀男優賞" },
+    { "id": "best-supporting-actor", "en": "Best Supporting Actor", "ja": "最優秀助演男優賞" },
+    { "id": "best-actress", "en": "Best Actress", "ja": "最優秀女優賞" },
+    { "id": "honorable-mention", "en": "Honorable Mention", "ja": "佳作" }
+  ],
+  "allowMultipleAwardsPerFilm": true,
+  "oneWinnerPerCategoryWhenEligible": true,
+  "noAwardOnlyWhenDivisionHasZeroEligibleSubmissions": true
+}

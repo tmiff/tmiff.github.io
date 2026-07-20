@@ -1,0 +1,41 @@
+---
+import EditorialImage from "./EditorialImage.astro";
+import PageHero from "./PageHero.astro";
+import SectionBlock from "./SectionBlock.astro";
+import StatusCallout from "./StatusCallout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Locale, PageContent, PageKey } from "../types";
+
+interface Props {
+  locale: Locale;
+  pageKey: PageKey;
+  content: PageContent;
+  imageSlotId?: string;
+  legalDraft?: boolean;
+  faq?: boolean;
+}
+
+const { locale, pageKey, content, imageSlotId, legalDraft = false, faq = false } = Astro.props;
+---
+
+<BaseLayout locale={locale} pageKey={pageKey} title={content.seoTitle} description={content.intro}>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  {legalDraft && (
+    <div class="container callout-wrap">
+      <StatusCallout
+        tone="warning"
+        title={locale === "ja" ? "公開前の法務原稿" : "Pre-release legal draft"}
+        body={locale === "ja" ? "主催者と運用条件の確定後、専門家を含む最終確認が必要です。" : "Final review is required after the organizer and operating terms are confirmed."}
+      />
+    </div>
+  )}
+  {imageSlotId && <div class="container editorial-image-wrap"><EditorialImage id={imageSlotId} locale={locale} /></div>}
+  <div class:list={["container", faq ? "faq-list" : "content-sections"]}>
+    {faq ? content.sections.map((section) => (
+      <details class="faq-item" id={section.id}>
+        <summary>{section.title}</summary>
+        <div>{section.body.map((paragraph) => <p>{paragraph}</p>)}</div>
+      </details>
+    )) : content.sections.map((section, index) => <SectionBlock section={section} index={index} />)}
+  </div>
+</BaseLayout>

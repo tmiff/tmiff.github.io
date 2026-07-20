@@ -1,0 +1,17 @@
+{
+  "timezone": "Asia/Tokyo",
+  "intake": {
+    "opens": "previous-month-21T00:00:00+09:00",
+    "closes": "current-month-20T23:59:00+09:00"
+  },
+  "milestones": [
+    { "id": "ai-preselection", "days": "21-22" },
+    { "id": "human-review", "days": "23-27" },
+    { "id": "dual-approval", "days": "28-29" },
+    { "id": "publication", "days": "last-day 12:00" }
+  ],
+  "durationBoundarySeconds": 2100,
+  "maxFinalistsPerDivision": 5,
+  "resultsTime": "12:00",
+  "resultsTimezone": "JST"
+}
