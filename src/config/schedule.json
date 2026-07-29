@@ -5,7 +5,7 @@
     "closes": "current-month-20T23:59:00+09:00"
   },
   "milestones": [
-    { "id": "ai-preselection", "days": "21-22" },
+    { "id": "preselection", "days": "21-22" },
     { "id": "human-review", "days": "23-27" },
     { "id": "dual-approval", "days": "28-29" },
     { "id": "publication", "days": "last-day 12:00" }

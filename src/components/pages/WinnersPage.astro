@@ -1,6 +1,5 @@
 ---
 import { ArrowRight, CalendarX2 } from "lucide-astro";
-import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
 import { pagePath } from "../../config/paths";
@@ -15,7 +14,11 @@ const winners = records as WinnerRecord[];
 ---
 
 <BaseLayout locale={locale} pageKey="winners" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  <header class="winners-hero">
+    <div class="container">
+      <h1>{content.title}</h1>
+    </div>
+  </header>
   <section class="band band--light">
     <div class="container winners-index">
       {winners.length === 0 ? (
@@ -37,6 +40,6 @@ const winners = records as WinnerRecord[];
     </div>
   </section>
   <div class="container content-sections winners-notes">
-    {content.sections.slice(1).map((section, index) => <SectionBlock section={section} index={index} />)}
+    {content.sections.filter((section) => section.id === "archive").map((section, index) => <SectionBlock section={section} index={index} />)}
   </div>
 </BaseLayout>

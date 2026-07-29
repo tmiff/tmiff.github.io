@@ -19,10 +19,6 @@ const year = new Date().getUTCFullYear();
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__name">{festivalName(locale)}</span>
       </a>
-      <p>{locale === "ja" ? "毎月オンラインで受賞結果を発表する映画賞プログラム。" : "A monthly online film awards program."}</p>
-      {siteConfig.venueStatus === "unconfirmed" && (
-        <p class="footer-note">{locale === "ja" ? "一般向け会場上映は現在未定です。" : "No public venue screening is currently announced."}</p>
-      )}
     </div>
 
     <div>

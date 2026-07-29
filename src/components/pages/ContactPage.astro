@@ -15,7 +15,7 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
 ---
 
 <BaseLayout locale={locale} pageKey="contact" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={getPageContent("en", "contact").eyebrow} />
   <section class="band band--light">
     <div class="container contact-layout">
       <div>

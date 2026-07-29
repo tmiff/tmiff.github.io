@@ -1,9 +1,9 @@
 ---
-import { ArrowRight, Bot, CalendarClock, CheckCheck, Film, Users } from "lucide-astro";
+import { ArrowRight, BadgeCheck, Building2, CalendarClock, ClipboardCheck, Eye, Film, MonitorPlay } from "lucide-astro";
 import AwardGrid from "../AwardGrid.astro";
+import EditorialImage from "../EditorialImage.astro";
 import HomeHero from "../HomeHero.astro";
 import SectionBlock from "../SectionBlock.astro";
-import StatusCallout from "../StatusCallout.astro";
 import { getPageContent, getSection } from "../../config/content";
 import { pagePath } from "../../config/paths";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -14,17 +14,17 @@ const { locale } = Astro.props;
 const content = getPageContent(locale, "home");
 const cycle = getSection(locale, "home", "monthly-cycle");
 const review = getSection(locale, "home", "review-standard");
-const venue = getSection(locale, "home", "no-venue");
-const steps = [Film, Bot, Users, CheckCheck];
+const online = getSection(locale, "home", "online-program");
+const inPerson = getSection(locale, "home", "in-person-program");
+const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
 ---
 
 <BaseLayout locale={locale} pageKey="home" title={content.seoTitle} description={content.intro}>
-  <HomeHero locale={locale} content={content} />
+  <HomeHero locale={locale} />
 
   <section class="band band--light" aria-labelledby="cycle-title">
     <div class="container section-intro">
       <div>
-        <p class="eyebrow">{locale === "ja" ? "月次運営" : "Monthly operation"}</p>
         <h2 id="cycle-title">{cycle.title}</h2>
       </div>
       <p>{cycle.body[0]}</p>
@@ -45,10 +45,8 @@ const steps = [Film, Bot, Users, CheckCheck];
 
   <section class="fact-strip" aria-label={locale === "ja" ? "主要な運営条件" : "Key operating facts"}>
     <div class="container fact-strip__inner">
-      <div><strong>35:00</strong><span>{locale === "ja" ? "短編の上限" : "Short-film maximum"}</span></div>
-      <div><strong>5</strong><span>{locale === "ja" ? "各部門の最大候補数" : "Maximum finalists per division"}</span></div>
-      <div><strong>9 × 2</strong><span>{locale === "ja" ? "月次の賞" : "Monthly award categories"}</span></div>
-      <div><strong>2</strong><span>{locale === "ja" ? "受賞確定に必要な承認" : "Approvals required per award"}</span></div>
+      <div><strong>{locale === "ja" ? "短編" : "Short Film"}</strong><span>{locale === "ja" ? "35分以下" : "35 min or less"}</span></div>
+      <div><strong>{locale === "ja" ? "長編" : "Feature Film"}</strong><span>{locale === "ja" ? "35分超" : "More than 35 min"}</span></div>
     </div>
   </section>
 
@@ -62,13 +60,17 @@ const steps = [Film, Bot, Users, CheckCheck];
         </a>
       </div>
       <div class="process-summary" aria-hidden="true">
-        <div><Bot size={28} /><span>AI</span></div>
+        <div><ClipboardCheck size={28} /><span>{locale === "ja" ? "適格性" : "Eligibility"}</span></div>
         <span class="process-summary__line"></span>
-        <div><Users size={28} /><span>{locale === "ja" ? "人" : "Human"}</span></div>
+        <div><Eye size={28} /><span>{locale === "ja" ? "作品評価" : "Review"}</span></div>
         <span class="process-summary__line"></span>
-        <div><CheckCheck size={28} /><span>{locale === "ja" ? "承認" : "Approval"}</span></div>
+        <div><BadgeCheck size={28} /><span>{locale === "ja" ? "結果確定" : "Decision"}</span></div>
       </div>
     </div>
+  </section>
+
+  <section class="band-image" aria-hidden="true">
+    <EditorialImage id="home-screening" locale={locale} />
   </section>
 
   <section class="band band--ink" aria-labelledby="awards-title">
@@ -89,7 +91,21 @@ const steps = [Film, Bot, Users, CheckCheck];
 
   <section class="band band--light">
     <div class="container">
-      <StatusCallout tone="info" title={venue.title} body={venue.body[0]} />
+      <div class="format-grid" aria-label={locale === "ja" ? "オンラインとオフラインの開催形式" : "Online and in-person formats"}>
+        <article>
+          <MonitorPlay size={28} aria-hidden="true" />
+          <p class="eyebrow">Online</p>
+          <h2>{online.title}</h2>
+          <p>{online.body[0]}</p>
+        </article>
+        <article>
+          <Building2 size={28} aria-hidden="true" />
+          <p class="eyebrow">In Person</p>
+          <h2>{inPerson.title}</h2>
+          <p>{inPerson.body[0]}</p>
+          <div class="format-grid__media"><EditorialImage id="home-in-person" locale={locale} /></div>
+        </article>
+      </div>
       <div class="final-cta">
         <CalendarClock size={26} aria-hidden="true" />
         <div>

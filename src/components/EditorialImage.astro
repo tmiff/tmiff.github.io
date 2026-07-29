@@ -10,11 +10,11 @@ interface Props {
 
 const { id, locale } = Astro.props;
 const slot = getImageSlot(id);
-const ready = slot.approvalStatus === "approved" && slot.rightsStatus !== "pending-generation";
+const generated = slot.rightsStatus !== "pending-generation";
 ---
 
 <figure class="editorial-image" style={`--image-ratio: ${slot.width} / ${slot.height}`} data-image-slot={slot.id}>
-  {ready ? (
+  {generated ? (
     <img src={slot.file} width={slot.width} height={slot.height} alt={slot.alt[locale]} loading="lazy" decoding="async" />
   ) : (
     <div class="image-placeholder" role="img" aria-label={slot.alt[locale]}>

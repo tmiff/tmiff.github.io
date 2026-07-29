@@ -1,18 +1,30 @@
 ---
+import { getImageSlot } from "../config/images";
+
 interface Props {
   eyebrow: string;
-  title: string;
+  title?: string;
   intro: string;
+  label?: string;
   compact?: boolean;
+  imageSlotId?: string;
 }
 
-const { eyebrow, title, intro, compact = false } = Astro.props;
+const { eyebrow, intro, label, compact = false, imageSlotId } = Astro.props;
+const slot = imageSlotId ? getImageSlot(imageSlotId) : null;
+const generated = slot && slot.rightsStatus !== "pending-generation";
+const heading = label ?? eyebrow;
 ---
 
-<header class:list={["page-hero", compact && "page-hero--compact"]}>
+<header class:list={["page-hero", "page-hero--label", compact && "page-hero--compact", imageSlotId && "page-hero--image"]} data-image-slot={slot?.id}>
+  {generated && (
+    <div class="page-hero__media" aria-hidden="true">
+      <img src={slot.file} width={slot.width} height={slot.height} alt="" decoding="async" fetchpriority="high" />
+    </div>
+  )}
+  {imageSlotId && <div class="page-hero__overlay" aria-hidden="true"></div>}
   <div class="container page-hero__inner">
-    <p class="eyebrow">{eyebrow}</p>
-    <h1>{title}</h1>
-    <p class="page-hero__intro">{intro}</p>
+    <h1 class="page-hero__label">{heading}</h1>
+    <p class="page-hero__lead">{intro}</p>
   </div>
 </header>

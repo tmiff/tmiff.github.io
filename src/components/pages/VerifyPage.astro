@@ -12,7 +12,7 @@ const content = getPageContent(locale, "verify");
 ---
 
 <BaseLayout locale={locale} pageKey="verify" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} compact />
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={getPageContent("en", "verify").eyebrow} compact />
   <section class="band band--light">
     <div class="container verify-tool">
       <form class="verify-form" data-verify-form>

@@ -1,5 +1,5 @@
 ---
-import { Bot, CheckCheck, Eye, FileUp, Radio } from "lucide-astro";
+import { BadgeCheck, ClipboardCheck, Eye, FileUp, Radio } from "lucide-astro";
 import type { ContentSection, Locale } from "../types";
 
 interface Props {
@@ -8,10 +8,10 @@ interface Props {
 }
 
 const { locale, sections } = Astro.props;
-const icons = [FileUp, Bot, Eye, CheckCheck, Radio];
+const icons = [FileUp, ClipboardCheck, Eye, BadgeCheck, Radio];
 const dates = locale === "ja"
-  ? ["前月21日 - 当月20日", "21日 - 22日", "23日 - 27日", "28日 - 29日", "月末12:00 JST"]
-  : ["Previous 21st - current 20th", "21st - 22nd", "23rd - 27th", "28th - 29th", "Month-end, 12:00 JST"];
+  ? ["前月21日 - 当月20日", "21日 - 22日", "23日 - 27日", "28日 - 29日", "月末12:00"]
+  : ["Previous 21st - current 20th", "21st - 22nd", "23rd - 27th", "28th - 29th", "Month-end, 12:00"];
 ---
 
 <ol class="process-timeline">

@@ -1,6 +1,5 @@
 ---
 import AwardGrid from "../AwardGrid.astro";
-import EditorialImage from "../EditorialImage.astro";
 import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
@@ -15,8 +14,7 @@ const details = content.sections.filter((item) => item.id !== "categories");
 ---
 
 <BaseLayout locale={locale} pageKey="awards" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} />
-  <div class="container editorial-image-wrap"><EditorialImage id="awards-materials" locale={locale} /></div>
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={getPageContent("en", "awards").eyebrow} imageSlotId="awards-materials" />
   <section class="band band--ink">
     <div class="container division-labels">
       {awards.divisions.map((division) => <span>{division[locale]}</span>)}

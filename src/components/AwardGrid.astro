@@ -1,5 +1,16 @@
 ---
-import { Award } from "lucide-astro";
+import {
+  Award,
+  Briefcase,
+  Camera,
+  Drama,
+  Medal,
+  Megaphone,
+  PenLine,
+  Sparkles,
+  Star,
+  Users,
+} from "lucide-astro";
 import awards from "../config/awards.json";
 import type { Locale } from "../types";
 
@@ -8,14 +19,29 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+
+const awardIcons: Record<string, typeof Award> = {
+  "best-director": Megaphone,
+  "best-cinematography": Camera,
+  "best-supporting-actress": Star,
+  "best-producer": Briefcase,
+  "best-writer": PenLine,
+  "best-actor": Drama,
+  "best-supporting-actor": Users,
+  "best-actress": Sparkles,
+  "honorable-mention": Medal,
+};
 ---
 
 <div class="award-grid" role="list">
-  {awards.categories.map((award, index) => (
-    <article class="award-card" role="listitem">
-      <div class="award-card__index">{String(index + 1).padStart(2, "0")}</div>
-      <Award size={22} aria-hidden="true" />
-      <h3>{award[locale]}</h3>
-    </article>
-  ))}
+  {awards.categories.map((award, index) => {
+    const Icon = awardIcons[award.id] ?? Award;
+    return (
+      <article class="award-card" role="listitem">
+        <div class="award-card__index">{String(index + 1).padStart(2, "0")}</div>
+        <Icon size={22} aria-hidden="true" />
+        <h3>{award[locale]}</h3>
+      </article>
+    );
+  })}
 </div>

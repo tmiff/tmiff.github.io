@@ -59,7 +59,7 @@ if (schedule.maxFinalistsPerDivision !== 5) errors.push("Maximum finalists per d
 if (schedule.timezone !== "Asia/Tokyo") errors.push("Operational timezone must be Asia/Tokyo.");
 if (awards.divisions.length !== 2) errors.push("There must be exactly two runtime divisions.");
 if (awards.categories.length !== 9) errors.push("There must be exactly nine award categories.");
-const expectedMilestones = ["ai-preselection:21-22", "human-review:23-27", "dual-approval:28-29", "publication:last-day 12:00"];
+const expectedMilestones = ["preselection:21-22", "human-review:23-27", "dual-approval:28-29", "publication:last-day 12:00"];
 const actualMilestones = schedule.milestones.map((item) => `${item.id}:${item.days}`);
 if (JSON.stringify(actualMilestones) !== JSON.stringify(expectedMilestones)) errors.push(`Monthly milestones differ from the approved contract: ${actualMilestones.join(", ")}`);
 const expectedAwardIds = ["best-director", "best-cinematography", "best-supporting-actress", "best-producer", "best-writer", "best-actor", "best-supporting-actor", "best-actress", "honorable-mention"];
@@ -81,12 +81,16 @@ requireTokens(section(en.selection, "approval"), ["two"], "en.selection.approval
 requireTokens(section(ja.selection, "approval"), ["2名"], "ja.selection.approval");
 
 const expectedSlots = new Map([
-  ["home-hero", [2400, 1350]],
-  ["about-editorial", [1800, 1200]],
-  ["selection-process", [1800, 1200]],
-  ["awards-materials", [1800, 1200]]
+  ["home-hero", [1672, 941]],
+  ["about-editorial", [2400, 1350]],
+  ["selection-process", [2400, 1350]],
+  ["awards-materials", [2400, 1350]],
+  ["home-screening", [1942, 809]],
+  ["home-in-person", [1536, 1024]]
 ]);
-if (imageSlots.length !== expectedSlots.size) errors.push("Exactly four initial generated image slots are permitted.");
+if (imageSlots.length !== expectedSlots.size) {
+  errors.push(`Exactly ${expectedSlots.size} approved image slots are permitted; found ${imageSlots.length}.`);
+}
 
 for (const slot of imageSlots) {
   const expected = expectedSlots.get(slot.id);
@@ -100,10 +104,10 @@ for (const slot of imageSlots) {
   if (!slot.safeCrop?.x || !slot.safeCrop?.y || !slot.alt?.en || !slot.alt?.ja || !slot.prompt) {
     errors.push(`Incomplete image ledger record: ${slot.id}`);
   }
-  if (slot.approvalStatus === "approved") {
+  if (slot.rightsStatus !== "pending-generation") {
     const filePath = path.join(root, "public", slot.file.replace(/^\//, ""));
     if (!fs.existsSync(filePath)) {
-      errors.push(`Approved image file is missing: ${slot.file}`);
+      errors.push(`Generated image file is missing: ${slot.file}`);
     } else {
       const metadata = await sharp(filePath).metadata();
       if (metadata.width !== slot.width || metadata.height !== slot.height) {

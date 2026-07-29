@@ -1,53 +1,61 @@
 ---
 import { ArrowRight, CalendarDays } from "lucide-astro";
+import { getPageContent } from "../config/content";
 import { getImageSlot } from "../config/images";
 import { pagePath } from "../config/paths";
 import { festivalName, siteConfig } from "../config/site";
-import type { Locale, PageContent } from "../types";
+import type { Locale } from "../types";
 
 interface Props {
   locale: Locale;
-  content: PageContent;
 }
 
-const { locale, content } = Astro.props;
+const { locale } = Astro.props;
 const slot = getImageSlot("home-hero");
-const ready = slot.approvalStatus === "approved" && slot.rightsStatus !== "pending-generation";
-const dateLabel = locale === "ja" ? "毎月20日 23:59 JST締切" : "Monthly deadline: 20th, 23:59 JST";
+const generated = slot.rightsStatus !== "pending-generation";
+const dateLabel = locale === "ja" ? "毎月20日 23:59締切" : "Monthly deadline: 20th at 23:59";
+const intro = getPageContent(locale, "home").intro;
+const hasSubmitUrl = Boolean(siteConfig.filmFreewayUrl);
 ---
 
-<section class:list={["home-hero", ready ? "home-hero--ready" : "home-hero--placeholder"]} data-image-slot={slot.id}>
+<section class:list={["home-hero", generated ? "home-hero--ready" : "home-hero--placeholder"]} data-image-slot={slot.id}>
   <div class="home-hero__media" aria-hidden="true">
-    {ready && <img src={slot.file} width={slot.width} height={slot.height} alt="" decoding="async" fetchpriority="high" />}
+    {generated && <img src={slot.file} width={slot.width} height={slot.height} alt="" decoding="async" fetchpriority="high" />}
   </div>
   <div class="home-hero__overlay" aria-hidden="true"></div>
   <div class="container home-hero__inner">
     <div class="home-hero__copy">
-      <p class="eyebrow eyebrow--light">{content.eyebrow}</p>
-      <p class="home-hero__brand">{festivalName(locale)}</p>
-      <h1>{content.title}</h1>
-      <p class="home-hero__intro">{content.intro}</p>
+      <h1>{festivalName(locale)}</h1>
+      {intro && <p class="home-hero__intro">{intro}</p>}
       <div class="button-row">
-        {siteConfig.filmFreewayUrl ? (
-          <a class="button" href={siteConfig.filmFreewayUrl} rel="external">
-            {locale === "ja" ? "FilmFreewayで応募" : "Submit on FilmFreeway"}
-            <ArrowRight size={18} aria-hidden="true" />
-          </a>
+        {hasSubmitUrl ? (
+          <>
+            <a class="button" href={siteConfig.filmFreewayUrl} rel="external">
+              {locale === "ja" ? "FilmFreewayで応募" : "Submit on FilmFreeway"}
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a class="text-link text-link--light" href={pagePath(locale, "selection")}>
+              {locale === "ja" ? "選考プロセスを見る" : "View the selection process"}
+              <ArrowRight size={17} aria-hidden="true" />
+            </a>
+          </>
         ) : (
-          <span class="button button--disabled" aria-disabled="true">
-            {locale === "ja" ? "応募URLは未設定" : "Submission link pending"}
-          </span>
+          <>
+            <a class="button" href={pagePath(locale, "selection")}>
+              {locale === "ja" ? "選考プロセスを見る" : "View the selection process"}
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <span class="home-hero__pending">
+              {locale === "ja" ? "応募URLは準備中です" : "Submission link coming soon"}
+            </span>
+          </>
         )}
-        <a class="text-link text-link--light" href={pagePath(locale, "selection")}>
-          {locale === "ja" ? "選考プロセスを見る" : "View the selection process"}
-          <ArrowRight size={17} aria-hidden="true" />
-        </a>
       </div>
     </div>
     <div class="home-hero__meta">
       <CalendarDays size={20} aria-hidden="true" />
       <span>{dateLabel}</span>
-      {!ready && <span class="home-hero__slot">{slot.width} × {slot.height} / {slot.ratio}</span>}
+      {!generated && <span class="home-hero__slot">{slot.width} × {slot.height} / {slot.ratio}</span>}
     </div>
   </div>
 </section>

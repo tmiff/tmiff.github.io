@@ -3,13 +3,13 @@
     "seoTitle": "Monthly Online Film Awards",
     "eyebrow": "Monthly independent film awards",
     "title": "A clear monthly path from submission to recognition.",
-    "intro": "Short and feature films are considered through an AI-assisted preliminary review, human finalist review, and dual approval before results are published online.",
+    "intro": "Short and feature films are considered against the published eligibility and evaluation criteria before results are announced online.",
     "sections": [
       {
         "id": "monthly-cycle",
         "title": "One cycle every month",
         "body": ["Entries close on the 20th at 23:59 JST. Results are scheduled for the last day of the month at 12:00 JST after review and approval."],
-        "items": ["Submission", "Preliminary review", "Human confirmation", "Dual approval and publication"]
+        "items": ["Submission", "Eligibility check", "Film review", "Decision and publication"]
       },
       {
         "id": "categories",
@@ -19,14 +19,20 @@
       },
       {
         "id": "review-standard",
-        "title": "Automation with accountable approval",
-        "body": ["AI supports intake checks, structured preliminary analysis, and administrative drafting. People review finalists and both operators must approve each proposed winner."],
-        "items": ["AI output is not a final award decision", "Insufficient information is routed for human review", "Publication and notification stop if either approval is missing"]
+        "title": "Selection against defined criteria",
+        "body": ["Each film is reviewed for eligibility and creative achievement against the published rules and award criteria. Only results with the required review records are confirmed."],
+        "items": ["Runtime, rights, and subtitle requirements are checked", "Direction, writing, cinematography, and performance are considered by award", "Incomplete decisions are not published"]
       },
       {
-        "id": "no-venue",
-        "title": "Online results only at launch",
-        "body": ["No public venue screening is currently announced. Any future screening will be published only after a venue and operating details are confirmed."],
+        "id": "online-program",
+        "title": "Online announcements",
+        "body": ["Monthly results, award categories, and certificate verification information are published on the official website."],
+        "items": []
+      },
+      {
+        "id": "in-person-program",
+        "title": "In-person programme",
+        "body": ["Screenings and filmmaker gatherings will take place only for cycles with a confirmed venue and date. No current in-person event has been announced."],
         "items": []
       }
     ]
@@ -47,38 +53,38 @@
         "id": "principles",
         "title": "Operating principles",
         "body": ["The site does not present an unconfirmed venue, jury, partner, history, or prior audience as fact."],
-        "items": ["Publish only verified information", "Separate AI support from human authority", "Retain approval and publication records", "Correct errors through a traceable process"]
+        "items": ["Publish only verified information", "State eligibility and evaluation criteria clearly", "Retain approval and publication records", "Correct errors through a traceable process"]
       },
       {
         "id": "operations",
         "title": "How the program is operated",
-        "body": ["Two operators share finalist review and must both approve proposed awards. Administrative tasks are automated where they can be stopped, logged, and safely retried."],
+        "body": ["Two operators share finalist review and must both approve proposed awards. Each stage and outcome is recorded, and incomplete results are not published."],
         "items": []
       }
     ]
   },
   "submit": {
     "seoTitle": "Submit",
-    "eyebrow": "Submit a film",
-    "title": "Review the rules before opening the submission form.",
-    "intro": "Submissions will be accepted through a dedicated FilmFreeway listing. The live submission link and fee remain disabled until the organizer completes release settings.",
+    "eyebrow": "Film Submission",
+    "title": "Submit Your Film",
+    "intro": "Submissions are accepted through FilmFreeway. Please review the rules before submitting.",
     "sections": [
       {
         "id": "before-submit",
         "title": "Before you submit",
         "body": ["Confirm runtime, rights, subtitle availability, contact details, and the applicable fee and refund policy."],
-        "items": ["Short: 2,100 seconds or less", "Feature: more than 2,100 seconds", "The submitter must control the required exhibition and promotional rights", "Non-English dialogue requires English subtitles"]
+        "items": ["Short: up to 35 min", "Feature: over 35 min", "The submitter must control the required exhibition and promotional rights", "Dialogue in languages other than English or Japanese requires English subtitles"]
       },
       {
         "id": "how-to-submit",
         "title": "Submission route",
-        "body": ["Use the FilmFreeway button on this page once it is enabled. We do not accept film files through the contact form or by ordinary email."],
+        "body": ["Submit using the button at the top of this page."],
         "items": []
       },
       {
         "id": "fees",
         "title": "Fee and refunds",
-        "body": ["The submission fee and final refund policy are required release inputs and are not yet published in preview mode."],
+        "body": ["Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."],
         "items": []
       },
       {
@@ -120,9 +126,9 @@
         "items": []
       },
       {
-        "id": "ai",
-        "title": "AI-assisted preliminary review",
-        "body": ["AI may support metadata validation, structured preliminary analysis, and administrative processing. Finalists are reviewed by people and awards require two-person approval."],
+        "id": "selection-review",
+        "title": "Selection and final decisions",
+        "body": ["Eligible films are considered by award against the published evaluation criteria. A finalist or award result is not confirmed until the required review records are complete."],
         "items": []
       },
       {
@@ -152,9 +158,9 @@
         "items": []
       },
       {
-        "id": "ai-preliminary",
-        "title": "2. AI-assisted preliminary analysis",
-        "body": ["AI returns structured criteria, evidence references, risk flags, and confidence. It may recommend candidates but cannot confirm a finalist or winner."],
+        "id": "preliminary-review",
+        "title": "2. Award-criteria review",
+        "body": ["Each film is considered against the criteria relevant to direction, writing, cinematography, performance, and production, with the basis for each decision recorded."],
         "items": []
       },
       {
@@ -211,9 +217,9 @@
   },
   "winners": {
     "seoTitle": "Winners",
-    "eyebrow": "Official results",
-    "title": "Monthly results will appear here after dual approval.",
-    "intro": "No winners are shown in preview mode. A cycle is added only after publication succeeds and notification records are linked to the release.",
+    "eyebrow": "Award",
+    "title": "Award",
+    "intro": "Award results and past winning films are published here.",
     "sections": [
       {
         "id": "current",
@@ -224,13 +230,7 @@
       {
         "id": "archive",
         "title": "Monthly archive",
-        "body": ["Published cycles will be listed by month with certificate verification links."],
-        "items": []
-      },
-      {
-        "id": "permission",
-        "title": "Film stills and credits",
-        "body": ["Winner pages use only approved credits and stills for which publication permission is recorded."],
+        "body": ["View past award-winning films here."],
         "items": []
       }
     ]
@@ -242,7 +242,7 @@
     "intro": "If an answer depends on an unpublished fee, venue, or account setting, the site says so instead of filling the gap.",
     "sections": [
       { "id": "online-only", "title": "Is this an in-person festival?", "body": ["At launch, results are published online and no public venue screening is announced."], "items": [] },
-      { "id": "ai", "title": "Does AI decide the winners?", "body": ["No. AI supports preliminary analysis and administration. People review finalists and both operators must approve proposed winners."], "items": [] },
+      { "id": "selection", "title": "How are films selected?", "body": ["Eligible films are considered against the published evaluation criteria. Results are confirmed only after the required review records are complete."], "items": [] },
       { "id": "duration", "title": "Which division applies at exactly 35 minutes?", "body": ["A runtime of 35:00 belongs to the short division. Any runtime above 35:00 belongs to the feature division."], "items": [] },
       { "id": "multiple", "title": "Can one film receive multiple awards?", "body": ["Yes. Multiple awards are allowed when each result receives the required approvals."], "items": [] },
       { "id": "result", "title": "When are results published?", "body": ["The target is 12:00 JST on the last day of the month, subject to successful review, approval, and publication checks."], "items": [] },
@@ -270,7 +270,7 @@
       { "id": "collected", "title": "Information collected", "body": ["Submission records, inquiry details, correspondence identifiers, review records, award records, and technical anti-abuse data may be processed."], "items": [] },
       { "id": "use", "title": "Purpose of use", "body": ["Data is used to administer submissions, answer inquiries, conduct and audit review, publish approved results, issue certificates, prevent abuse, and meet legal obligations."], "items": [] },
       { "id": "retention", "title": "Retention", "body": ["A final retention schedule will be published before release. Data must not be retained longer than the approved operational or legal purpose requires."], "items": [] },
-      { "id": "processors", "title": "Service providers", "body": ["The final notice will identify applicable submission, Google Workspace, anti-bot, hosting, and AI processing services after accounts and regions are configured."], "items": [] },
+      { "id": "processors", "title": "Service providers", "body": ["The final notice will identify applicable submission, Google Workspace, anti-bot, hosting, and data-processing services after accounts and regions are configured."], "items": [] },
       { "id": "rights", "title": "Questions and requests", "body": ["Use the contact route for applicable access, correction, deletion, or objection requests. Identity may need to be verified before a request is completed."], "items": [] }
     ]
   },
