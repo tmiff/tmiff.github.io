@@ -11,16 +11,23 @@ interface Props {
 const { id, locale } = Astro.props;
 const slot = getImageSlot(id);
 const generated = slot.rightsStatus !== "pending-generation";
+const display = slot.display;
+const imageStyle = [
+  `--image-ratio: ${slot.width} / ${slot.height}`,
+  `--image-position: ${display?.position ?? "50% 50%"}`,
+  `--image-position-mobile: ${display?.mobilePosition ?? display?.position ?? "50% 50%"}`,
+  `--image-scale: ${display?.scale ?? 1}`,
+  `--image-scale-mobile: ${display?.mobileScale ?? display?.scale ?? 1}`,
+].join("; ");
 ---
 
-<figure class="editorial-image" style={`--image-ratio: ${slot.width} / ${slot.height}`} data-image-slot={slot.id}>
+<figure class="editorial-image" style={imageStyle} data-image-slot={slot.id}>
   {generated ? (
     <img src={slot.file} width={slot.width} height={slot.height} alt={slot.alt[locale]} loading="lazy" decoding="async" />
   ) : (
     <div class="image-placeholder" role="img" aria-label={slot.alt[locale]}>
       <ImageIcon size={28} aria-hidden="true" />
-      <strong>{locale === "ja" ? "画像生成・承認待ち" : "Image pending generation and approval"}</strong>
-      <span>{slot.id} · {slot.width} × {slot.height} · {slot.ratio}</span>
+      <strong>{locale === "ja" ? "画像を準備しています" : "Image coming soon"}</strong>
     </div>
   )}
   <figcaption class="visually-hidden">{slot.alt[locale]}</figcaption>

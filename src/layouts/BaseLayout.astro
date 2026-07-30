@@ -1,5 +1,4 @@
 ---
-import PreviewBanner from "../components/PreviewBanner.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { alternateLocalePath, pagePath } from "../config/paths";
@@ -36,9 +35,8 @@ const alternate = new URL(alternateLocalePath(locale, pageKey), Astro.site || "h
     <link rel="alternate" hreflang={locale} href={canonical} />
     <title>{fullTitle}</title>
   </head>
-  <body>
+  <body data-page={pageKey}>
     <a class="skip-link" href="#main-content">{locale === "ja" ? "本文へ移動" : "Skip to content"}</a>
-    {!siteConfig.isRelease && <PreviewBanner locale={locale} />}
     <SiteHeader locale={locale} pageKey={pageKey} />
     <main id="main-content">
       <slot />

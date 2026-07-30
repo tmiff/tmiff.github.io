@@ -16,9 +16,11 @@ const languageLabel = locale === "ja" ? "English" : "日本語";
 
 <header class="site-header" data-site-header>
   <div class="container site-header__inner">
-    <a class="brand" href={pagePath(locale, "home")} aria-label={`${festivalName(locale)} home`}>
-      <span class="brand__mark" aria-hidden="true"></span>
-      <span class="brand__name">{festivalName(locale)}</span>
+    <a class="brand brand--header" href={pagePath(locale, "home")} aria-label={`${festivalName(locale)} home`}>
+      <span class="brand__logo-window" aria-hidden="true">
+        <img class="brand__logo" src="/images/brand/tmiff-mark-transparent.png" width="1438" height="551" alt="" />
+      </span>
+      <span class="visually-hidden">{festivalName(locale)}</span>
     </a>
 
     <nav class="desktop-nav" aria-label={locale === "ja" ? "メインナビゲーション" : "Primary navigation"}>

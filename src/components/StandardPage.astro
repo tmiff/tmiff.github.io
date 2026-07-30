@@ -1,7 +1,6 @@
 ---
 import PageHero from "./PageHero.astro";
 import SectionBlock from "./SectionBlock.astro";
-import StatusCallout from "./StatusCallout.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getPageContent } from "../config/content";
 import type { Locale, PageContent, PageKey } from "../types";
@@ -15,7 +14,7 @@ interface Props {
   faq?: boolean;
 }
 
-const { locale, pageKey, content, imageSlotId, legalDraft = false, faq = false } = Astro.props;
+const { locale, pageKey, content, imageSlotId, faq = false } = Astro.props;
 
 // Hero heading is always English (English-only labels); the lead text stays localized.
 const HERO_LABEL_OVERRIDES: Partial<Record<PageKey, string>> = {
@@ -27,15 +26,6 @@ const heroLabel = HERO_LABEL_OVERRIDES[pageKey] ?? getPageContent("en", pageKey)
 
 <BaseLayout locale={locale} pageKey={pageKey} title={content.seoTitle} description={content.intro}>
   <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={heroLabel} imageSlotId={imageSlotId} />
-  {legalDraft && (
-    <div class="container callout-wrap">
-      <StatusCallout
-        tone="warning"
-        title={locale === "ja" ? "公開前の法務原稿" : "Pre-release legal draft"}
-        body={locale === "ja" ? "主催者と運用条件の確定後、専門家を含む最終確認が必要です。" : "Final review is required after the organizer and operating terms are confirmed."}
-      />
-    </div>
-  )}
   <div class:list={["container", faq ? "faq-list" : "content-sections"]}>
     {faq ? content.sections.map((section) => (
       <details class="faq-item" id={section.id}>

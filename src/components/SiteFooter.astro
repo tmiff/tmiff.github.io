@@ -1,6 +1,6 @@
 ---
 import { navigationLabels, pagePath } from "../config/paths";
-import { festivalName, siteConfig } from "../config/site";
+import { festivalName } from "../config/site";
 import type { Locale } from "../types";
 
 interface Props {
@@ -15,9 +15,16 @@ const year = new Date().getUTCFullYear();
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="brand brand--footer" href={pagePath(locale, "home")}>
-        <span class="brand__mark" aria-hidden="true"></span>
-        <span class="brand__name">{festivalName(locale)}</span>
+      <a class="brand brand--footer" href={pagePath(locale, "home")} aria-label={`${festivalName(locale)} home`}>
+        <img
+          class="brand__footer-logo"
+          src="/images/brand/tmiff-logo-transparent.png"
+          width="1438"
+          height="659"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
       </a>
     </div>
 
@@ -46,6 +53,5 @@ const year = new Date().getUTCFullYear();
   </div>
   <div class="container footer-bottom">
     <span>© {year} {festivalName(locale)}</span>
-    <span>{siteConfig.status === "preview" ? (locale === "ja" ? "公開前プレビュー" : "Pre-release preview") : ""}</span>
   </div>
 </footer>

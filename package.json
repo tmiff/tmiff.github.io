@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:release": "node scripts/validate-release.mjs",
+    "generate:logos": "node scripts/build-transparent-logos.mjs",
     "generate:laurels": "node scripts/generate-laurels.mjs"
   },
   "dependencies": {

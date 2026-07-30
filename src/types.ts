@@ -42,6 +42,12 @@ export interface ImageSlotRecord {
   rightsStatus: string;
   approvalStatus: string;
   sourceRecord: string | null;
+  display?: {
+    position: string;
+    mobilePosition?: string;
+    scale?: number;
+    mobileScale?: number;
+  };
 }
 
 export interface WinnerRecord {

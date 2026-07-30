@@ -22,7 +22,7 @@ const divisionMap = new Map(awards.divisions.map((item) => [item.id, item[locale
     <div class="container page-hero__inner">
       <p class="eyebrow">{cycle.cycleId}</p>
       <h1>{cycle.localeTitles[locale]}</h1>
-      <p class="page-hero__intro">{locale === "ja" ? "2名承認と公開検証が完了した公式月次結果です。" : "Official monthly results published after dual approval and release verification."}</p>
+      <p class="page-hero__intro">{locale === "ja" ? `${cycle.localeTitles[locale]}の公式受賞結果です。` : "Official award results for this month."}</p>
     </div>
   </header>
   <section class="band band--light">

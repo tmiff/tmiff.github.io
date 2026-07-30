@@ -25,7 +25,7 @@ const winners = records as WinnerRecord[];
         <div class="empty-state">
           <CalendarX2 size={34} aria-hidden="true" />
           <h2>{locale === "ja" ? "公開済みの受賞結果はありません。" : "No award results have been published."}</h2>
-          <p>{locale === "ja" ? "最初の月次サイクル完了後、承認済み結果だけを掲載します。" : "Only approved results will be added after the first monthly cycle is complete."}</p>
+          <p>{locale === "ja" ? "受賞結果は発表後、このページに掲載します。" : "Award results will appear here after they are announced."}</p>
         </div>
       ) : (
         <ol class="cycle-list">

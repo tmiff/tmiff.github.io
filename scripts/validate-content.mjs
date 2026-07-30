@@ -23,6 +23,13 @@ function requireTokens(value, tokens, label) {
   for (const token of tokens) if (!text.includes(token)) errors.push(`Missing bilingual fact token ${token} in ${label}`);
 }
 
+function forbidPublicTokens(value, tokens, label) {
+  const text = JSON.stringify(value || {}).toLowerCase();
+  for (const token of tokens) {
+    if (text.includes(token.toLowerCase())) errors.push(`Internal-facing token ${token} must not appear in ${label}`);
+  }
+}
+
 const enKeys = Object.keys(en).sort();
 const jaKeys = Object.keys(ja).sort();
 if (JSON.stringify(enKeys) !== JSON.stringify(jaKeys)) {
@@ -77,8 +84,8 @@ requireTokens(section(en.rules, "duration"), ["35:00", "35:01"], "en.rules.durat
 requireTokens(section(ja.rules, "duration"), ["35分00秒", "35分01秒"], "ja.rules.duration");
 requireTokens(section(en.home, "monthly-cycle"), ["20th", "23:59", "12:00"], "en.home.monthly-cycle");
 requireTokens(section(ja.home, "monthly-cycle"), ["20日", "23:59", "12:00"], "ja.home.monthly-cycle");
-requireTokens(section(en.selection, "approval"), ["two"], "en.selection.approval");
-requireTokens(section(ja.selection, "approval"), ["2名"], "ja.selection.approval");
+forbidPublicTokens(en, ["pre-release", "preview mode", "FilmFreeway CSV", "approval record", "audit record", "private operations system", "not configured", "dual approval"], "English public content");
+forbidPublicTokens(ja, ["公開前", "プレビュー", "CSV", "承認記録", "監査記録", "運営システム", "連携は未設定", "2名承認"], "Japanese public content");
 
 const expectedSlots = new Map([
   ["home-hero", [1672, 941]],

@@ -7,6 +7,12 @@
     "height": 941,
     "ratio": "16:9",
     "safeCrop": { "x": "12%-88%", "y": "12%-88%" },
+    "display": {
+      "position": "50% 52%",
+      "mobilePosition": "68% 52%",
+      "scale": 1,
+      "mobileScale": 1
+    },
     "alt": {
       "en": "An original editorial view of an elegant independent cinema at blue hour",
       "ja": "青い夕暮れに佇む上質な単館映画館を表現したオリジナルのエディトリアル写真"
@@ -75,6 +81,12 @@
     "height": 809,
     "ratio": "12:5",
     "safeCrop": { "x": "10%-90%", "y": "10%-90%" },
+    "display": {
+      "position": "50% 50%",
+      "mobilePosition": "50% 50%",
+      "scale": 1.31,
+      "mobileScale": 1.31
+    },
     "alt": {
       "en": "An original editorial view of an empty auditorium before a screening",
       "ja": "上映前の無人の客席を表現したオリジナルのエディトリアル写真"
@@ -92,6 +104,12 @@
     "height": 1024,
     "ratio": "3:2",
     "safeCrop": { "x": "10%-90%", "y": "10%-90%" },
+    "display": {
+      "position": "52% 54%",
+      "mobilePosition": "58% 54%",
+      "scale": 1.03,
+      "mobileScale": 1.06
+    },
     "alt": {
       "en": "An original editorial view of a refined cinema lobby",
       "ja": "上質な劇場ロビーを表現したオリジナルのエディトリアル写真"

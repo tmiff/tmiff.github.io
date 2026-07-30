@@ -1,6 +1,27 @@
 # Image Replacement Procedure
 
-Four generated image slots are defined in `src/config/image-slots.json`.
+Six generated image slots are defined in `src/config/image-slots.json`.
+
+The same record also controls browser presentation without modifying the source
+image:
+
+- `display.position`: desktop focal point
+- `display.mobilePosition`: mobile focal point
+- `display.scale`: desktop crop zoom (`1` means no zoom)
+- `display.mobileScale`: mobile crop zoom
+
+The brand logo uses four separate assets:
+
+- `public/images/brand/tmiff-logo-source.png`: untouched official source image
+- `public/images/brand/tmiff-logo-transparent.png`: tightly cropped transparent
+  combined derivative
+- `public/images/brand/tmiff-mark-transparent.png`: `TMIFF` abbreviation only;
+  this is the header asset
+- `public/images/brand/tmiff-name-transparent.png`: full festival name only
+
+Replace the source file first, then run `npm run generate:logos`. The script
+separates the two rows and recreates all three transparent derivatives from the
+official source rather than redrawing or regenerating its letterforms.
 
 For each image, complete these steps in order:
 
