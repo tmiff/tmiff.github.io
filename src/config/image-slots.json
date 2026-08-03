@@ -19,8 +19,54 @@
     },
     "prompt": "Photorealistic editorial photograph of a fictional elegant independent cinema at blue hour, refined stone-and-glass facade facing a quiet paved plaza, warm golden lobby light, reflections on wet stone, deep-blue evening sky, cinematic but natural lighting, no people, no text, no signage, no logos, no red carpet, no identifiable real venue, wide 16:9 composition with a clear darker area on the left for headline text.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-29-home-cinema-v3"
+  },
+  {
+    "id": "home-production-craft",
+    "page": "home",
+    "file": "/images/home-production-craft.png",
+    "width": 1672,
+    "height": 941,
+    "ratio": "16:9",
+    "safeCrop": { "x": "10%-90%", "y": "12%-88%" },
+    "display": {
+      "position": "54% 50%",
+      "mobilePosition": "58% 50%",
+      "scale": 1,
+      "mobileScale": 1
+    },
+    "alt": {
+      "en": "An original editorial view of a filmmaker refining a scene in a professional editing suite",
+      "ja": "プロフェッショナルな編集室で映像を仕上げる制作者の手元を表現したオリジナル写真"
+    },
+    "prompt": "Photorealistic high-end editorial photograph of an anonymous independent filmmaker's hands refining a scene in a professional editing and colour-grading suite. A widescreen monitor shows a fictional coastal film frame and an abstract unreadable editing timeline; a control surface, headphones and paper notes suggest careful craft. No face, logos, readable text, copyrighted film, festival branding, awards, audience or event claim. Wide 3:2 composition with the hands and controls in the right half and clean darker visual space on the left.",
+    "rightsStatus": "user-provided",
+    "approvalStatus": "approved",
+    "sourceRecord": "user-provided-2026-07-31-all-months"
+  },
+  {
+    "id": "home-awards-craft",
+    "page": "home",
+    "file": "/images/home-awards-craft.webp",
+    "width": 1536,
+    "height": 1024,
+    "ratio": "3:2",
+    "safeCrop": { "x": "10%-90%", "y": "10%-90%" },
+    "display": {
+      "position": "52% 50%",
+      "mobilePosition": "54% 50%",
+      "scale": 1,
+      "mobileScale": 1
+    },
+    "alt": {
+      "en": "An original editorial still life of blank certificate materials prepared beside a film reel",
+      "ja": "フィルムリールのそばに整えられた無記名の証書素材を表現したオリジナル写真"
+    },
+    "prompt": "Photorealistic high-end editorial still life of premium but completely blank award-certificate materials on a charcoal table: an open black presentation folio, unprinted heavy cotton paper with a subtle blind-embossed laurel border, a restrained cinema-red ribbon, and a small 35mm film reel. Warm raking light reveals paper and metal texture. No people, trophy, medal, names, signatures, readable text, logos, certificate IDs, festival branding, winner claims or real event references. Wide 3:2 composition with the materials forming a quiet diagonal and a clean dark surround.",
+    "rightsStatus": "generated-original",
+    "approvalStatus": "approved",
+    "sourceRecord": "openai-imagegen-2026-07-30-home-awards-craft-v1"
   },
   {
     "id": "about-editorial",
@@ -55,6 +101,52 @@
     "rightsStatus": "generated-original",
     "approvalStatus": "pending-review",
     "sourceRecord": "openai-imagegen-2026-07-20-selection-room-v1"
+  },
+  {
+    "id": "film-submission",
+    "page": "submit",
+    "file": "/images/pages/film-submission-hero.webp",
+    "width": 1828,
+    "height": 860,
+    "ratio": "457:215",
+    "safeCrop": { "x": "8%-92%", "y": "12%-88%" },
+    "display": {
+      "position": "48% 52%",
+      "mobilePosition": "12% 50%",
+      "scale": 1,
+      "mobileScale": 1
+    },
+    "alt": {
+      "en": "Film reels, a clapperboard, and an open notebook arranged on a film production desk",
+      "ja": "フィルムリール、カチンコ、開いたノートを配した映画制作の机"
+    },
+    "prompt": "User-provided photograph selected for the Film Submission page hero; preserve the natural warm color, film reels, clapperboard, and open notebook without added blur, text, or saturation effects.",
+    "rightsStatus": "user-provided",
+    "approvalStatus": "approved",
+    "sourceRecord": "user-provided-2026-07-31-film-and-pen"
+  },
+  {
+    "id": "submission-rules",
+    "page": "rules",
+    "file": "/images/pages/rules-hero.webp",
+    "width": 1750,
+    "height": 899,
+    "ratio": "1750:899",
+    "safeCrop": { "x": "8%-92%", "y": "10%-90%" },
+    "display": {
+      "position": "48% 50%",
+      "mobilePosition": "42% 50%",
+      "scale": 1,
+      "mobileScale": 1
+    },
+    "alt": {
+      "en": "A film reel, screenplay pages, a notebook, and production tools arranged on a dark worktable",
+      "ja": "フィルムリール、脚本、ノート、制作道具を配した暗い作業机"
+    },
+    "prompt": "User-provided photograph reserved for a future Submission Rules page hero; preserve the film reel, screenplay pages, notebook, and restrained natural lighting without added blur, text, or saturation effects.",
+    "rightsStatus": "user-provided",
+    "approvalStatus": "approved",
+    "sourceRecord": "user-provided-2026-07-31-film-and-notebook"
   },
   {
     "id": "awards-materials",
@@ -93,7 +185,7 @@
     },
     "prompt": "Photorealistic ultra-wide editorial photograph of a fictional independent cinema auditorium before a screening, rows of empty upholstered seats, softly glowing wall lights, a blank neutral screen, calm and refined atmosphere, no people, no logos, no text, no identifiable real venue, ultra-wide 12:5 composition with generous margins.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-29-home-screening-v1"
   },
   {
@@ -105,18 +197,41 @@
     "ratio": "3:2",
     "safeCrop": { "x": "10%-90%", "y": "10%-90%" },
     "display": {
-      "position": "52% 54%",
-      "mobilePosition": "58% 54%",
-      "scale": 1.03,
-      "mobileScale": 1.06
+      "position": "52% 52%",
+      "mobilePosition": "59% 52%",
+      "scale": 1,
+      "mobileScale": 1.04
     },
     "alt": {
-      "en": "An original editorial view of a refined cinema lobby",
-      "ja": "上質な劇場ロビーを表現したオリジナルのエディトリアル写真"
+      "en": "An original editorial image envisioning a refined lobby for a future in-person cinema program",
+      "ja": "将来の会場プログラムを想定した上質なロビーのオリジナルイメージ"
     },
     "prompt": "Photorealistic editorial photograph of a fictional refined cinema lobby or foyer in the evening, warm lighting, pale stone and dark wood detailing, soft reflections, quiet and elegant, no people, no logos, no text, no posters, no identifiable real venue, 3:2 composition with generous margins.",
     "rightsStatus": "generated-original",
     "approvalStatus": "pending-review",
     "sourceRecord": "openai-imagegen-2026-07-29-home-in-person-v1"
+  },
+  {
+    "id": "home-online-experience",
+    "page": "home",
+    "file": "/images/home-online-experience.webp",
+    "width": 1200,
+    "height": 1500,
+    "ratio": "4:5",
+    "safeCrop": { "x": "8%-92%", "y": "8%-92%" },
+    "display": {
+      "position": "54% 50%",
+      "mobilePosition": "56% 50%",
+      "scale": 1,
+      "mobileScale": 1.02
+    },
+    "alt": {
+      "en": "An original editorial image of a film professional viewing an abstract online awards page",
+      "ja": "映画関係者が抽象化されたオンライン受賞ページを確認する様子を表現したオリジナル写真"
+    },
+    "prompt": "Photorealistic high-end editorial photograph for the narrow side of a split website feature. An anonymous film professional seen only from behind at a dark, refined desk, viewing a laptop with an abstract red, black and ivory awards-page layout made of unreadable blocks and image shapes. A closed notebook and professional headphones add quiet cinema context. No face, names, winners, certificates, laurels, readable text, logos, event branding, audience, venue or identifiable copyrighted film. Portrait 4:5 composition with the laptop in the upper-right quadrant and calm dark negative space across the lower-left for white interface copy. Restrained warm practical light with subtle cinema-red accents.",
+    "rightsStatus": "generated-original",
+    "approvalStatus": "pending-review",
+    "sourceRecord": "openai-imagegen-2026-07-31-home-online-experience-v1"
   }
 ]

@@ -6,9 +6,10 @@ import type { Locale } from "../types";
 interface Props {
   id: string;
   locale: Locale;
+  variant?: "default" | "band" | "split" | "compact";
 }
 
-const { id, locale } = Astro.props;
+const { id, locale, variant = "default" } = Astro.props;
 const slot = getImageSlot(id);
 const generated = slot.rightsStatus !== "pending-generation";
 const display = slot.display;
@@ -21,7 +22,7 @@ const imageStyle = [
 ].join("; ");
 ---
 
-<figure class="editorial-image" style={imageStyle} data-image-slot={slot.id}>
+<figure class:list={["editorial-image", `editorial-image--${variant}`]} style={imageStyle} data-image-slot={slot.id}>
   {generated ? (
     <img src={slot.file} width={slot.width} height={slot.height} alt={slot.alt[locale]} loading="lazy" decoding="async" />
   ) : (

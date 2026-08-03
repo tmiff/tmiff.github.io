@@ -13,6 +13,7 @@ const { locale } = Astro.props;
 const content = getPageContent(locale, "home");
 const cycle = getSection(locale, "home", "monthly-cycle");
 const review = getSection(locale, "home", "review-standard");
+const screeningExperience = getSection(locale, "home", "screening-experience");
 const online = getSection(locale, "home", "online-program");
 const inPerson = getSection(locale, "home", "in-person-program");
 const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
@@ -22,11 +23,14 @@ const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
   <HomeHero locale={locale} />
 
   <section class="band band--light" aria-labelledby="cycle-title" data-reveal>
-    <div class="container section-intro">
-      <div>
-        <h2 id="cycle-title">{cycle.title}</h2>
+    <div class="container home-production-split">
+      <div class="home-production-split__media">
+        <EditorialImage id="home-production-craft" locale={locale} variant="split" />
       </div>
-      <p>{cycle.body[0]}</p>
+      <div class="home-production-split__copy">
+        <h2 id="cycle-title">{cycle.title}</h2>
+        <p>{cycle.body[0]}</p>
+      </div>
     </div>
     <div class="container step-grid">
       {cycle.items.map((item, index) => {
@@ -73,40 +77,60 @@ const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
     </div>
   </section>
 
-  <section class="band-image" aria-hidden="true" data-reveal>
-    <EditorialImage id="home-screening" locale={locale} />
+  <section class="home-screening-feature" aria-labelledby="screening-experience-title" data-reveal>
+    <EditorialImage id="home-screening" locale={locale} variant="band" />
+    <div class="home-screening-feature__shade" aria-hidden="true"></div>
+    <div class="container home-screening-feature__content">
+      <div>
+        <h2 id="screening-experience-title" class="home-screening-feature__title">Film Review</h2>
+        <p>{screeningExperience.body[0]}</p>
+      </div>
+    </div>
   </section>
 
-  <section class="band band--ink" aria-labelledby="awards-title" data-reveal>
-    <div class="container section-intro section-intro--light">
-      <div>
-        <h2 id="awards-title" class="home-promoted-heading home-promoted-heading--light">{locale === "ja" ? "受賞項目" : "Award Categories"}</h2>
+  <section class="band band--ink" aria-labelledby="awards-title">
+    <div class="home-awards-content" data-reveal>
+      <div class="home-awards-feature">
+        <EditorialImage id="home-awards-craft" locale={locale} variant="band" />
+        <div class="home-awards-feature__shade" aria-hidden="true"></div>
+        <div class="container home-awards-feature__copy">
+          <h2 id="awards-title" class="home-promoted-heading home-promoted-heading--light">{locale === "ja" ? "受賞項目" : "Award Categories"}</h2>
+          <p>{locale === "ja" ? "短編部門と長編部門に同じ賞構成を適用します。" : "The short and feature divisions use the same award structure."}</p>
+        </div>
       </div>
-      <p>{locale === "ja" ? "短編部門と長編部門に同じ賞構成を適用します。" : "The short and feature divisions use the same award structure."}</p>
-    </div>
-    <div class="container"><AwardGrid locale={locale} /></div>
-    <div class="container section-link-row">
-      <a class="text-link text-link--light" href={pagePath(locale, "awards")}>
-        {locale === "ja" ? "賞と証書を見る" : "View awards and certificates"}<ArrowRight size={17} aria-hidden="true" />
-      </a>
+      <div class="container"><AwardGrid locale={locale} /></div>
+      <div class="container section-link-row">
+        <a class="text-link text-link--light" href={pagePath(locale, "awards")}>
+          {locale === "ja" ? "賞と証書を見る" : "View awards and certificates"}<ArrowRight size={17} aria-hidden="true" />
+        </a>
+      </div>
     </div>
   </section>
 
   <section class="band band--light" data-reveal>
     <div class="container">
       <div class="format-grid" aria-label={locale === "ja" ? "オンラインとオフラインの開催形式" : "Online and in-person formats"}>
-        <article>
-          <MonitorPlay size={28} aria-hidden="true" />
-          <p class="eyebrow">Online</p>
-          <h2>{online.title}</h2>
-          <p>{online.body[0]}</p>
+        <article class="format-grid__online">
+          <div class="format-grid__media"><EditorialImage id="home-online-experience" locale={locale} variant="split" /></div>
+          <div class="format-grid__shade" aria-hidden="true"></div>
+          <div class="format-grid__copy format-grid__copy--light">
+            <span class="format-grid__number" aria-hidden="true">01</span>
+            <MonitorPlay size={28} aria-hidden="true" />
+            <p class="eyebrow eyebrow--light">Online</p>
+            <h2>{online.title}</h2>
+            <p>{online.body[0]}</p>
+          </div>
         </article>
-        <article>
-          <Building2 size={28} aria-hidden="true" />
-          <p class="eyebrow">In Person</p>
-          <h2>{inPerson.title}</h2>
-          <p>{inPerson.body[0]}</p>
-          <div class="format-grid__media"><EditorialImage id="home-in-person" locale={locale} /></div>
+        <article class="format-grid__in-person">
+          <div class="format-grid__media"><EditorialImage id="home-in-person" locale={locale} variant="split" /></div>
+          <div class="format-grid__shade" aria-hidden="true"></div>
+          <div class="format-grid__copy format-grid__copy--light">
+            <span class="format-grid__number" aria-hidden="true">02</span>
+            <Building2 size={28} aria-hidden="true" />
+            <p class="eyebrow eyebrow--light">In Person</p>
+            <h2>{inPerson.title}</h2>
+            <p>{inPerson.body[0]}</p>
+          </div>
         </article>
       </div>
       <div class="final-cta">

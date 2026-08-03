@@ -29,11 +29,15 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
       </div>
       {configured && <form class="contact-form" method="post" action={siteConfig.contactEndpoint} target="contact-response" data-contact-form>
         <input type="hidden" name="locale" value={locale} />
-        <input type="hidden" name="formVersion" value="1" />
+        <input type="hidden" name="formVersion" value="2" />
         <label class="honeypot" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
         <div class="form-row">
           <label>{locale === "ja" ? "氏名" : "Name"}<input type="text" name="name" autocomplete="name" maxlength="120" required /></label>
           <label>{locale === "ja" ? "メールアドレス" : "Email"}<input type="email" name="email" autocomplete="email" maxlength="254" required /></label>
+        </div>
+        <div class="form-row">
+          <label>{locale === "ja" ? "会社・団体名（任意）" : "Company / organization (optional)"}<input type="text" name="organization" autocomplete="organization" maxlength="160" /></label>
+          <label>{locale === "ja" ? "国・地域（任意）" : "Country / region (optional)"}<input type="text" name="country" autocomplete="country-name" maxlength="120" /></label>
         </div>
         <div class="form-row">
           <label>{locale === "ja" ? "問い合わせ種別" : "Topic"}
@@ -49,6 +53,7 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
           </label>
           <label>{locale === "ja" ? "FilmFreeway応募ID（任意）" : "FilmFreeway submission ID (optional)"}<input type="text" name="submissionId" maxlength="80" /></label>
         </div>
+        <label>{locale === "ja" ? "件名" : "Subject"}<input type="text" name="subject" maxlength="180" required /></label>
         <label>{locale === "ja" ? "本文" : "Message"}<textarea name="message" rows="8" minlength="10" maxlength="5000" required></textarea></label>
         <label class="consent-row"><input type="checkbox" name="privacyAccepted" value="true" required /><span>{locale === "ja" ? "問い合わせ対応のために情報が処理されることを確認しました。" : "I understand that this information will be processed to handle my inquiry."}</span></label>
         <div class="cf-turnstile" data-sitekey={siteConfig.turnstileSiteKey} data-action="contact"></div>

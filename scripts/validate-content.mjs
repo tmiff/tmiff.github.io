@@ -87,20 +87,29 @@ requireTokens(section(ja.home, "monthly-cycle"), ["20日", "23:59", "12:00"], "j
 forbidPublicTokens(en, ["pre-release", "preview mode", "FilmFreeway CSV", "approval record", "audit record", "private operations system", "not configured", "dual approval"], "English public content");
 forbidPublicTokens(ja, ["公開前", "プレビュー", "CSV", "承認記録", "監査記録", "運営システム", "連携は未設定", "2名承認"], "Japanese public content");
 
-const expectedSlots = new Map([
+const allowedSlots = new Map([
   ["home-hero", [1672, 941]],
   ["about-editorial", [2400, 1350]],
   ["selection-process", [2400, 1350]],
+  ["film-submission", [1828, 860]],
+  ["submission-rules", [1750, 899]],
   ["awards-materials", [2400, 1350]],
   ["home-screening", [1942, 809]],
-  ["home-in-person", [1536, 1024]]
+  ["home-in-person", [1536, 1024]],
+  ["home-online-experience", [1200, 1500]],
+  ["home-production-craft", [1672, 941]],
+  ["home-awards-craft", [1536, 1024]],
+  ["submit-production", [1536, 1024]],
+  ["rules-rights", [1536, 1024]],
+  ["contact-still-life", [1536, 1024]]
 ]);
-if (imageSlots.length !== expectedSlots.size) {
-  errors.push(`Exactly ${expectedSlots.size} approved image slots are permitted; found ${imageSlots.length}.`);
-}
+const requiredSlotIds = ["home-hero", "about-editorial", "selection-process", "film-submission", "awards-materials", "home-screening", "home-in-person"];
+const configuredSlotIds = new Set(imageSlots.map((slot) => slot.id));
+for (const id of requiredSlotIds) if (!configuredSlotIds.has(id)) errors.push(`Required image slot is missing: ${id}`);
+if (configuredSlotIds.size !== imageSlots.length) errors.push("Image slot IDs must be unique.");
 
 for (const slot of imageSlots) {
-  const expected = expectedSlots.get(slot.id);
+  const expected = allowedSlots.get(slot.id);
   if (!expected) {
     errors.push(`Unexpected image slot: ${slot.id}`);
     continue;

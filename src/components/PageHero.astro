@@ -14,9 +14,15 @@ const { eyebrow, intro, label, compact = false, imageSlotId } = Astro.props;
 const slot = imageSlotId ? getImageSlot(imageSlotId) : null;
 const generated = slot && slot.rightsStatus !== "pending-generation";
 const heading = label ?? eyebrow;
+const imageStyle = slot
+  ? [
+      `--page-hero-image-position: ${slot.display?.position ?? "50% 50%"}`,
+      `--page-hero-image-position-mobile: ${slot.display?.mobilePosition ?? slot.display?.position ?? "50% 50%"}`
+    ].join(";")
+  : undefined;
 ---
 
-<header class:list={["page-hero", "page-hero--label", compact && "page-hero--compact", imageSlotId && "page-hero--image"]} data-image-slot={slot?.id}>
+<header class:list={["page-hero", "page-hero--label", compact && "page-hero--compact", imageSlotId && "page-hero--image"]} data-image-slot={slot?.id} style={imageStyle}>
   {generated && (
     <div class="page-hero__media" aria-hidden="true">
       <img src={slot.file} width={slot.width} height={slot.height} alt="" decoding="async" fetchpriority="high" />

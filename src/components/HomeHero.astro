@@ -41,9 +41,10 @@ const heroStyle = [
             <ArrowRight size={18} aria-hidden="true" />
           </a>
         ) : (
-          <span class="button button--hero-submit button--hero-submit-disabled" aria-disabled="true">
+          <a class="button button--hero-submit" href={pagePath(locale, "submit")}>
             {locale === "ja" ? "応募はこちらから" : "Submit Here"}
-          </span>
+            <ArrowRight size={18} aria-hidden="true" />
+          </a>
         )}
       </div>
     </div>

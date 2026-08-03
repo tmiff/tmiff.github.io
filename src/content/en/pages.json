@@ -24,6 +24,12 @@
         "items": ["Runtime, rights, and subtitle requirements are checked", "Direction, writing, cinematography, and performance are considered by award", "Award results are announced on the official website"]
       },
       {
+        "id": "screening-experience",
+        "title": "Every detail, considered",
+        "body": ["Direction, writing, cinematography, performance, and the other elements that shape each film are reviewed against the published criteria."],
+        "items": []
+      },
+      {
         "id": "online-program",
         "title": "Online announcements",
         "body": ["Monthly results, award categories, and certificate verification information are published on the official website."],
@@ -97,7 +103,7 @@
   },
   "rules": {
     "seoTitle": "Rules and Terms",
-    "eyebrow": "Submission rules",
+    "eyebrow": "Submission Rules",
     "title": "Please review these rules before submitting your film.",
     "intro": "Review the following requirements before submitting through FilmFreeway.",
     "sections": [
