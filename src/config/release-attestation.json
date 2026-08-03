@@ -1,19 +1,24 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedAt": null,
   "sourceCommit": null,
-  "gates": {
-    "dedicatedGmailConfigured": false,
-    "coOrganizerConfigured": false,
-    "filmFreewayConfigured": false,
-    "openAiKeyConfigured": false,
-    "turnstileSecretConfigured": false,
-    "googleWorkspaceConfigured": false,
-    "mediaAnalysisWorkflowApproved": false,
-    "contactAndDraftTestPassed": false,
-    "dualApprovalTestPassed": false,
-    "publicationAndCertificateTestPassed": false,
-    "backupRestoreTestPassed": false,
-    "testMonthPassed": false
+  "profiles": {
+    "siteLaunch": {
+      "dedicatedGmailConfigured": false,
+      "infoAliasConfigured": false,
+      "turnstileSecretConfigured": false,
+      "gasWebAppConfigured": false,
+      "contactReceiptTestPassed": false,
+      "codexSheetDraftBridgeTestPassed": false,
+      "googleOwnershipVerified": false
+    },
+    "fullOperations": {
+      "filmFreewayConfigured": false,
+      "mediaAnalysisWorkflowApproved": false,
+      "dualApprovalTestPassed": false,
+      "publicationAndCertificateTestPassed": false,
+      "backupRestoreTestPassed": false,
+      "testMonthPassed": false
+    }
   }
 }

@@ -82,7 +82,7 @@
     },
     "prompt": "Photorealistic high-end editorial photograph of a fictional European seaside cultural district at golden hour, elegant understated cinema architecture, pale stone promenade and sea beyond, quiet and timeless, no people, no crowds, no signage, no logos, no text, no identifiable real venue, wide 16:9 background composition with safe space for page headings.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-20-about-coast-v1"
   },
   {
@@ -99,7 +99,7 @@
     },
     "prompt": "Photorealistic luxury editorial photograph of a fictional private cinema screening room, empty deep-red velvet seats, restrained brass details, soft projection light and immaculate acoustic walls, no people, no film frame, no logos, no text, no identifiable venue, wide 16:9 background composition with a quiet left area for headings.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-20-selection-room-v1"
   },
   {
@@ -162,7 +162,7 @@
     },
     "prompt": "Photorealistic high-end editorial photograph of a fictional elegant European theatre before an evening programme, empty stage, deep red velvet curtains, warm brass sconces and refined architectural detail, no audience, no people, no trophies, no event branding, no logos, no text, no identifiable real venue, wide 16:9 background composition with safe heading space.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-20-awards-theatre-v1"
   },
   {
@@ -208,7 +208,7 @@
     },
     "prompt": "Photorealistic editorial photograph of a fictional refined cinema lobby or foyer in the evening, warm lighting, pale stone and dark wood detailing, soft reflections, quiet and elegant, no people, no logos, no text, no posters, no identifiable real venue, 3:2 composition with generous margins.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-29-home-in-person-v1"
   },
   {
@@ -231,7 +231,7 @@
     },
     "prompt": "Photorealistic high-end editorial photograph for the narrow side of a split website feature. An anonymous film professional seen only from behind at a dark, refined desk, viewing a laptop with an abstract red, black and ivory awards-page layout made of unreadable blocks and image shapes. A closed notebook and professional headphones add quiet cinema context. No face, names, winners, certificates, laurels, readable text, logos, event branding, audience, venue or identifiable copyrighted film. Portrait 4:5 composition with the laptop in the upper-right quadrant and calm dark negative space across the lower-left for white interface copy. Restrained warm practical light with subtle cinema-red accents.",
     "rightsStatus": "generated-original",
-    "approvalStatus": "pending-review",
+    "approvalStatus": "approved",
     "sourceRecord": "openai-imagegen-2026-07-31-home-online-experience-v1"
   }
 ]

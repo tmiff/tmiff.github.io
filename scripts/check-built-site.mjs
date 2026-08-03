@@ -43,6 +43,7 @@ for (const file of htmlFiles) {
     if (!href.startsWith("/") || href.startsWith("//")) continue;
     if (!routeExists(href)) errors.push(`Broken internal link in ${relative}: ${href}`);
   }
+  if (/info@tmiff\.com|mailto:/i.test(html)) errors.push(`Direct contact email must not appear in public HTML: ${relative}`);
 }
 
 const requiredRoutes = [
@@ -60,13 +61,14 @@ for (const route of requiredRoutes) {
 }
 
 const submitPages = [path.join(dist, "submit/index.html"), path.join(dist, "ja/submit/index.html")].map((file) => fs.readFileSync(file, "utf8"));
-if (siteConfig.filmFreewayUrl) {
+if (siteConfig.releasePhase === "submissions-open" && siteConfig.filmFreewayUrl) {
   for (const [index, html] of submitPages.entries()) {
     if (!html.includes(`href="${siteConfig.filmFreewayUrl}"`)) errors.push(`FilmFreeway CTA URL is missing from ${index === 0 ? "English" : "Japanese"} submit page.`);
   }
 } else {
   for (const [index, html] of submitPages.entries()) {
     if (!html.includes("button--disabled")) errors.push(`Unconfigured FilmFreeway CTA is not disabled on ${index === 0 ? "English" : "Japanese"} submit page.`);
+    if (!html.includes(index === 0 ? "Submissions opening soon" : "応募準備中")) errors.push(`Pre-submission CTA copy is missing from ${index === 0 ? "English" : "Japanese"} submit page.`);
   }
 }
 

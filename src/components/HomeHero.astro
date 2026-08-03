@@ -14,6 +14,7 @@ const slot = getImageSlot("home-hero");
 const generated = slot.rightsStatus !== "pending-generation";
 const dateLabel = locale === "ja" ? "毎月20日 23:59締切" : "Monthly deadline: 20th at 23:59";
 const hasSubmitUrl = Boolean(siteConfig.filmFreewayUrl);
+const submissionsOpen = siteConfig.releasePhase === "submissions-open" && hasSubmitUrl;
 const display = slot.display;
 const heroStyle = [
   `--hero-image-position: ${display?.position ?? "50% 50%"}`,
@@ -35,16 +36,15 @@ const heroStyle = [
         <a class="button button--hero-secondary" href={pagePath(locale, "selection")}>
           {locale === "ja" ? "選考プロセスを見る" : "View the selection process"}
         </a>
-        {hasSubmitUrl ? (
+        {submissionsOpen ? (
           <a class="button button--hero-submit" href={siteConfig.filmFreewayUrl} rel="external">
             {locale === "ja" ? "応募はこちらから" : "Submit Here"}
             <ArrowRight size={18} aria-hidden="true" />
           </a>
         ) : (
-          <a class="button button--hero-submit" href={pagePath(locale, "submit")}>
-            {locale === "ja" ? "応募はこちらから" : "Submit Here"}
-            <ArrowRight size={18} aria-hidden="true" />
-          </a>
+          <span class="button button--hero-submit button--disabled" aria-disabled="true">
+            {locale === "ja" ? "応募準備中" : "Submissions opening soon"}
+          </span>
         )}
       </div>
     </div>

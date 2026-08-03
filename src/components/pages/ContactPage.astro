@@ -1,5 +1,4 @@
 ---
-import { Mail } from "lucide-astro";
 import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
@@ -20,14 +19,15 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
       <div>
         <p class="eyebrow">{locale === "ja" ? "問い合わせフォーム" : "Inquiry form"}</p>
         <h2>{locale === "ja" ? "必要な情報だけを送信してください。" : "Send only the information required to answer the question."}</h2>
-        {!configured && (
-          <p>{locale === "ja" ? "お問い合わせ窓口は、応募受付開始時にこのページでご案内します。" : "The inquiry channel will be published on this page when submissions open."}</p>
-        )}
-        {siteConfig.isRelease && siteConfig.contactEmail && (
-          <p class="contact-email"><Mail size={18} aria-hidden="true" /><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
-        )}
       </div>
-      {configured && <form class="contact-form" method="post" action={siteConfig.contactEndpoint} target="contact-response" data-contact-form>
+      <form
+        class="contact-form"
+        method={configured ? "post" : undefined}
+        action={configured ? siteConfig.contactEndpoint : undefined}
+        target={configured ? "contact-response" : undefined}
+        data-contact-form
+        data-contact-ready={configured ? "true" : "false"}
+      >
         <input type="hidden" name="locale" value={locale} />
         <input type="hidden" name="formVersion" value="2" />
         <label class="honeypot" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
@@ -57,9 +57,9 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
         <label>{locale === "ja" ? "本文" : "Message"}<textarea name="message" rows="8" minlength="10" maxlength="5000" required></textarea></label>
         <label class="consent-row"><input type="checkbox" name="privacyAccepted" value="true" required /><span>{locale === "ja" ? "問い合わせ対応のために情報が処理されることを確認しました。" : "I understand that this information will be processed to handle my inquiry."}</span></label>
         <div class="cf-turnstile" data-sitekey={siteConfig.turnstileSiteKey} data-action="contact"></div>
-        <button class="button" type="submit">{locale === "ja" ? "問い合わせを送信" : "Send inquiry"}</button>
+        <button class="button" type="submit" disabled={!configured}>{locale === "ja" ? "問い合わせを送信" : "Send inquiry"}</button>
         <p class="form-status" data-form-status aria-live="polite"></p>
-      </form>}
+      </form>
       {configured && <iframe class="response-frame" name="contact-response" title={locale === "ja" ? "問い合わせ送信結果" : "Inquiry response"} data-contact-frame></iframe>}
     </div>
   </section>
@@ -74,8 +74,13 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
   const frame = document.querySelector("[data-contact-frame]");
   const status = document.querySelector("[data-form-status]");
   const submit = form?.querySelector("button[type='submit']");
+  const ready = form?.getAttribute("data-contact-ready") === "true";
 
-  form?.addEventListener("submit", () => {
+  form?.addEventListener("submit", (event) => {
+    if (!ready) {
+      event.preventDefault();
+      return;
+    }
     if (status) status.textContent = document.documentElement.lang === "ja" ? "送信中です。" : "Sending...";
     if (submit instanceof HTMLButtonElement) submit.disabled = true;
   });
