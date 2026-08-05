@@ -1,16 +1,18 @@
 {
   "schemaVersion": 2,
-  "generatedAt": null,
-  "sourceCommit": null,
+  "generatedAt": "2026-08-05T05:18:36.070Z",
+  "sourceCommit": "74bf6b56df2bb182161ac613f35ad8df929f7537",
   "profiles": {
     "siteLaunch": {
-      "dedicatedGmailConfigured": false,
-      "infoAliasConfigured": false,
-      "turnstileSecretConfigured": false,
-      "gasWebAppConfigured": false,
-      "contactReceiptTestPassed": false,
-      "codexSheetDraftBridgeTestPassed": false,
-      "googleOwnershipVerified": false
+      "dedicatedGmailConfigured": true,
+      "infoAliasConfigured": true,
+      "turnstileSecretConfigured": true,
+      "gasWebAppConfigured": true,
+      "codexSheetDraftBridgeTestPassed": true,
+      "googleOwnershipVerified": true
+    },
+    "postLaunch": {
+      "contactFormLiveTestPassed": false
     },
     "fullOperations": {
       "filmFreewayConfigured": false,

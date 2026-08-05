@@ -8,12 +8,13 @@ const site = readJson("src/config/site.json");
 const attestation = readJson("src/config/release-attestation.json");
 const images = readJson("src/config/image-slots.json");
 const errors = [];
+// The live contact form cannot be exercised before the site is reachable at its own domain, so it is
+// verified straight after the first deploy and tracked in the postLaunch profile instead.
 const requiredSiteLaunchGates = [
   "dedicatedGmailConfigured",
   "infoAliasConfigured",
   "turnstileSecretConfigured",
   "gasWebAppConfigured",
-  "contactReceiptTestPassed",
   "codexSheetDraftBridgeTestPassed",
   "googleOwnershipVerified"
 ];
