@@ -11,6 +11,7 @@ import type { Locale } from "../../types";
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "submit");
+const submissionsOpen = siteConfig.releasePhase === "submissions-open" && Boolean(siteConfig.filmFreewayUrl);
 ---
 
 <BaseLayout locale={locale} pageKey="submit" title={content.seoTitle} description={content.intro}>
@@ -40,12 +41,12 @@ const content = getPageContent(locale, "submit");
   <section class="submission-panel">
     <div class="container submission-panel__inner">
       <p class="eyebrow eyebrow--light">FilmFreeway</p>
-      {siteConfig.filmFreewayUrl ? (
+      {submissionsOpen ? (
         <a class="button button--submission" href={siteConfig.filmFreewayUrl} rel="external">
           {locale === "ja" ? "応募はこちら" : "Submit Here"}<ExternalLink size={20} aria-hidden="true" />
         </a>
       ) : (
-        <span class="button button--disabled button--submission button--submission-disabled" aria-disabled="true">{locale === "ja" ? "応募はこちら" : "Submit Here"}</span>
+        <span class="button button--disabled button--submission button--submission-disabled" aria-disabled="true">{locale === "ja" ? "応募準備中" : "Submissions opening soon"}</span>
       )}
       <p class="submission-panel__note">{locale === "ja" ? "※問い合わせフォームやメールには作品ファイルを添付しないでください。" : "* Do not attach film files to inquiry forms or email."}</p>
     </div>
