@@ -301,7 +301,7 @@
     "sections": [
       { "id": "commitment", "title": "Commitment", "body": ["We aim to keep content perceivable, operable, understandable, and robust across modern devices and assistive technologies."], "items": [] },
       { "id": "measures", "title": "Measures", "body": ["The site supports semantic headings, visible keyboard focus, image alternatives, sufficient contrast, responsive layouts, and reduced motion."], "items": [] },
-      { "id": "feedback", "title": "Report a barrier", "body": ["Use the contact form and select accessibility. Describe the page, task, device, browser, and assistive technology when possible."], "items": [] }
+      { "id": "feedback", "title": "Report a barrier", "body": ["Use the contact form. Describe the page, task, device, browser, and assistive technology when possible."], "items": [] }
     ]
   },
   "verify": {
