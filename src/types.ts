@@ -11,7 +11,6 @@ export type PageKey =
   | "contact"
   | "privacy"
   | "terms"
-  | "accessibility"
   | "verify";
 
 export interface ContentSection {

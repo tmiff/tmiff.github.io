@@ -50,11 +50,11 @@ const requiredRoutes = [
   "index.html", "about/index.html", "submit/index.html", "rules/index.html",
   "selection-process/index.html", "awards/index.html", "winners/index.html",
   "faq/index.html", "contact/index.html", "privacy/index.html", "terms/index.html",
-  "accessibility/index.html", "verify/index.html", "ja/index.html", "ja/about/index.html",
+  "verify/index.html", "ja/index.html", "ja/about/index.html",
   "ja/submit/index.html", "ja/rules/index.html", "ja/selection-process/index.html",
   "ja/awards/index.html", "ja/winners/index.html", "ja/faq/index.html",
   "ja/contact/index.html", "ja/privacy/index.html", "ja/terms/index.html",
-  "ja/accessibility/index.html", "ja/verify/index.html", "404.html"
+  "ja/verify/index.html", "404.html"
 ];
 for (const route of requiredRoutes) {
   if (!fs.existsSync(path.join(dist, route))) errors.push(`Required built route is missing: ${route}`);

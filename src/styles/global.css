@@ -1694,6 +1694,19 @@ body[data-page="home"] .site-header {
   font-size: 30px;
 }
 
+/* The form is what the page is for, so it is named at heading size and carries the accent that the
+   small eyebrow label used to hold. The reply time sits underneath, where the label's explanation
+   belongs. */
+.contact-form-title {
+  margin-bottom: 14px;
+  color: var(--red);
+}
+
+.contact-form-lead {
+  max-width: 34ch;
+  color: var(--muted);
+}
+
 .contact-layout .status-callout {
   margin-top: 32px;
 }
