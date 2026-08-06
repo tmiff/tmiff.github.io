@@ -790,6 +790,41 @@ body[data-page="home"] .site-header {
   border-right: 0;
 }
 
+/* The rule between two steps carries a chevron pointing at the next one, so the row reads as one
+   sequence rather than four separate tiles. The rule breaks behind the chevron instead of running
+   through it, and the glyph follows the reading direction: across on wide screens, down when the
+   steps stack. */
+.step-card::before,
+.step-card::after {
+  position: absolute;
+  content: "";
+}
+
+.step-card::before {
+  top: 50%;
+  right: -9px;
+  width: 18px;
+  height: 20px;
+  margin-top: -10px;
+  background: var(--white);
+}
+
+.step-card::after {
+  top: 50%;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-top: 1.5px solid var(--muted);
+  border-right: 1.5px solid var(--muted);
+  transform: rotate(45deg);
+}
+
+.step-card:last-child::before,
+.step-card:last-child::after {
+  display: none;
+}
+
 .step-card__number {
   position: absolute;
   top: 22px;
@@ -2054,6 +2089,26 @@ body[data-page="home"] .site-header {
     border-bottom: 1px solid var(--line);
   }
 
+  /* Two columns: the sequence turns downward between the second and third step. */
+  .step-card:nth-child(2)::before {
+    top: auto;
+    right: auto;
+    bottom: -10px;
+    left: 50%;
+    width: 20px;
+    height: 18px;
+    margin: 0 0 0 -10px;
+  }
+
+  .step-card:nth-child(2)::after {
+    top: auto;
+    right: auto;
+    bottom: -1px;
+    left: 50%;
+    margin: 0 0 0 -4px;
+    transform: rotate(135deg);
+  }
+
   .award-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2252,6 +2307,26 @@ body[data-page="home"] .site-header {
   .step-card:last-child,
   .fact-strip__inner > div:last-child {
     border-bottom: 0;
+  }
+
+  /* One column: every step leads down to the next. */
+  .step-card::before {
+    top: auto;
+    right: auto;
+    bottom: -10px;
+    left: 50%;
+    width: 20px;
+    height: 18px;
+    margin: 0 0 0 -10px;
+  }
+
+  .step-card::after {
+    top: auto;
+    right: auto;
+    bottom: -1px;
+    left: 50%;
+    margin: 0 0 0 -4px;
+    transform: rotate(135deg);
   }
 
   .process-summary {
