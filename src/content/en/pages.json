@@ -8,37 +8,62 @@
       {
         "id": "monthly-cycle",
         "title": "One cycle every month",
-        "body": ["Entries close on the 20th at 23:59 JST. Award results are scheduled for 12:00 JST on the last day of the month."],
-        "items": ["Submission", "Eligibility check", "Film review", "Decision and publication"]
+        "body": [
+          "Entries close on the 20th at 23:59 JST. Award results are scheduled for 12:00 JST on the last day of the month."
+        ],
+        "items": [
+          "Submission",
+          "Eligibility check",
+          "Film review",
+          "Decision and publication"
+        ]
       },
       {
         "id": "categories",
         "title": "Short and feature divisions",
-        "body": ["Films up to and including 35 minutes enter the short division. Films longer than 35 minutes enter the feature division."],
-        "items": ["Up to five candidates per division", "Nine award categories per division", "Digital certificates for confirmed winners"]
+        "body": [
+          "Films up to and including 35 minutes enter the short division. Films longer than 35 minutes enter the feature division."
+        ],
+        "items": [
+          "Up to five candidates per division",
+          "Nine award categories per division",
+          "Digital certificates for confirmed winners"
+        ]
       },
       {
         "id": "review-standard",
         "title": "Submission Criteria",
-        "body": ["Each film is reviewed for eligibility and creative achievement against the published rules and award criteria."],
-        "items": ["Runtime, rights, and subtitle requirements are checked", "Direction, writing, cinematography, and performance are considered by award", "Award results are announced on the official website"]
+        "body": [
+          "Each film is reviewed for eligibility and creative achievement against the published rules and award criteria."
+        ],
+        "items": [
+          "Runtime, rights, and subtitle requirements are checked",
+          "Direction, writing, cinematography, and performance are considered by award",
+          "Award results are announced on the official website"
+        ]
       },
       {
         "id": "screening-experience",
         "title": "Every detail, considered",
-        "body": ["Direction, writing, cinematography, performance, and the other elements that shape each film are reviewed against the published criteria."],
+        "body": [
+          "Direction, writing, cinematography, performance, and the other elements that shape each film are reviewed against the published criteria."
+        ],
         "items": []
       },
       {
         "id": "online-program",
         "title": "Online announcements",
-        "body": ["Monthly results, award categories, and certificate verification information are published on the official website."],
+        "body": [
+          "Monthly results, award categories, and certificate verification information are published on the official website."
+        ],
         "items": []
       },
       {
         "id": "in-person-program",
         "title": "In-person programme",
-        "body": ["If screenings or filmmaker gatherings are held, the venue and date will be announced on the official website once confirmed."],
+        "body": [
+          "If screenings or filmmaker gatherings are held, the venue and date will be announced on the official website once confirmed."
+        ],
         "items": []
       }
     ]
@@ -52,19 +77,30 @@
       {
         "id": "purpose",
         "title": "Purpose",
-        "body": ["We discover distinctive films and their creators, creating new opportunities to reach audiences through monthly award announcements."],
+        "body": [
+          "We discover distinctive films and their creators, creating new opportunities to reach audiences through monthly award announcements."
+        ],
         "items": []
       },
       {
         "id": "principles",
         "title": "Selection principles",
-        "body": ["Every entry is reviewed against the published eligibility requirements and evaluation criteria."],
-        "items": ["Clear submission requirements", "Evaluation of each film's creative achievement", "Official online award announcements", "Certificates and laurels for winners"]
+        "body": [
+          "Every entry is reviewed against the published eligibility requirements and evaluation criteria."
+        ],
+        "items": [
+          "Clear submission requirements",
+          "Evaluation of each film's creative achievement",
+          "Official online award announcements",
+          "Certificates and laurels for winners"
+        ]
       },
       {
         "id": "operations",
         "title": "Film selection",
-        "body": ["After checking runtime, rights, subtitles, and other entry requirements, films are considered for direction, writing, cinematography, performance, production, and the other award criteria."],
+        "body": [
+          "After checking runtime, rights, subtitles, and other entry requirements, films are considered for direction, writing, cinematography, performance, production, and the other award criteria."
+        ],
         "items": []
       }
     ]
@@ -78,25 +114,38 @@
       {
         "id": "before-submit",
         "title": "Before you submit",
-        "body": ["Confirm runtime, rights, subtitle availability, contact details, and the applicable fee and refund policy."],
-        "items": ["Short: up to 35 min", "Feature: over 35 min", "The submitter must hold the rights required for review and any winner feature", "Dialogue in languages other than English or Japanese requires English subtitles"]
+        "body": [
+          "Confirm runtime, rights, subtitle availability, contact details, and the applicable fee and refund policy."
+        ],
+        "items": [
+          "Short: up to 35 min",
+          "Feature: over 35 min",
+          "The submitter must hold the rights required for review and any winner feature",
+          "Dialogue in languages other than English or Japanese requires English subtitles"
+        ]
       },
       {
         "id": "how-to-submit",
         "title": "Submission route",
-        "body": ["Submit using the button at the top of this page."],
+        "body": [
+          "Submit using the button at the top of this page."
+        ],
         "items": []
       },
       {
         "id": "fees",
         "title": "Fee and refunds",
-        "body": ["The submission fee is USD 40 per entry. Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."],
+        "body": [
+          "The submission fee is USD 40 per entry. Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."
+        ],
         "items": []
       },
       {
         "id": "deadlines",
         "title": "Monthly deadline",
-        "body": ["The monthly intake window runs from the 21st of the previous month through the 20th at 23:59 JST."],
+        "body": [
+          "The monthly intake window runs from the 21st of the previous month through the 20th at 23:59 JST."
+        ],
         "items": []
       }
     ]
@@ -110,43 +159,61 @@
       {
         "id": "eligibility",
         "title": "Eligibility",
-        "body": ["Narrative, documentary, animation, experimental, and hybrid films may be submitted when the submitter has authority to enter the work."],
-        "items": ["Submit to either the short or feature division according to runtime", "Incomplete or inaccessible screeners may be ruled ineligible", "False or materially misleading entry data may result in disqualification"]
+        "body": [
+          "Narrative, documentary, animation, experimental, and hybrid films may be submitted when the submitter has authority to enter the work."
+        ],
+        "items": [
+          "Submit to either the short or feature division according to runtime",
+          "Incomplete or inaccessible screeners may be ruled ineligible",
+          "False or materially misleading entry data may result in disqualification"
+        ]
       },
       {
         "id": "duration",
         "title": "Runtime divisions",
-        "body": ["Runtime includes credits. Exactly 35:00 belongs to the short division; 35:01 and longer belongs to the feature division."],
+        "body": [
+          "Runtime includes credits. Exactly 35:00 belongs to the short division; 35:01 and longer belongs to the feature division."
+        ],
         "items": []
       },
       {
         "id": "rights",
         "title": "Rights and permissions",
-        "body": ["The submitter is responsible for music, performance, archive, trademark, and other rights required for review and any authorized winner promotion."],
+        "body": [
+          "The submitter is responsible for music, performance, archive, trademark, and other rights required for review and any authorized winner promotion."
+        ],
         "items": []
       },
       {
         "id": "subtitles",
         "title": "Language and subtitles",
-        "body": ["Dialogue in languages other than English or Japanese requires readable English subtitles unless the work is intentionally non-verbal."],
+        "body": [
+          "Dialogue in languages other than English or Japanese requires readable English subtitles unless the work is intentionally non-verbal."
+        ],
         "items": []
       },
       {
         "id": "selection-review",
         "title": "Selection and final decisions",
-        "body": ["Eligible films are considered for each award against the published evaluation criteria."],
+        "body": [
+          "Eligible films are considered for each award against the published evaluation criteria."
+        ],
         "items": []
       },
       {
         "id": "refunds",
         "title": "Fees and refunds",
-        "body": ["Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."],
+        "body": [
+          "Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."
+        ],
         "items": []
       },
       {
         "id": "withdrawal",
         "title": "Withdrawal and corrections",
-        "body": ["Requests must include the FilmFreeway submission identifier and come from the registered contact address. Withdrawal does not automatically create a refund right."],
+        "body": [
+          "Requests must include the FilmFreeway submission identifier and come from the registered contact address. Withdrawal does not automatically create a refund right."
+        ],
         "items": []
       }
     ]
@@ -160,31 +227,41 @@
       {
         "id": "intake",
         "title": "1. Intake and eligibility",
-        "body": ["Runtime, screener access, entry details, required rights, and subtitles are checked."],
+        "body": [
+          "Runtime, screener access, entry details, required rights, and subtitles are checked."
+        ],
         "items": []
       },
       {
         "id": "preliminary-review",
         "title": "2. Award-criteria review",
-        "body": ["Each film is considered against the criteria relevant to direction, writing, cinematography, performance, production, and the other awards."],
+        "body": [
+          "Each film is considered against the criteria relevant to direction, writing, cinematography, performance, production, and the other awards."
+        ],
         "items": []
       },
       {
         "id": "human-review",
         "title": "3. Finalist selection",
-        "body": ["Award candidates are selected from each division and advanced to the final round."],
+        "body": [
+          "Award candidates are selected from each division and advanced to the final round."
+        ],
         "items": []
       },
       {
         "id": "approval",
         "title": "4. Final selection",
-        "body": ["The shortlisted films are considered again before the winner of each award is selected."],
+        "body": [
+          "The shortlisted films are considered again before the winner of each award is selected."
+        ],
         "items": []
       },
       {
         "id": "announcement",
         "title": "5. Publication and notification",
-        "body": ["Results are announced on the official website at the end of the month, with certificates and laurels provided to winners."],
+        "body": [
+          "Results are announced on the official website at the end of the month, with certificates and laurels provided to winners."
+        ],
         "items": []
       }
     ]
@@ -198,25 +275,37 @@
       {
         "id": "categories",
         "title": "Award categories",
-        "body": ["The following nine awards are offered in both the short and feature divisions."],
+        "body": [
+          "The following nine awards are offered in both the short and feature divisions."
+        ],
         "items": []
       },
       {
         "id": "allocation",
         "title": "Allocation rule",
-        "body": ["When a division has at least one eligible submission, one winner is selected for each category. Only a division with zero eligible submissions is marked no award."],
-        "items": ["One film may receive multiple awards", "Each award is selected on the merits of the submitted films", "No award may be given when there is no eligible work"]
+        "body": [
+          "When a division has at least one eligible submission, one winner is selected for each category. Only a division with zero eligible submissions is marked no award."
+        ],
+        "items": [
+          "One film may receive multiple awards",
+          "Each award is selected on the merits of the submitted films",
+          "No award may be given when there is no eligible work"
+        ]
       },
       {
         "id": "certificate",
         "title": "Digital certificate",
-        "body": ["Confirmed winners receive a PDF certificate with a unique certificate identifier that can be checked on the verification page."],
+        "body": [
+          "Confirmed winners receive a PDF certificate with a unique certificate identifier that can be checked on the verification page."
+        ],
         "items": []
       },
       {
         "id": "laurels",
         "title": "Official laurels",
-        "body": ["Confirmed winners receive an editable SVG laurel and a transparent PNG export."],
+        "body": [
+          "Confirmed winners receive an editable SVG laurel and a transparent PNG export."
+        ],
         "items": []
       }
     ]
@@ -230,13 +319,17 @@
       {
         "id": "current",
         "title": "Latest cycle",
-        "body": ["There is no published cycle yet."],
+        "body": [
+          "There is no published cycle yet."
+        ],
         "items": []
       },
       {
         "id": "archive",
         "title": "Monthly archive",
-        "body": ["View past award-winning films here."],
+        "body": [
+          "View past award-winning films here."
+        ],
         "items": []
       }
     ]
@@ -247,13 +340,62 @@
     "title": "Answers about submission, review, and results.",
     "intro": "Information about eligibility, selection, award results, and certificates.",
     "sections": [
-      { "id": "online-only", "title": "Is this an in-person festival?", "body": ["At launch, results are published online and no public venue screening is announced."], "items": [] },
-      { "id": "selection", "title": "How are films selected?", "body": ["After eligibility is checked, films are considered against the published evaluation criteria."], "items": [] },
-      { "id": "duration", "title": "Which division applies at exactly 35 minutes?", "body": ["A runtime of 35:00 belongs to the short division. Any runtime above 35:00 belongs to the feature division."], "items": [] },
-      { "id": "multiple", "title": "Can one film receive multiple awards?", "body": ["Yes. The same film may receive more than one award."], "items": [] },
-      { "id": "result", "title": "When are results published?", "body": ["Results are scheduled for 12:00 JST on the last day of the month."], "items": [] },
-      { "id": "certificates", "title": "How are certificates verified?", "body": ["Use the unique certificate identifier on the verification page. The public record does not expose private submission data."], "items": [] },
-      { "id": "refunds", "title": "What is the refund policy?", "body": ["Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."], "items": [] }
+      {
+        "id": "online-only",
+        "title": "Is this an in-person festival?",
+        "body": [
+          "At launch, results are published online and no public venue screening is announced."
+        ],
+        "items": []
+      },
+      {
+        "id": "selection",
+        "title": "How are films selected?",
+        "body": [
+          "After eligibility is checked, films are considered against the published evaluation criteria."
+        ],
+        "items": []
+      },
+      {
+        "id": "duration",
+        "title": "Which division applies at exactly 35 minutes?",
+        "body": [
+          "A runtime of 35:00 belongs to the short division. Any runtime above 35:00 belongs to the feature division."
+        ],
+        "items": []
+      },
+      {
+        "id": "multiple",
+        "title": "Can one film receive multiple awards?",
+        "body": [
+          "Yes. The same film may receive more than one award."
+        ],
+        "items": []
+      },
+      {
+        "id": "result",
+        "title": "When are results published?",
+        "body": [
+          "Results are scheduled for 12:00 JST on the last day of the month."
+        ],
+        "items": []
+      },
+      {
+        "id": "certificates",
+        "title": "How are certificates verified?",
+        "body": [
+          "Use the unique certificate identifier on the verification page. The public record does not expose private submission data."
+        ],
+        "items": []
+      },
+      {
+        "id": "refunds",
+        "title": "What is the refund policy?",
+        "body": [
+          "Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."
+        ],
+        "items": []
+      }
     ]
   },
   "contact": {
@@ -262,9 +404,30 @@
     "title": "Contact us about submissions or award results.",
     "intro": "Do not send screeners, passwords, identity documents, payment card data, or other unnecessary sensitive information through this form.",
     "sections": [
-      { "id": "scope", "title": "What to include", "body": ["Include your name, email, topic, message, and FilmFreeway submission identifier when the inquiry concerns an entry."], "items": [] },
-      { "id": "response", "title": "Response process", "body": ["A receipt email is sent after submission. We review each inquiry and reply in turn."], "items": [] },
-      { "id": "privacy", "title": "Privacy", "body": ["Inquiry information is used only to respond to your request and meet applicable legal obligations."], "items": [] }
+      {
+        "id": "scope",
+        "title": "What to include",
+        "body": [
+          "Include your name, email, topic, message, and FilmFreeway submission identifier when the inquiry concerns an entry."
+        ],
+        "items": []
+      },
+      {
+        "id": "response",
+        "title": "Response process",
+        "body": [
+          "A receipt email is sent after submission. We review each inquiry and reply in turn."
+        ],
+        "items": []
+      },
+      {
+        "id": "privacy",
+        "title": "Privacy",
+        "body": [
+          "Inquiry information is used only to respond to your request and meet applicable legal obligations."
+        ],
+        "items": []
+      }
     ]
   },
   "privacy": {
@@ -273,11 +436,46 @@
     "title": "Privacy notice",
     "intro": "How information collected through submissions and inquiries is handled.",
     "sections": [
-      { "id": "collected", "title": "Information collected", "body": ["Submission records, inquiry details, correspondence identifiers, review records, award records, and technical anti-abuse data may be processed."], "items": [] },
-      { "id": "use", "title": "Purpose of use", "body": ["Data is used to administer submissions, answer inquiries, review films, publish award results, issue certificates, prevent abuse, and meet legal obligations."], "items": [] },
-      { "id": "retention", "title": "Retention", "body": ["Information is retained only for as long as needed for the stated purposes and applicable legal requirements."], "items": [] },
-      { "id": "processors", "title": "Service providers", "body": ["Information may be shared with service providers used for submissions, email, website operation, and abuse prevention only to the extent needed for those purposes."], "items": [] },
-      { "id": "rights", "title": "Questions and requests", "body": ["Use the contact route for applicable access, correction, deletion, or objection requests. Identity may need to be verified before a request is completed."], "items": [] }
+      {
+        "id": "collected",
+        "title": "Information collected",
+        "body": [
+          "Submission records, inquiry details, correspondence identifiers, review records, award records, and technical anti-abuse data may be processed."
+        ],
+        "items": []
+      },
+      {
+        "id": "use",
+        "title": "Purpose of use",
+        "body": [
+          "Data is used to administer submissions, answer inquiries, review films, publish award results, issue certificates, prevent abuse, and meet legal obligations."
+        ],
+        "items": []
+      },
+      {
+        "id": "retention",
+        "title": "Retention",
+        "body": [
+          "Information is retained only for as long as needed for the stated purposes and applicable legal requirements."
+        ],
+        "items": []
+      },
+      {
+        "id": "processors",
+        "title": "Service providers",
+        "body": [
+          "Information may be shared with service providers used for submissions, email, website operation, and abuse prevention only to the extent needed for those purposes."
+        ],
+        "items": []
+      },
+      {
+        "id": "rights",
+        "title": "Questions and requests",
+        "body": [
+          "Use the contact route for applicable access, correction, deletion, or objection requests. Identity may need to be verified before a request is completed."
+        ],
+        "items": []
+      }
     ]
   },
   "terms": {
@@ -286,22 +484,46 @@
     "title": "Website and participation terms",
     "intro": "The basic terms that apply to use of this website and film submissions.",
     "sections": [
-      { "id": "service", "title": "Website use", "body": ["Users must not interfere with the site, attempt unauthorized access, submit malicious content, or misrepresent affiliation with the program."], "items": [] },
-      { "id": "submissions", "title": "Submissions", "body": ["Film entries are governed by the published rules and the confirmed FilmFreeway listing. The submitter is responsible for accurate data and required rights."], "items": [] },
-      { "id": "decisions", "title": "Decisions and corrections", "body": ["Clerical or factual errors may be corrected. Affected participants will be contacted when appropriate."], "items": [] },
-      { "id": "refunds", "title": "Fees and refunds", "body": ["Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."], "items": [] },
-      { "id": "liability", "title": "Schedule and program changes", "body": ["Dates or program details may change due to natural disasters, communications failures, or other unavoidable circumstances. Material changes will be announced on the official website."], "items": [] }
-    ]
-  },
-  "accessibility": {
-    "seoTitle": "Accessibility",
-    "eyebrow": "Accessibility",
-    "title": "A site designed for keyboard, screen reader, and zoom use.",
-    "intro": "If you encounter a barrier while using the site, please let us know through the contact route.",
-    "sections": [
-      { "id": "commitment", "title": "Commitment", "body": ["We aim to keep content perceivable, operable, understandable, and robust across modern devices and assistive technologies."], "items": [] },
-      { "id": "measures", "title": "Measures", "body": ["The site supports semantic headings, visible keyboard focus, image alternatives, sufficient contrast, responsive layouts, and reduced motion."], "items": [] },
-      { "id": "feedback", "title": "Report a barrier", "body": ["Use the contact form. Describe the page, task, device, browser, and assistive technology when possible."], "items": [] }
+      {
+        "id": "service",
+        "title": "Website use",
+        "body": [
+          "Users must not interfere with the site, attempt unauthorized access, submit malicious content, or misrepresent affiliation with the program."
+        ],
+        "items": []
+      },
+      {
+        "id": "submissions",
+        "title": "Submissions",
+        "body": [
+          "Film entries are governed by the published rules and the confirmed FilmFreeway listing. The submitter is responsible for accurate data and required rights."
+        ],
+        "items": []
+      },
+      {
+        "id": "decisions",
+        "title": "Decisions and corrections",
+        "body": [
+          "Clerical or factual errors may be corrected. Affected participants will be contacted when appropriate."
+        ],
+        "items": []
+      },
+      {
+        "id": "refunds",
+        "title": "Fees and refunds",
+        "body": [
+          "Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."
+        ],
+        "items": []
+      },
+      {
+        "id": "liability",
+        "title": "Schedule and program changes",
+        "body": [
+          "Dates or program details may change due to natural disasters, communications failures, or other unavoidable circumstances. Material changes will be announced on the official website."
+        ],
+        "items": []
+      }
     ]
   },
   "verify": {
@@ -310,8 +532,22 @@
     "title": "Check a published certificate identifier.",
     "intro": "Verification confirms only the public award record associated with the identifier. It does not expose submission or review data.",
     "sections": [
-      { "id": "lookup", "title": "Enter the certificate ID", "body": ["Use the exact identifier printed on the PDF certificate."], "items": [] },
-      { "id": "result", "title": "Verification result", "body": ["A confirmed record displays the cycle, division, award, film title, credited recipient, issue date, and current certificate status."], "items": [] }
+      {
+        "id": "lookup",
+        "title": "Enter the certificate ID",
+        "body": [
+          "Use the exact identifier printed on the PDF certificate."
+        ],
+        "items": []
+      },
+      {
+        "id": "result",
+        "title": "Verification result",
+        "body": [
+          "A confirmed record displays the cycle, division, award, film title, credited recipient, issue date, and current certificate status."
+        ],
+        "items": []
+      }
     ]
   }
 }

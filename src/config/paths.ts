@@ -12,7 +12,6 @@ export const pageSlugs: Record<PageKey, string> = {
   contact: "contact",
   privacy: "privacy",
   terms: "terms",
-  accessibility: "accessibility",
   verify: "verify"
 };
 
@@ -40,7 +39,6 @@ export const navigationLabels: Record<Locale, Partial<Record<PageKey, string>>> 
     contact: "Contact",
     privacy: "Privacy",
     terms: "Terms",
-    accessibility: "Accessibility",
     verify: "Verify certificate"
   },
   ja: {
@@ -54,7 +52,6 @@ export const navigationLabels: Record<Locale, Partial<Record<PageKey, string>>> 
     contact: "お問い合わせ",
     privacy: "プライバシー",
     terms: "利用規約",
-    accessibility: "アクセシビリティ",
     verify: "証書確認"
   }
 };

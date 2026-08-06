@@ -17,8 +17,10 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
   <section class="band band--light">
     <div class="container contact-layout">
       <div>
-        <p class="eyebrow">{locale === "ja" ? "問い合わせフォーム" : "Inquiry form"}</p>
-        <h2>{locale === "ja" ? "必要な情報だけを送信してください。" : "Send only the information required to answer the question."}</h2>
+        <h2 class="contact-form-title">{locale === "ja" ? "問い合わせフォーム" : "Inquiry form"}</h2>
+        <p class="contact-form-lead">{locale === "ja"
+          ? "ご返信までに2〜3営業日ほどいただきます。内容によってはさらにお時間をいただく場合があります。"
+          : "We reply within two to three business days. Some inquiries take longer."}</p>
       </div>
       <form
         class="contact-form"
