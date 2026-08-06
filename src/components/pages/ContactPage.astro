@@ -76,23 +76,42 @@ const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSit
   const submit = form?.querySelector("button[type='submit']");
   const ready = form?.getAttribute("data-contact-ready") === "true";
 
+  const ja = document.documentElement.lang === "ja";
+  let pending = false;
+  let timeout: number | undefined;
+
+  const finish = (message: string, ok: boolean) => {
+    if (!pending) return;
+    pending = false;
+    if (timeout) window.clearTimeout(timeout);
+    if (status) status.textContent = message;
+    if (ok && form instanceof HTMLFormElement) form.reset();
+    if (submit instanceof HTMLButtonElement) submit.disabled = false;
+    const turnstileWindow = window as typeof window & { turnstile?: { reset?: () => void } };
+    turnstileWindow.turnstile?.reset?.();
+  };
+
   form?.addEventListener("submit", (event) => {
     if (!ready) {
       event.preventDefault();
       return;
     }
-    if (status) status.textContent = document.documentElement.lang === "ja" ? "送信中です。" : "Sending...";
+    pending = true;
+    if (status) status.textContent = ja ? "送信中です。" : "Sending...";
     if (submit instanceof HTMLButtonElement) submit.disabled = true;
+    // The reply travels back through a cross-origin frame, which some browsers block. Never leave the
+    // form claiming it is still sending: point the sender at the receipt email instead.
+    timeout = window.setTimeout(() => finish(ja
+      ? "送信結果を確認できませんでした。受付メールが届いていれば受付は完了しています。届いていない場合は、時間をおいてもう一度お試しください。"
+      : "The result could not be confirmed. If you received the acknowledgement email, your inquiry was accepted. Otherwise, please try again later.", false), 20000);
   });
 
   window.addEventListener("message", (event) => {
+    // The document that posts this is nested inside an Apps Script frame, so it is not necessarily
+    // this iframe's own window. The origin allowlist and the message type are what identify it.
     const allowed = event.origin === "https://script.google.com" || event.origin.endsWith(".googleusercontent.com");
-    if (!allowed || !(frame instanceof HTMLIFrameElement) || event.source !== frame.contentWindow) return;
+    if (!allowed || !(frame instanceof HTMLIFrameElement)) return;
     if (!event.data || event.data.type !== "festival-contact-result") return;
-    if (status) status.textContent = event.data.message;
-    if (event.data.ok && form instanceof HTMLFormElement) form.reset();
-    if (submit instanceof HTMLButtonElement) submit.disabled = false;
-    const turnstileWindow = window as typeof window & { turnstile?: { reset?: () => void } };
-    turnstileWindow.turnstile?.reset?.();
+    finish(String(event.data.message || ""), Boolean(event.data.ok));
   });
 </script>
