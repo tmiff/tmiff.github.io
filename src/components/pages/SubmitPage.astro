@@ -12,7 +12,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "submit");
 const submissionsOpen = siteConfig.releasePhase === "submissions-open" && Boolean(siteConfig.filmFreewayUrl);
-const heroLabel = locale === "ja" ? navigationLabels.ja.submit ?? content.eyebrow : getPageContent("en", "submit").eyebrow;
+const heroLabel = navigationLabels[locale].submit ?? content.eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey="submit" title={content.seoTitle} description={content.intro}>

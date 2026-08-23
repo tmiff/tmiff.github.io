@@ -1,10 +1,12 @@
 ---
 import {
   Award,
+  BookOpen,
   Briefcase,
   Camera,
+  Clapperboard,
   Drama,
-  Medal,
+  Film,
   Megaphone,
   PenLine,
   Sparkles,
@@ -16,11 +18,19 @@ import type { Locale } from "../types";
 
 interface Props {
   locale: Locale;
+  divisionId?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, divisionId } = Astro.props;
+
+const visibleAwards = divisionId
+  ? awards.categories.filter((award) => award.divisions.includes(divisionId))
+  : awards.categories.filter((award) => award.divisions.length === awards.divisions.length);
 
 const awardIcons: Record<string, typeof Award> = {
+  "best-feature-film": Film,
+  "best-short-film": Clapperboard,
+  "best-documentary": BookOpen,
   "best-director": Megaphone,
   "best-cinematography": Camera,
   "best-supporting-actress": Star,
@@ -29,12 +39,11 @@ const awardIcons: Record<string, typeof Award> = {
   "best-actor": Drama,
   "best-supporting-actor": Users,
   "best-actress": Sparkles,
-  "honorable-mention": Medal,
 };
 ---
 
 <div class="award-grid" role="list">
-  {awards.categories.map((award, index) => {
+  {visibleAwards.map((award, index) => {
     const Icon = awardIcons[award.id] ?? Award;
     return (
       <article class="award-card" role="listitem">

@@ -17,8 +17,9 @@ await fs.mkdir(output, { recursive: true });
 const escapeXml = (value) => String(value).replace(/[<>&'\"]/g, (character) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", "\"": "&quot;" }[character]));
 const fittedSize = (value, maximum, targetCharacters, minimum) => Math.max(minimum, Math.min(maximum, Math.floor(maximum * targetCharacters / Math.max(String(value).length, targetCharacters))));
 
+let generatedCount = 0;
 for (const division of awards.divisions) {
-  for (const award of awards.categories) {
+  for (const award of awards.categories.filter((category) => category.divisions.includes(division.id))) {
     const slug = `${division.id}-${award.id}`;
     const festivalLabel = site.festivalName.toUpperCase();
     const awardLabel = award.en.toUpperCase();
@@ -42,7 +43,8 @@ for (const division of awards.divisions) {
     const svgPath = path.join(output, `${slug}.svg`);
     await fs.writeFile(svgPath, svg, "utf8");
     await sharp(Buffer.from(svg)).png().toFile(path.join(output, `${slug}.png`));
+    generatedCount += 1;
   }
 }
 
-console.log(`Generated ${awards.divisions.length * awards.categories.length} editable SVG laurels and transparent PNG exports.`);
+console.log(`Generated ${generatedCount} editable SVG laurels and transparent PNG exports.`);

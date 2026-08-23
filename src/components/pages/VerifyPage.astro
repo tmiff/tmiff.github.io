@@ -10,7 +10,7 @@ import type { Locale } from "../../types";
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "verify");
-const heroLabel = locale === "ja" ? navigationLabels.ja.verify ?? content.eyebrow : getPageContent("en", "verify").eyebrow;
+const heroLabel = navigationLabels[locale].verify ?? content.eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey="verify" title={content.seoTitle} description={content.intro}>

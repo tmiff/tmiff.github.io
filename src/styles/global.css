@@ -993,6 +993,10 @@ body[data-page="home"] .site-header {
   line-height: 1.8;
 }
 
+.home-awards-feature__actions {
+  margin-top: var(--space-phi-3);
+}
+
 .home-review-content > p {
   margin-bottom: 22px;
   color: var(--muted);
@@ -1638,19 +1642,41 @@ body[data-page="home"] .site-header {
   color: var(--muted);
 }
 
-.division-labels {
+.award-tabs__list {
   display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
+  gap: 0;
+  margin-bottom: var(--space-phi-5);
 }
 
-.division-labels span {
-  padding: 8px 12px;
+.award-tabs__tab {
+  min-width: 160px;
+  min-height: 52px;
+  padding: 12px 21px;
   border: 1px solid #57554f;
-  border-radius: 3px;
   color: #d7d5cf;
-  font-size: 12px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
   font-weight: 700;
+}
+
+.award-tabs__tab + .award-tabs__tab {
+  border-left: 0;
+}
+
+.award-tabs__tab[aria-selected="true"] {
+  border-color: var(--red);
+  color: var(--white);
+  background: var(--red);
+}
+
+.award-tabs__tab:hover:not([aria-selected="true"]) {
+  color: var(--white);
+  background: rgb(255 255 255 / 7%);
+}
+
+.award-tabs__panel[hidden] {
+  display: none;
 }
 
 .winners-index {
@@ -2318,6 +2344,16 @@ body[data-page="home"] .site-header {
   .fact-strip__inner,
   .award-grid {
     grid-template-columns: 1fr;
+  }
+
+  .award-tabs__list {
+    margin-bottom: var(--space-phi-4);
+  }
+
+  .award-tabs__tab {
+    flex: 1;
+    min-width: 0;
+    padding-inline: var(--space-phi-2);
   }
 
   .step-card,

@@ -1,6 +1,5 @@
 ---
 import { ArrowRight, BadgeCheck, Building2, CalendarClock, Check, ClipboardCheck, Eye, Film, MonitorPlay } from "lucide-astro";
-import AwardGrid from "../AwardGrid.astro";
 import EditorialImage from "../EditorialImage.astro";
 import HomeHero from "../HomeHero.astro";
 import { getPageContent, getSection } from "../../config/content";
@@ -95,14 +94,13 @@ const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
         <div class="home-awards-feature__shade" aria-hidden="true"></div>
         <div class="container home-awards-feature__copy">
           <h2 id="awards-title" class="home-promoted-heading home-promoted-heading--light">{locale === "ja" ? "受賞項目" : "Award Categories"}</h2>
-          <p>{locale === "ja" ? "短編部門と長編部門に同じ賞構成を適用します。" : "The short and feature divisions use the same award structure."}</p>
+          <p>{locale === "ja" ? "短編・長編の各部門で、作品賞と共通の専門賞を選出します。" : "Each runtime division has a Best Film award alongside the shared craft awards."}</p>
+          <div class="home-awards-feature__actions">
+            <a class="text-link text-link--light" href={pagePath(locale, "awards")}>
+              {locale === "ja" ? "賞と証書を見る" : "View awards and certificates"}<ArrowRight size={17} aria-hidden="true" />
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="container"><AwardGrid locale={locale} /></div>
-      <div class="container section-link-row">
-        <a class="text-link text-link--light" href={pagePath(locale, "awards")}>
-          {locale === "ja" ? "賞と証書を見る" : "View awards and certificates"}<ArrowRight size={17} aria-hidden="true" />
-        </a>
       </div>
     </div>
   </section>

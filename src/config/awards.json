@@ -4,15 +4,17 @@
     { "id": "feature", "en": "Feature Film", "ja": "長編部門" }
   ],
   "categories": [
-    { "id": "best-director", "en": "Best Director", "ja": "最優秀監督賞" },
-    { "id": "best-cinematography", "en": "Best Cinematography", "ja": "最優秀撮影賞" },
-    { "id": "best-producer", "en": "Best Producer", "ja": "最優秀プロデューサー賞" },
-    { "id": "best-writer", "en": "Best Writer", "ja": "最優秀脚本賞" },
-    { "id": "best-actor", "en": "Best Actor", "ja": "最優秀男優賞" },
-    { "id": "best-actress", "en": "Best Actress", "ja": "最優秀女優賞" },
-    { "id": "best-supporting-actor", "en": "Best Supporting Actor", "ja": "最優秀助演男優賞" },
-    { "id": "best-supporting-actress", "en": "Best Supporting Actress", "ja": "最優秀助演女優賞" },
-    { "id": "honorable-mention", "en": "Honorable Mention", "ja": "佳作" }
+    { "id": "best-feature-film", "en": "Best Feature Film", "ja": "最優秀長編映画賞", "divisions": ["feature"] },
+    { "id": "best-short-film", "en": "Best Short Film", "ja": "最優秀短編映画賞", "divisions": ["short"] },
+    { "id": "best-documentary", "en": "Best Documentary", "ja": "最優秀ドキュメンタリー賞", "divisions": ["short", "feature"] },
+    { "id": "best-director", "en": "Best Director", "ja": "最優秀監督賞", "divisions": ["short", "feature"] },
+    { "id": "best-cinematography", "en": "Best Cinematography", "ja": "最優秀撮影賞", "divisions": ["short", "feature"] },
+    { "id": "best-producer", "en": "Best Producer", "ja": "最優秀プロデューサー賞", "divisions": ["short", "feature"] },
+    { "id": "best-writer", "en": "Best Writer", "ja": "最優秀脚本賞", "divisions": ["short", "feature"] },
+    { "id": "best-actor", "en": "Best Actor", "ja": "最優秀男優賞", "divisions": ["short", "feature"] },
+    { "id": "best-actress", "en": "Best Actress", "ja": "最優秀女優賞", "divisions": ["short", "feature"] },
+    { "id": "best-supporting-actor", "en": "Best Supporting Actor", "ja": "最優秀助演男優賞", "divisions": ["short", "feature"] },
+    { "id": "best-supporting-actress", "en": "Best Supporting Actress", "ja": "最優秀助演女優賞", "divisions": ["short", "feature"] }
   ],
   "allowMultipleAwardsPerFilm": true,
   "winnerRequiredPerCategory": false,

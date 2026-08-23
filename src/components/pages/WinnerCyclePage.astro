@@ -15,9 +15,8 @@ const { locale, cycle } = Astro.props;
 const base = getPageContent(locale, "winners");
 const categoryMap = new Map(awards.categories.map((item) => [item.id, item[locale]]));
 
-// The published order of the awards, not the order somebody happened to type the results in. The
-// same nine awards appear in the same sequence every month, and in the same sequence as the numbered
-// list on the Awards page, so a reader can find a category in the place they saw it last month.
+// Use the published category order instead of the order in which results were entered, so each
+// division remains consistent with the numbered list on the Awards page.
 const categoryOrder = new Map(awards.categories.map((item, index) => [item.id, index]));
 const byCategory = <T extends { categoryId: string }>(a: T, b: T) =>
   (categoryOrder.get(a.categoryId) ?? Number.MAX_SAFE_INTEGER) - (categoryOrder.get(b.categoryId) ?? Number.MAX_SAFE_INTEGER);

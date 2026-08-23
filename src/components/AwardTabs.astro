@@ -1,0 +1,80 @@
+---
+import AwardGrid from "./AwardGrid.astro";
+import awards from "../config/awards.json";
+import type { Locale } from "../types";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const tabListLabel = locale === "ja" ? "上映時間部門別の賞" : "Awards by runtime division";
+---
+
+<div class="award-tabs" data-award-tabs>
+  <div class="award-tabs__list" role="tablist" aria-label={tabListLabel}>
+    {awards.divisions.map((division, index) => (
+      <button
+        class="award-tabs__tab"
+        id={`award-tab-${locale}-${division.id}`}
+        type="button"
+        role="tab"
+        aria-selected={index === 0 ? "true" : "false"}
+        aria-controls={`award-panel-${locale}-${division.id}`}
+        tabindex={index === 0 ? 0 : -1}
+        data-award-tab={division.id}
+      >
+        {division[locale]}
+      </button>
+    ))}
+  </div>
+
+  {awards.divisions.map((division, index) => (
+    <div
+      class="award-tabs__panel"
+      id={`award-panel-${locale}-${division.id}`}
+      role="tabpanel"
+      aria-labelledby={`award-tab-${locale}-${division.id}`}
+      hidden={index !== 0}
+      data-award-panel={division.id}
+    >
+      <AwardGrid locale={locale} divisionId={division.id} />
+    </div>
+  ))}
+</div>
+
+<script>
+  const activateAwardTab = (root: HTMLElement, nextTab: HTMLButtonElement, moveFocus = false) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-award-tab]"));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-award-panel]"));
+    const nextId = nextTab.dataset.awardTab;
+
+    for (const tab of tabs) {
+      const isSelected = tab === nextTab;
+      tab.setAttribute("aria-selected", String(isSelected));
+      tab.tabIndex = isSelected ? 0 : -1;
+    }
+
+    for (const panel of panels) panel.hidden = panel.dataset.awardPanel !== nextId;
+    if (moveFocus) nextTab.focus();
+  };
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-award-tabs]")) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-award-tab]"));
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activateAwardTab(root, tab));
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+        else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = tabs.length - 1;
+        else return;
+
+        event.preventDefault();
+        activateAwardTab(root, tabs[nextIndex], true);
+      });
+    });
+  }
+</script>

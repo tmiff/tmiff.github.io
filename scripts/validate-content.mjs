@@ -65,17 +65,33 @@ if (schedule.durationBoundarySeconds !== 1800) errors.push("Duration boundary mu
 if (schedule.maxFinalistsPerDivision !== 5) errors.push("Maximum finalists per division must be 5.");
 if (schedule.timezone !== "Asia/Tokyo") errors.push("Operational timezone must be Asia/Tokyo.");
 if (awards.divisions.length !== 2) errors.push("There must be exactly two runtime divisions.");
-if (awards.categories.length !== 9) errors.push("There must be exactly nine award categories.");
+if (awards.categories.length !== 11) errors.push("There must be exactly eleven configured award categories.");
 const expectedMilestones = ["preselection:", "human-review:", "dual-approval:", "publication:last-day"];
 const actualMilestones = schedule.milestones.map((item) => `${item.id}:${item.days || ""}`);
 if (JSON.stringify(actualMilestones) !== JSON.stringify(expectedMilestones)) errors.push(`Monthly milestones differ from the approved contract: ${actualMilestones.join(", ")}`);
-const expectedAwardIds = ["best-director", "best-cinematography", "best-producer", "best-writer", "best-actor", "best-actress", "best-supporting-actor", "best-supporting-actress", "honorable-mention"];
+const expectedAwardIds = ["best-feature-film", "best-short-film", "best-documentary", "best-director", "best-cinematography", "best-producer", "best-writer", "best-actor", "best-actress", "best-supporting-actor", "best-supporting-actress"];
 if (JSON.stringify(awards.categories.map((item) => item.id)) !== JSON.stringify(expectedAwardIds)) errors.push("Award category IDs or ordering differ from the approved contract.");
+const expectedAwardDivisions = new Map([
+  ["best-feature-film", ["feature"]],
+  ["best-short-film", ["short"]],
+  ["best-documentary", ["short", "feature"]],
+  ["best-director", ["short", "feature"]],
+  ["best-cinematography", ["short", "feature"]],
+  ["best-producer", ["short", "feature"]],
+  ["best-writer", ["short", "feature"]],
+  ["best-actor", ["short", "feature"]],
+  ["best-actress", ["short", "feature"]],
+  ["best-supporting-actor", ["short", "feature"]],
+  ["best-supporting-actress", ["short", "feature"]]
+]);
 if (awards.allowMultipleAwardsPerFilm !== true) errors.push("Multiple awards per film must remain allowed.");
 if (awards.winnerRequiredPerCategory !== false) errors.push("A winner must not be required when no submitted film meets the published criteria.");
 if (awards.allowNoAwardPerCategory !== true) errors.push("No Award must be permitted for each individual category.");
 for (const award of awards.categories) {
   if (!String(award.en || "").trim() || !String(award.ja || "").trim()) errors.push(`Award label is incomplete: ${award.id}`);
+  if (JSON.stringify(award.divisions) !== JSON.stringify(expectedAwardDivisions.get(award.id))) {
+    errors.push(`Award division mapping differs from the approved contract: ${award.id}`);
+  }
 }
 
 requireTokens(section(en.submit, "deadlines"), ["21st", "20th", "23:59"], "en.submit.deadlines");
@@ -136,7 +152,11 @@ for (const slot of imageSlots) {
 const certificateIds = new Set();
 const validCategoryIds = new Set(awards.categories.map((item) => item.id));
 const validDivisionIds = new Set(awards.divisions.map((item) => item.id));
-const expectedOutcomeCount = awards.divisions.length * awards.categories.length;
+const categoryById = new Map(awards.categories.map((item) => [item.id, item]));
+const expectedOutcomeCount = awards.divisions.reduce(
+  (total, division) => total + awards.categories.filter((category) => category.divisions.includes(division.id)).length,
+  0
+);
 for (const cycle of winners) {
   if (!/^\d{4}-\d{2}$/.test(cycle.cycleId)) errors.push(`Invalid cycle ID: ${cycle.cycleId}`);
   if (!cycle.localeTitles?.en || !cycle.localeTitles?.ja) errors.push(`Missing localized cycle title: ${cycle.cycleId}`);
@@ -144,6 +164,9 @@ for (const cycle of winners) {
   for (const award of cycle.awards || []) {
     if (!validCategoryIds.has(award.categoryId)) errors.push(`Unknown award category: ${award.categoryId}`);
     if (!validDivisionIds.has(award.divisionId)) errors.push(`Unknown division: ${award.divisionId}`);
+    if (validCategoryIds.has(award.categoryId) && validDivisionIds.has(award.divisionId) && !categoryById.get(award.categoryId).divisions.includes(award.divisionId)) {
+      errors.push(`Award category ${award.categoryId} does not apply to division ${award.divisionId}.`);
+    }
     const outcomeKey = `${award.divisionId}:${award.categoryId}`;
     if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
     outcomeKeys.add(outcomeKey);
@@ -156,6 +179,9 @@ for (const cycle of winners) {
   for (const noAward of cycle.noAwards || []) {
     if (!validCategoryIds.has(noAward.categoryId)) errors.push(`Unknown No Award category: ${noAward.categoryId}`);
     if (!validDivisionIds.has(noAward.divisionId)) errors.push(`Unknown No Award division: ${noAward.divisionId}`);
+    if (validCategoryIds.has(noAward.categoryId) && validDivisionIds.has(noAward.divisionId) && !categoryById.get(noAward.categoryId).divisions.includes(noAward.divisionId)) {
+      errors.push(`No Award category ${noAward.categoryId} does not apply to division ${noAward.divisionId}.`);
+    }
     const outcomeKey = `${noAward.divisionId}:${noAward.categoryId}`;
     if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
     outcomeKeys.add(outcomeKey);
@@ -176,4 +202,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Content validation passed: ${enKeys.length} bilingual pages, ${awards.categories.length} awards, ${imageSlots.length} image slots.`);
+console.log(`Content validation passed: ${enKeys.length} bilingual pages, ${expectedOutcomeCount} division-specific award outcomes, ${imageSlots.length} image slots.`);

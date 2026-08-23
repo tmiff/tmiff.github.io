@@ -11,7 +11,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "contact");
 const configured = Boolean(siteConfig.contactEndpoint && siteConfig.turnstileSiteKey);
-const heroLabel = locale === "ja" ? navigationLabels.ja.contact ?? content.eyebrow : getPageContent("en", "contact").eyebrow;
+const heroLabel = navigationLabels[locale].contact ?? content.eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey="contact" title={content.seoTitle} description={content.intro}>

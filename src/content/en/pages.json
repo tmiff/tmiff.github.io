@@ -26,7 +26,7 @@
         ],
         "items": [
           "Up to five candidates per division",
-          "Nine award categories per division",
+          "Ten awards per division",
           "Digital certificates for confirmed winners"
         ]
       },
@@ -128,7 +128,7 @@
         "id": "how-to-submit",
         "title": "Submission route",
         "body": [
-          "Submit using the button at the top of this page."
+          "Submit using the FilmFreeway button at the bottom of this page."
         ],
         "items": []
       },
@@ -196,7 +196,7 @@
         "id": "selection-review",
         "title": "Selection and final decisions",
         "body": [
-          "Eligible films are considered for each award against the published evaluation criteria."
+          "All eligible films are reviewed against creative achievement criteria. The jury's decision is final."
         ],
         "items": []
       },
@@ -269,14 +269,14 @@
   "awards": {
     "seoTitle": "Awards",
     "eyebrow": "Monthly awards",
-    "title": "Nine categories in each runtime division.",
-    "intro": "Short and feature divisions use the same award structure. A film may receive more than one award.",
+    "title": "Ten awards in each runtime division.",
+    "intro": "Each division has its own Best Film award alongside the shared documentary and craft awards. A film may receive more than one award.",
     "sections": [
       {
         "id": "categories",
         "title": "Award categories",
         "body": [
-          "The following nine awards are offered in both the short and feature divisions."
+          "Ten awards are offered in each of the short and feature divisions."
         ],
         "items": []
       },
