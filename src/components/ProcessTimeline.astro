@@ -10,8 +10,8 @@ interface Props {
 const { locale, sections } = Astro.props;
 const icons = [FileUp, ClipboardCheck, Eye, BadgeCheck, Radio];
 const dates = locale === "ja"
-  ? ["前月21日 - 当月20日", "21日 - 22日", "23日 - 27日", "28日 - 29日", "月末12:00"]
-  : ["Previous 21st - current 20th", "21st - 22nd", "23rd - 27th", "28th - 29th", "Month-end, 12:00"];
+  ? ["毎月20日 23:59締切", "", "", "", "月末発表"]
+  : ["20th at 23:59 JST", "", "", "", "Month-end announcement"];
 ---
 
 <ol class="process-timeline">
@@ -20,6 +20,8 @@ const dates = locale === "ja"
     return (
       <li id={section.id}>
         <div class="process-timeline__marker"><Icon size={21} aria-hidden="true" /></div>
+        {/* The cell stays even when a step has no date: the row is a three-column grid, and a
+            missing cell pushes the step's text into the narrow date column. */}
         <div class="process-timeline__date">{dates[index]}</div>
         <div class="process-timeline__content">
           <h2>{section.title}</h2>

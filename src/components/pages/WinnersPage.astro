@@ -2,7 +2,7 @@
 import { ArrowRight, CalendarX2 } from "lucide-astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
-import { pagePath } from "../../config/paths";
+import { navigationLabels, pagePath } from "../../config/paths";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import records from "../../content/winners/records.json";
 import type { Locale, WinnerRecord } from "../../types";
@@ -16,7 +16,7 @@ const winners = records as WinnerRecord[];
 <BaseLayout locale={locale} pageKey="winners" title={content.seoTitle} description={content.intro}>
   <header class="winners-hero">
     <div class="container">
-      <h1>{content.title}</h1>
+      <h1>{locale === "ja" ? navigationLabels.ja.winners ?? content.title : content.title}</h1>
     </div>
   </header>
   <section class="band band--light">

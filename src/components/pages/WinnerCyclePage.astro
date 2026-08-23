@@ -14,7 +14,30 @@ interface Props {
 const { locale, cycle } = Astro.props;
 const base = getPageContent(locale, "winners");
 const categoryMap = new Map(awards.categories.map((item) => [item.id, item[locale]]));
-const divisionMap = new Map(awards.divisions.map((item) => [item.id, item[locale]]));
+
+// The published order of the awards, not the order somebody happened to type the results in. The
+// same nine awards appear in the same sequence every month, and in the same sequence as the numbered
+// list on the Awards page, so a reader can find a category in the place they saw it last month.
+const categoryOrder = new Map(awards.categories.map((item, index) => [item.id, index]));
+const byCategory = <T extends { categoryId: string }>(a: T, b: T) =>
+  (categoryOrder.get(a.categoryId) ?? Number.MAX_SAFE_INTEGER) - (categoryOrder.get(b.categoryId) ?? Number.MAX_SAFE_INTEGER);
+
+// Results are grouped under their division: this is a results page, so the winners of a division
+// belong together, and the categories that went unawarded belong after them rather than in front.
+const groups = awards.divisions
+  .map((division) => ({
+    division,
+    won: (cycle.awards || []).filter((award) => award.divisionId === division.id).sort(byCategory),
+    unawarded: (cycle.noAwards || []).filter((item) => item.divisionId === division.id).sort(byCategory)
+  }))
+  .filter((group) => group.won.length > 0 || group.unawarded.length > 0);
+
+const noAwardLabel = locale === "ja" ? "該当なし" : "No Award";
+const separator = locale === "ja" ? "／" : ", ";
+const noAwardSentence = (count: number) =>
+  locale === "ja"
+    ? `公開された評価基準に基づく選考の結果、${count > 1 ? "これらの賞" : "この賞"}は「該当なし」となりました。`
+    : `Following selection against the published evaluation criteria, ${count > 1 ? "these categories were" : "this category was"} marked “No Award.”`;
 ---
 
 <BaseLayout locale={locale} pageKey="winners" title={cycle.localeTitles[locale]} description={base.intro}>
@@ -26,36 +49,49 @@ const divisionMap = new Map(awards.divisions.map((item) => [item.id, item[locale
     </div>
   </header>
   <section class="band band--light">
-    <div class="container winner-results">
-      {(cycle.noAwardDivisions || []).map((divisionId) => (
-        <div class="no-award-notice">
-          <strong>{divisionMap.get(divisionId)}</strong>
-          <span>{locale === "ja" ? "応募資格を満たす作品が0本のため、この部門は該当なしです。" : "No award was issued because this division had zero eligible submissions."}</span>
-        </div>
-      ))}
-      {cycle.awards.map((award) => (
-        <article class="winner-card">
-          {award.stillUrl && award.stillAlt && <img src={award.stillUrl} alt={award.stillAlt[locale]} loading="lazy" />}
-          <div>
-            <p class="eyebrow">{divisionMap.get(award.divisionId)}</p>
-            <h2>{categoryMap.get(award.categoryId)}</h2>
-            <p class="winner-card__film">{award.filmTitle}</p>
-            <p>{award.recipientName} · {award.recipientCredit}</p>
-            <a class="text-link" href={`${pagePath(locale, "verify")}?id=${encodeURIComponent(award.certificateId)}`}><ShieldCheck size={17} />{award.certificateId}</a>
+    <div class="container">
+      {groups.map((group) => (
+        <section class="division-results">
+          <h2 class="division-results__title">{group.division[locale]}</h2>
+          <div class="winner-results">
+            {group.won.map((award) => (
+              <article class={award.stillUrl && award.stillAlt ? "winner-card" : "winner-card winner-card--no-still"}>
+                {award.stillUrl && award.stillAlt && <img src={award.stillUrl} alt={award.stillAlt[locale]} loading="lazy" />}
+                <div>
+                  <h3>{categoryMap.get(award.categoryId)}</h3>
+                  <p class="winner-card__film">{award.filmTitle}</p>
+                  <p>{award.recipientName} · {award.recipientCredit}</p>
+                  <a class="text-link" href={`${pagePath(locale, "verify")}?id=${encodeURIComponent(award.certificateId)}`}><ShieldCheck size={17} />{award.certificateId}</a>
+                </div>
+              </article>
+            ))}
+            {group.unawarded.length > 0 && (
+              <div class="no-award-notice">
+                <p class="eyebrow">{noAwardLabel}</p>
+                <strong>{group.unawarded.map((item) => categoryMap.get(item.categoryId)).join(separator)}</strong>
+                <span>{noAwardSentence(group.unawarded.length)}</span>
+              </div>
+            )}
           </div>
-        </article>
+        </section>
       ))}
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .division-results + .division-results { margin-top: 55px; }
+  .division-results__title { margin-bottom: 21px; }
   .winner-results { display: grid; gap: 18px; }
   .winner-card { display: grid; grid-template-columns: minmax(220px, .36fr) minmax(0, .64fr); gap: 34px; padding: 28px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+  /* Without a still there is no first column to fill, and a card that keeps one opens with a gap. */
+  .winner-card--no-still { grid-template-columns: 1fr; }
   .winner-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-  .winner-card h2 { margin-bottom: 12px; font-size: 27px; }
-  .winner-card__film { font-size: 20px; font-weight: 700; }
+  .winner-card h3 { margin-bottom: var(--space-phi-2); font-size: var(--text-heading); font-weight: 700; }
+  .winner-card__film { font-size: var(--text-lead); font-weight: 700; }
   .no-award-notice { display: grid; gap: 6px; padding: 20px 24px; border-left: 4px solid var(--muted); background: var(--paper); }
+  .no-award-notice .eyebrow { margin: 0; }
+  .no-award-notice strong { font-size: var(--text-body); }
   .no-award-notice span { color: var(--muted); }
   @media (max-width: 680px) { .winner-card { grid-template-columns: 1fr; padding: 20px; } }
 </style>

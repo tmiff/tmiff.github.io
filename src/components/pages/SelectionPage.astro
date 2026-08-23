@@ -2,16 +2,18 @@
 import PageHero from "../PageHero.astro";
 import ProcessTimeline from "../ProcessTimeline.astro";
 import { getPageContent } from "../../config/content";
+import { navigationLabels } from "../../config/paths";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale } from "../../types";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "selection");
+const heroLabel = locale === "ja" ? navigationLabels.ja.selection ?? content.eyebrow : getPageContent("en", "selection").eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey="selection" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={getPageContent("en", "selection").eyebrow} imageSlotId="selection-process" />
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={heroLabel} imageSlotId="selection-process" />
   <section class="band" aria-label={locale === "ja" ? "月次選考工程" : "Monthly selection stages"}>
     <div class="container timeline-wrap"><ProcessTimeline locale={locale} sections={content.sections} /></div>
   </section>

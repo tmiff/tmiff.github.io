@@ -3,7 +3,7 @@ import { ArrowRight, Clock3, ExternalLink } from "lucide-astro";
 import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
-import { pagePath } from "../../config/paths";
+import { navigationLabels, pagePath } from "../../config/paths";
 import { siteConfig } from "../../config/site";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale } from "../../types";
@@ -12,23 +12,24 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "submit");
 const submissionsOpen = siteConfig.releasePhase === "submissions-open" && Boolean(siteConfig.filmFreewayUrl);
+const heroLabel = locale === "ja" ? navigationLabels.ja.submit ?? content.eyebrow : getPageContent("en", "submit").eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey="submit" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={getPageContent("en", "submit").eyebrow} imageSlotId="film-submission" />
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={heroLabel} imageSlotId="film-submission" />
 
   <section class="band band--light">
     <div class="container division-grid">
       <article class="division-card">
         <Clock3 size={30} aria-hidden="true" />
         <p class="eyebrow">{locale === "ja" ? "短編部門" : "Short film"}</p>
-        <h2>{locale === "ja" ? "35 minまで" : "Up to 35 min"}</h2>
+        <h2>{locale === "ja" ? "30 minまで" : "Up to 30 min"}</h2>
         <p>{locale === "ja" ? "クレジットを含む" : "Including credits"}</p>
       </article>
       <article class="division-card">
         <Clock3 size={30} aria-hidden="true" />
         <p class="eyebrow">{locale === "ja" ? "長編部門" : "Feature film"}</p>
-        <h2>{locale === "ja" ? "35 min超" : "Over 35 min"}</h2>
+        <h2>{locale === "ja" ? "30 min超" : "Over 30 min"}</h2>
         <p>{locale === "ja" ? "クレジットを含む" : "Including credits"}</p>
       </article>
     </div>

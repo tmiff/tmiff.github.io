@@ -53,7 +53,10 @@ export interface WinnerRecord {
   cycleId: string;
   publishedAt: string;
   localeTitles: Record<Locale, string>;
-  noAwardDivisions?: Array<"short" | "feature">;
+  noAwards?: Array<{
+    divisionId: "short" | "feature";
+    categoryId: string;
+  }>;
   awards: Array<{
     divisionId: "short" | "feature";
     categoryId: string;

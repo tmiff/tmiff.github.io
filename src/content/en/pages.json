@@ -9,7 +9,7 @@
         "id": "monthly-cycle",
         "title": "One cycle every month",
         "body": [
-          "Entries close on the 20th at 23:59 JST. Award results are scheduled for 12:00 JST on the last day of the month."
+          "Entries close on the 20th at 23:59 JST. Award results are announced at the end of the month."
         ],
         "items": [
           "Submission",
@@ -22,7 +22,7 @@
         "id": "categories",
         "title": "Short and feature divisions",
         "body": [
-          "Films up to and including 35 minutes enter the short division. Films longer than 35 minutes enter the feature division."
+          "Films up to and including 30 minutes enter the short division. Films longer than 30 minutes enter the feature division."
         ],
         "items": [
           "Up to five candidates per division",
@@ -72,13 +72,13 @@
     "seoTitle": "About",
     "eyebrow": "About the program",
     "title": "Introducing new independent filmmaking talent to the world every month.",
-    "intro": "A monthly film award offering short- and feature-film creators a continuing opportunity for recognition and discovery.",
+    "intro": "Based in Tokyo, this online monthly film competition is open to emerging and established filmmakers worldwide.",
     "sections": [
       {
         "id": "purpose",
         "title": "Purpose",
         "body": [
-          "We discover distinctive films and their creators, creating new opportunities to reach audiences through monthly award announcements."
+          "We discover distinctive films and their creators, creating new opportunities to reach audiences through monthly award announcements while fostering a global community of artists."
         ],
         "items": []
       },
@@ -118,8 +118,8 @@
           "Confirm runtime, rights, subtitle availability, contact details, and the applicable fee and refund policy."
         ],
         "items": [
-          "Short: up to 35 min",
-          "Feature: over 35 min",
+          "Short: up to 30 min",
+          "Feature: over 30 min",
           "The submitter must hold the rights required for review and any winner feature",
           "Dialogue in languages other than English or Japanese requires English subtitles"
         ]
@@ -172,7 +172,7 @@
         "id": "duration",
         "title": "Runtime divisions",
         "body": [
-          "Runtime includes credits. Exactly 35:00 belongs to the short division; 35:01 and longer belongs to the feature division."
+          "Runtime includes credits. Exactly 30:00 belongs to the short division; 30:01 and longer belongs to the feature division."
         ],
         "items": []
       },
@@ -284,12 +284,11 @@
         "id": "allocation",
         "title": "Allocation rule",
         "body": [
-          "When a division has at least one eligible submission, one winner is selected for each category. Only a division with zero eligible submissions is marked no award."
+          "Each award is determined based on the submitted films and the published evaluation criteria. If no film is considered suitable, the category may be marked ‘No Award.’"
         ],
         "items": [
           "One film may receive multiple awards",
-          "Each award is selected on the merits of the submitted films",
-          "No award may be given when there is no eligible work"
+          "Each award is considered against the published evaluation criteria"
         ]
       },
       {
@@ -358,9 +357,9 @@
       },
       {
         "id": "duration",
-        "title": "Which division applies at exactly 35 minutes?",
+        "title": "Which division applies at exactly 30 minutes?",
         "body": [
-          "A runtime of 35:00 belongs to the short division. Any runtime above 35:00 belongs to the feature division."
+          "A runtime of 30:00 belongs to the short division. Any runtime above 30:00 belongs to the feature division."
         ],
         "items": []
       },
@@ -376,7 +375,7 @@
         "id": "result",
         "title": "When are results published?",
         "body": [
-          "Results are scheduled for 12:00 JST on the last day of the month."
+          "Results are scheduled to be announced at the end of the month."
         ],
         "items": []
       },

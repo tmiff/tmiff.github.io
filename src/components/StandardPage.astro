@@ -3,6 +3,7 @@ import PageHero from "./PageHero.astro";
 import SectionBlock from "./SectionBlock.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getPageContent } from "../config/content";
+import { navigationLabels } from "../config/paths";
 import type { Locale, PageContent, PageKey } from "../types";
 
 interface Props {
@@ -16,12 +17,13 @@ interface Props {
 
 const { locale, pageKey, content, imageSlotId, faq = false } = Astro.props;
 
-// Hero heading is always English (English-only labels); the lead text stays localized.
 const HERO_LABEL_OVERRIDES: Partial<Record<PageKey, string>> = {
   privacy: "Privacy",
   terms: "Terms",
 };
-const heroLabel = HERO_LABEL_OVERRIDES[pageKey] ?? getPageContent("en", pageKey).eyebrow;
+const heroLabel = locale === "ja"
+  ? navigationLabels.ja[pageKey] ?? content.eyebrow
+  : HERO_LABEL_OVERRIDES[pageKey] ?? getPageContent("en", pageKey).eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey={pageKey} title={content.seoTitle} description={content.intro}>

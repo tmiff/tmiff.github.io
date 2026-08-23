@@ -61,31 +61,31 @@ for (const key of enKeys) {
   }
 }
 
-if (schedule.durationBoundarySeconds !== 2100) errors.push("Duration boundary must be 2100 seconds.");
+if (schedule.durationBoundarySeconds !== 1800) errors.push("Duration boundary must be 1800 seconds.");
 if (schedule.maxFinalistsPerDivision !== 5) errors.push("Maximum finalists per division must be 5.");
 if (schedule.timezone !== "Asia/Tokyo") errors.push("Operational timezone must be Asia/Tokyo.");
 if (awards.divisions.length !== 2) errors.push("There must be exactly two runtime divisions.");
 if (awards.categories.length !== 9) errors.push("There must be exactly nine award categories.");
-const expectedMilestones = ["preselection:21-22", "human-review:23-27", "dual-approval:28-29", "publication:last-day 12:00"];
-const actualMilestones = schedule.milestones.map((item) => `${item.id}:${item.days}`);
+const expectedMilestones = ["preselection:", "human-review:", "dual-approval:", "publication:last-day"];
+const actualMilestones = schedule.milestones.map((item) => `${item.id}:${item.days || ""}`);
 if (JSON.stringify(actualMilestones) !== JSON.stringify(expectedMilestones)) errors.push(`Monthly milestones differ from the approved contract: ${actualMilestones.join(", ")}`);
-const expectedAwardIds = ["best-director", "best-cinematography", "best-supporting-actress", "best-producer", "best-writer", "best-actor", "best-supporting-actor", "best-actress", "honorable-mention"];
+const expectedAwardIds = ["best-director", "best-cinematography", "best-producer", "best-writer", "best-actor", "best-actress", "best-supporting-actor", "best-supporting-actress", "honorable-mention"];
 if (JSON.stringify(awards.categories.map((item) => item.id)) !== JSON.stringify(expectedAwardIds)) errors.push("Award category IDs or ordering differ from the approved contract.");
 if (awards.allowMultipleAwardsPerFilm !== true) errors.push("Multiple awards per film must remain allowed.");
-if (awards.oneWinnerPerCategoryWhenEligible !== true) errors.push("Each eligible division must retain one winner per category.");
-if (awards.noAwardOnlyWhenDivisionHasZeroEligibleSubmissions !== true) errors.push("No-award must remain limited to a zero-submission division.");
+if (awards.winnerRequiredPerCategory !== false) errors.push("A winner must not be required when no submitted film meets the published criteria.");
+if (awards.allowNoAwardPerCategory !== true) errors.push("No Award must be permitted for each individual category.");
 for (const award of awards.categories) {
   if (!String(award.en || "").trim() || !String(award.ja || "").trim()) errors.push(`Award label is incomplete: ${award.id}`);
 }
 
 requireTokens(section(en.submit, "deadlines"), ["21st", "20th", "23:59"], "en.submit.deadlines");
 requireTokens(section(ja.submit, "deadlines"), ["21日", "20日", "23:59"], "ja.submit.deadlines");
-requireTokens(section(en.rules, "duration"), ["35:00", "35:01"], "en.rules.duration");
-requireTokens(section(ja.rules, "duration"), ["35分00秒", "35分01秒"], "ja.rules.duration");
-requireTokens(section(en.home, "monthly-cycle"), ["20th", "23:59", "12:00"], "en.home.monthly-cycle");
-requireTokens(section(ja.home, "monthly-cycle"), ["20日", "23:59", "12:00"], "ja.home.monthly-cycle");
-forbidPublicTokens(en, ["pre-release", "preview mode", "FilmFreeway CSV", "approval record", "audit record", "private operations system", "not configured", "dual approval"], "English public content");
-forbidPublicTokens(ja, ["公開前", "プレビュー", "CSV", "承認記録", "監査記録", "運営システム", "連携は未設定", "2名承認"], "Japanese public content");
+requireTokens(section(en.rules, "duration"), ["30:00", "30:01"], "en.rules.duration");
+requireTokens(section(ja.rules, "duration"), ["30分00秒", "30分01秒"], "ja.rules.duration");
+requireTokens(section(en.home, "monthly-cycle"), ["20th", "23:59", "end of the month"], "en.home.monthly-cycle");
+requireTokens(section(ja.home, "monthly-cycle"), ["20日", "23:59", "月末"], "ja.home.monthly-cycle");
+forbidPublicTokens(en, ["pre-release", "preview mode", "FilmFreeway CSV", "approval record", "audit record", "private operations system", "not configured", "dual approval", "35:00", "35:01", "35 minutes", "12:00 JST", "zero eligible submissions"], "English public content");
+forbidPublicTokens(ja, ["公開前", "プレビュー", "CSV", "承認記録", "監査記録", "運営システム", "連携は未設定", "2名承認", "35分", "月末12:00", "対象作品が0本"], "Japanese public content");
 
 const allowedSlots = new Map([
   ["home-hero", [1672, 941]],
@@ -136,17 +136,32 @@ for (const slot of imageSlots) {
 const certificateIds = new Set();
 const validCategoryIds = new Set(awards.categories.map((item) => item.id));
 const validDivisionIds = new Set(awards.divisions.map((item) => item.id));
+const expectedOutcomeCount = awards.divisions.length * awards.categories.length;
 for (const cycle of winners) {
   if (!/^\d{4}-\d{2}$/.test(cycle.cycleId)) errors.push(`Invalid cycle ID: ${cycle.cycleId}`);
   if (!cycle.localeTitles?.en || !cycle.localeTitles?.ja) errors.push(`Missing localized cycle title: ${cycle.cycleId}`);
+  const outcomeKeys = new Set();
   for (const award of cycle.awards || []) {
     if (!validCategoryIds.has(award.categoryId)) errors.push(`Unknown award category: ${award.categoryId}`);
     if (!validDivisionIds.has(award.divisionId)) errors.push(`Unknown division: ${award.divisionId}`);
+    const outcomeKey = `${award.divisionId}:${award.categoryId}`;
+    if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
+    outcomeKeys.add(outcomeKey);
     if (!award.filmTitle || !award.recipientName || !award.certificateId) errors.push(`Incomplete award record in ${cycle.cycleId}`);
     if (certificateIds.has(award.certificateId)) errors.push(`Duplicate certificate ID: ${award.certificateId}`);
     certificateIds.add(award.certificateId);
     if (award.stillUrl && !award.stillAlt?.en) errors.push(`Winner still requires English alt text: ${award.certificateId}`);
     if (award.stillUrl && !award.stillAlt?.ja) errors.push(`Winner still requires Japanese alt text: ${award.certificateId}`);
+  }
+  for (const noAward of cycle.noAwards || []) {
+    if (!validCategoryIds.has(noAward.categoryId)) errors.push(`Unknown No Award category: ${noAward.categoryId}`);
+    if (!validDivisionIds.has(noAward.divisionId)) errors.push(`Unknown No Award division: ${noAward.divisionId}`);
+    const outcomeKey = `${noAward.divisionId}:${noAward.categoryId}`;
+    if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
+    outcomeKeys.add(outcomeKey);
+  }
+  if (outcomeKeys.size !== expectedOutcomeCount) {
+    errors.push(`Published cycle ${cycle.cycleId} must define exactly ${expectedOutcomeCount} unique award outcomes; found ${outcomeKeys.size}.`);
   }
 }
 

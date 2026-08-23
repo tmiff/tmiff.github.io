@@ -3,16 +3,18 @@ import { Search, ShieldCheck } from "lucide-astro";
 import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
+import { navigationLabels } from "../../config/paths";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale } from "../../types";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const content = getPageContent(locale, "verify");
+const heroLabel = locale === "ja" ? navigationLabels.ja.verify ?? content.eyebrow : getPageContent("en", "verify").eyebrow;
 ---
 
 <BaseLayout locale={locale} pageKey="verify" title={content.seoTitle} description={content.intro}>
-  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={getPageContent("en", "verify").eyebrow} compact />
+  <PageHero eyebrow={content.eyebrow} title={content.title} intro={content.intro} label={heroLabel} compact />
   <section class="band band--light">
     <div class="container verify-tool">
       <form class="verify-form" data-verify-form>
