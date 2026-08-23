@@ -1,11 +1,11 @@
 {
   "status": "ready",
-  "releasePhase": "pre-submission",
+  "releasePhase": "submissions-open",
   "festivalName": "The Monthly International Film Festival",
   "festivalNameJa": "The Monthly International Film Festival",
   "organizerName": "TMIFF Festival Office",
   "country": "Japan",
-  "filmFreewayUrl": "",
+  "filmFreewayUrl": "https://filmfreeway.com/festivals/98294?utm_campaign=The+Monthly+International+Fiilm+Festival&utm_medium=External&utm_source=Submission+Button",
   "submissionFeeDisplayEn": "USD 40 per entry",
   "submissionFeeDisplayJa": "1作品あたり40米ドル",
   "refundPolicyApproved": true,

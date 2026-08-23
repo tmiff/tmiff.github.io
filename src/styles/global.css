@@ -294,6 +294,32 @@ h3 {
   background: var(--red-dark);
 }
 
+.filmfreeway-button {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  transition: opacity 160ms ease;
+}
+
+.filmfreeway-button:hover {
+  opacity: 0.9;
+}
+
+.filmfreeway-button:focus-visible {
+  border-radius: 4px;
+  outline: 3px solid var(--white);
+  outline-offset: 4px;
+}
+
+.filmfreeway-button img {
+  display: block;
+  width: 263px;
+  max-width: 100%;
+  height: auto;
+}
+
 .button--small {
   min-height: 40px;
   padding: 8px 14px;

@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, CalendarDays } from "lucide-astro";
+import { CalendarDays } from "lucide-astro";
 import { getImageSlot } from "../config/images";
 import { pagePath } from "../config/paths";
 import { festivalName, siteConfig } from "../config/site";
@@ -37,9 +37,20 @@ const heroStyle = [
           {locale === "ja" ? "選考プロセスを見る" : "View the selection process"}
         </a>
         {submissionsOpen ? (
-          <a class="button button--hero-submit" href={siteConfig.filmFreewayUrl} rel="external">
-            {locale === "ja" ? "応募はこちらから" : "Submit Here"}
-            <ArrowRight size={18} aria-hidden="true" />
+          <a
+            class="filmfreeway-button"
+            href={siteConfig.filmFreewayUrl}
+            target="_blank"
+            rel="external noopener noreferrer"
+            title="Click to submit on FilmFreeway"
+          >
+            <img
+              src="/images/ui/filmfreeway-submit-red.png"
+              alt={locale === "ja" ? "FilmFreewayで応募" : "Submit on FilmFreeway"}
+              width="263"
+              height="49"
+              decoding="async"
+            />
           </a>
         ) : (
           <span class="button button--hero-submit button--disabled" aria-disabled="true">

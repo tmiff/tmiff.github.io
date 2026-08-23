@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Clock3, ExternalLink } from "lucide-astro";
+import { ArrowRight, Clock3 } from "lucide-astro";
 import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
@@ -43,8 +43,20 @@ const heroLabel = locale === "ja" ? navigationLabels.ja.submit ?? content.eyebro
     <div class="container submission-panel__inner">
       <p class="eyebrow eyebrow--light">FilmFreeway</p>
       {submissionsOpen ? (
-        <a class="button button--submission" href={siteConfig.filmFreewayUrl} rel="external">
-          {locale === "ja" ? "応募はこちら" : "Submit Here"}<ExternalLink size={20} aria-hidden="true" />
+        <a
+          class="filmfreeway-button"
+          href={siteConfig.filmFreewayUrl}
+          target="_blank"
+          rel="external noopener noreferrer"
+          title="Click to submit on FilmFreeway"
+        >
+          <img
+            src="/images/ui/filmfreeway-submit-red.png"
+            alt={locale === "ja" ? "FilmFreewayで応募" : "Submit on FilmFreeway"}
+            width="263"
+            height="49"
+            decoding="async"
+          />
         </a>
       ) : (
         <span class="button button--disabled button--submission button--submission-disabled" aria-disabled="true">{locale === "ja" ? "応募準備中" : "Submissions opening soon"}</span>

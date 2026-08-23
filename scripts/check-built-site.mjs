@@ -62,8 +62,9 @@ for (const route of requiredRoutes) {
 
 const submitPages = [path.join(dist, "submit/index.html"), path.join(dist, "ja/submit/index.html")].map((file) => fs.readFileSync(file, "utf8"));
 if (siteConfig.releasePhase === "submissions-open" && siteConfig.filmFreewayUrl) {
+  const escapedFilmFreewayUrl = siteConfig.filmFreewayUrl.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
   for (const [index, html] of submitPages.entries()) {
-    if (!html.includes(`href="${siteConfig.filmFreewayUrl}"`)) errors.push(`FilmFreeway CTA URL is missing from ${index === 0 ? "English" : "Japanese"} submit page.`);
+    if (!html.includes(`href="${escapedFilmFreewayUrl}"`)) errors.push(`FilmFreeway CTA URL is missing from ${index === 0 ? "English" : "Japanese"} submit page.`);
   }
 } else {
   for (const [index, html] of submitPages.entries()) {
