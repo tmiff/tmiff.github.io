@@ -1,0 +1,91 @@
+{
+  "currency": "USD",
+  "source": "FilmFreeway Festival Editor > Categories & Entry Fees",
+  "verifiedAt": "2026-08-23",
+  "categories": [
+    {
+      "id": "best-feature-film",
+      "en": "Best Feature Film",
+      "ja": "最優秀長編映画賞",
+      "regular": { "standard": 39, "gold": 29 },
+      "final": { "standard": 45, "gold": 35 }
+    },
+    {
+      "id": "best-short-film",
+      "en": "Best Short Film",
+      "ja": "最優秀短編映画賞",
+      "regular": { "standard": 29, "gold": 19 },
+      "final": { "standard": 35, "gold": 25 }
+    },
+    {
+      "id": "best-documentary",
+      "en": "Best Documentary",
+      "ja": "最優秀ドキュメンタリー賞",
+      "regular": { "standard": 39, "gold": 29 },
+      "final": { "standard": 45, "gold": 35 }
+    },
+    {
+      "id": "best-director",
+      "en": "Best Director",
+      "ja": "最優秀監督賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-cinematography",
+      "en": "Best Cinematography",
+      "ja": "最優秀撮影賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-producer",
+      "en": "Best Producer",
+      "ja": "最優秀プロデューサー賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-writer",
+      "en": "Best Writer",
+      "ja": "最優秀脚本賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-actor",
+      "en": "Best Actor",
+      "ja": "最優秀男優賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-actress",
+      "en": "Best Actress",
+      "ja": "最優秀女優賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-supporting-actor",
+      "en": "Best Supporting Actor",
+      "ja": "最優秀助演男優賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "best-supporting-actress",
+      "en": "Best Supporting Actress",
+      "ja": "最優秀助演女優賞",
+      "regular": { "standard": 19, "gold": 9 },
+      "final": { "standard": 25, "gold": 15 }
+    },
+    {
+      "id": "all-categories",
+      "en": "All Categories",
+      "ja": "全部門一括応募",
+      "regular": { "standard": 150, "gold": 80 },
+      "final": { "standard": 200, "gold": 130 }
+    }
+  ]
+}

@@ -1431,6 +1431,121 @@ body[data-page="home"] .site-header {
   margin-bottom: 0;
 }
 
+.content-section--submission-detail .content-section__body {
+  min-width: 0;
+}
+
+.submission-cycle {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 34px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  list-style: none;
+}
+
+.submission-cycle__item {
+  position: relative;
+  display: flex;
+  min-height: 174px;
+  padding: 20px 15px;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+}
+
+.submission-cycle__item:last-child {
+  border-right: 0;
+}
+
+.submission-cycle__number {
+  align-self: flex-end;
+  color: #85827a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.submission-cycle__item svg {
+  margin: 20px 0 24px;
+  color: var(--red);
+}
+
+.submission-cycle__item h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.submission-cycle__item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.submission-cycle__item--accent {
+  color: var(--white);
+  background: var(--red);
+}
+
+.submission-cycle__item--accent .submission-cycle__number,
+.submission-cycle__item--accent svg,
+.submission-cycle__item--accent p {
+  color: var(--white);
+}
+
+.submission-fees {
+  margin-top: 34px;
+}
+
+.submission-fees__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.submission-fees__table th,
+.submission-fees__table td {
+  padding: 14px 12px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.submission-fees__table thead {
+  color: var(--white);
+  background: #20201f;
+}
+
+.submission-fees__table thead th {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.submission-fees__table thead tr:first-child th:not(:first-child),
+.submission-fees__table td:not(:first-child) {
+  text-align: center;
+}
+
+.submission-fees__table tbody th {
+  width: 35%;
+  font-weight: 650;
+}
+
+.submission-fees__table tbody tr:nth-child(even) {
+  background: #f0eee8;
+}
+
+.submission-fees__table .submission-fees__all {
+  border-top: 2px solid var(--red);
+  background: #ebe7df;
+}
+
+.submission-fees__note {
+  margin-top: 18px !important;
+  color: var(--muted) !important;
+  font-size: 13px !important;
+}
+
 .section-number {
   margin-top: 5px;
   color: var(--red);
@@ -2178,6 +2293,10 @@ body[data-page="home"] .site-header {
     gap: 20px;
   }
 
+  .submission-cycle__item {
+    min-height: 160px;
+  }
+
   .division-grid {
     grid-template-columns: 1fr;
   }
@@ -2463,6 +2582,104 @@ body[data-page="home"] .site-header {
 
   .content-section {
     padding: 32px 0;
+  }
+
+  .submission-cycle {
+    grid-template-columns: 1fr;
+  }
+
+  .submission-cycle__item {
+    display: grid;
+    grid-template-columns: 30px 24px minmax(0, 1fr);
+    align-items: start;
+    gap: 14px;
+    min-height: 0;
+    padding: 18px 15px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .submission-cycle__item:last-child {
+    border-bottom: 0;
+  }
+
+  .submission-cycle__number {
+    align-self: start;
+    padding-top: 3px;
+  }
+
+  .submission-cycle__item svg {
+    margin: 0;
+  }
+
+  .submission-cycle__item h3 {
+    font-size: 15px;
+  }
+
+  .submission-cycle__item p {
+    font-size: 13px;
+  }
+
+  .submission-fees__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .submission-fees__table,
+  .submission-fees__table tbody,
+  .submission-fees__table tr,
+  .submission-fees__table th,
+  .submission-fees__table td {
+    display: block;
+    width: 100%;
+  }
+
+  .submission-fees__table tbody {
+    display: grid;
+    gap: 16px;
+  }
+
+  .submission-fees__table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+
+  .submission-fees__table tbody th {
+    grid-column: 1 / -1;
+    padding: 15px;
+    border: 0;
+    color: var(--white);
+    background: #20201f;
+  }
+
+  .submission-fees__table tbody td {
+    display: grid;
+    gap: 4px;
+    padding: 13px 10px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+
+  .submission-fees__table tbody td:nth-child(even) {
+    border-right: 1px solid var(--line);
+  }
+
+  .submission-fees__table tbody td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .submission-fees__table .submission-fees__all {
+    border-top: 2px solid var(--red);
   }
 
     .division-card {

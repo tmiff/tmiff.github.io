@@ -2,6 +2,7 @@
 import { ArrowRight, Clock3 } from "lucide-astro";
 import PageHero from "../PageHero.astro";
 import SectionBlock from "../SectionBlock.astro";
+import SubmissionDetailSection from "../SubmissionDetailSection.astro";
 import { getPageContent } from "../../config/content";
 import { navigationLabels, pagePath } from "../../config/paths";
 import { siteConfig } from "../../config/site";
@@ -36,7 +37,11 @@ const heroLabel = navigationLabels[locale].submit ?? content.eyebrow;
   </section>
 
   <div class="container content-sections">
-    {content.sections.map((section, index) => <SectionBlock section={section} index={index} />)}
+    {content.sections.map((section, index) => {
+      if (section.id === "fees") return <SubmissionDetailSection locale={locale} section={section} detail="fees" />;
+      if (section.id === "deadlines") return <SubmissionDetailSection locale={locale} section={section} detail="schedule" />;
+      return <SectionBlock section={section} index={index} />;
+    })}
   </div>
 
   <section class="submission-panel">

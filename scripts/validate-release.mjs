@@ -5,6 +5,7 @@ import process from "node:process";
 const root = process.cwd();
 const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), "utf8"));
 const site = readJson("src/config/site.json");
+const submissionFees = readJson("src/config/submission-fees.json");
 const attestation = readJson("src/config/release-attestation.json");
 const images = readJson("src/config/image-slots.json");
 const errors = [];
@@ -24,8 +25,6 @@ const requiredText = [
   ["festivalNameJa", site.festivalNameJa],
   ["organizerName", site.organizerName],
   ["country", site.country],
-  ["submissionFeeDisplayEn", site.submissionFeeDisplayEn],
-  ["submissionFeeDisplayJa", site.submissionFeeDisplayJa],
   ["githubOrganization", site.githubOrganization]
 ];
 
@@ -47,6 +46,13 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || "";
 if (publicSiteUrl !== "https://tmiff.com") errors.push("PUBLIC_SITE_URL must be https://tmiff.com.");
 if (!/^https:\/\/script\.google\.com\/macros\/s\//.test(contactEndpoint)) errors.push("PUBLIC_CONTACT_ENDPOINT is missing or invalid.");
 if (!turnstileSiteKey || /replace|test/i.test(turnstileSiteKey)) errors.push("PUBLIC_TURNSTILE_SITE_KEY is missing or still a placeholder.");
+if (submissionFees.currency !== "USD") errors.push("Submission fee currency must be USD.");
+if (submissionFees.categories?.length !== 12) errors.push("Submission fee table must contain twelve categories.");
+if (!submissionFees.source || !submissionFees.verifiedAt) errors.push("Submission fee source record is incomplete.");
+for (const category of submissionFees.categories || []) {
+  const prices = [category.regular?.standard, category.regular?.gold, category.final?.standard, category.final?.gold];
+  if (prices.some((price) => typeof price !== "number" || price <= 0)) errors.push(`Submission fee row is incomplete: ${category.id}`);
+}
 
 if (attestation.schemaVersion !== 2) errors.push("Operations attestation schemaVersion must be 2.");
 for (const gate of requiredSiteLaunchGates) {

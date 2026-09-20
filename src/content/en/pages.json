@@ -1,21 +1,21 @@
 {
   "home": {
-    "seoTitle": "Monthly Online Film Awards",
+    "seoTitle": "Monthly Film Awards in Tokyo",
     "eyebrow": "Monthly independent film awards",
     "title": "Introducing new voices in independent film, every month.",
-    "intro": "Short and feature films are considered against the published eligibility and evaluation criteria before results are announced online.",
+    "intro": "Short and feature films are considered against the published eligibility and evaluation criteria before results are announced at the in-person event on the 15th of each month.",
     "sections": [
       {
         "id": "monthly-cycle",
         "title": "One cycle every month",
         "body": [
-          "Entries close on the 20th at 23:59 JST. Award results are announced at the end of the month."
+          "Submissions open on the 20th of every month. The regular deadline is the last day of the following month, and the final deadline is the 20th of the second following month. Nominees are notified on the last day of that month, and award results are announced at the in-person event on the 15th of the next month."
         ],
         "items": [
-          "Submission",
-          "Eligibility check",
-          "Film review",
-          "Decision and publication"
+          "Opening Date",
+          "Regular and Final Deadlines",
+          "Nomination Notification",
+          "Award Results Announcement"
         ]
       },
       {
@@ -62,7 +62,7 @@
         "id": "in-person-program",
         "title": "In-person programme",
         "body": [
-          "If screenings or filmmaker gatherings are held, the venue and date will be announced on the official website once confirmed."
+          "The in-person event is held on the 15th of each month at SIM STUDIO Odaiba plus+ E STUDIO (3F Marusada Ariake Bldg., 2-14-4 Shinonome, Koto-ku, Tokyo 135-0062, Japan), where award results are announced."
         ],
         "items": []
       }
@@ -72,7 +72,7 @@
     "seoTitle": "About",
     "eyebrow": "About the program",
     "title": "Introducing new independent filmmaking talent to the world every month.",
-    "intro": "Based in Tokyo, this online monthly film competition is open to emerging and established filmmakers worldwide.",
+    "intro": "Based in Tokyo, this monthly film competition is open to emerging and established filmmakers worldwide. The event is held in person on the 15th of each month.",
     "sections": [
       {
         "id": "purpose",
@@ -136,7 +136,7 @@
         "id": "fees",
         "title": "Fee and refunds",
         "body": [
-          "The submission fee is USD 40 per entry. Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."
+          "Submission fees vary by category, deadline, and FilmFreeway Gold membership status. Submission fees are non-refundable except when the event is cancelled by the organizer or due to a natural disaster."
         ],
         "items": []
       },
@@ -144,7 +144,7 @@
         "id": "deadlines",
         "title": "Monthly deadline",
         "body": [
-          "The monthly intake window runs from the 21st of the previous month through the 20th at 23:59 JST."
+          "Submissions open on the 20th of every month. The regular deadline is the last day of the following month, and the final deadline is the 20th of the second following month. Nominees are notified on the last day of that month, and award results are announced at the in-person event on the 15th of the next month. Deadline times follow the times displayed by FilmFreeway on the submission page."
         ],
         "items": []
       }
@@ -241,10 +241,10 @@
         "items": []
       },
       {
-        "id": "human-review",
-        "title": "3. Finalist selection",
-        "body": [
-          "Award candidates are selected from each division and advanced to the final round."
+      "id": "human-review",
+      "title": "3. Finalist selection",
+      "body": [
+        "Award candidates are selected from each division, notified of their nomination on the last day of the final-deadline month, and advanced to the final round."
         ],
         "items": []
       },
@@ -257,10 +257,10 @@
         "items": []
       },
       {
-        "id": "announcement",
-        "title": "5. Publication and notification",
-        "body": [
-          "Results are announced on the official website at the end of the month, with certificates and laurels provided to winners."
+      "id": "announcement",
+      "title": "5. Publication and notification",
+      "body": [
+        "Results are announced at the in-person event on the 15th of the month after the final deadline, with certificates and laurels provided to winners."
         ],
         "items": []
       }
@@ -343,7 +343,7 @@
         "id": "online-only",
         "title": "Is this an in-person festival?",
         "body": [
-          "At launch, results are published online and no public venue screening is announced."
+          "Yes. The festival is held in person on the 15th of each month at SIM STUDIO Odaiba plus+ E STUDIO (3F Marusada Ariake Bldg., 2-14-4 Shinonome, Koto-ku, Tokyo), where award results are announced."
         ],
         "items": []
       },
@@ -373,9 +373,9 @@
       },
       {
         "id": "result",
-        "title": "When are results published?",
+        "title": "When are nominations and award results announced?",
         "body": [
-          "Results are scheduled to be announced at the end of the month."
+          "Nominees are notified on the last day of the final-deadline month, and award results are announced at the in-person event on the 15th of the following month."
         ],
         "items": []
       },

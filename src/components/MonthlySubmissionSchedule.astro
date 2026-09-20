@@ -1,0 +1,26 @@
+---
+import { BellRing, CalendarPlus, CalendarRange, Flag, Trophy } from "lucide-astro";
+import { getSubmissionCycle } from "../config/submissions";
+import type { Locale } from "../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const cycle = getSubmissionCycle(locale);
+const icons = [CalendarPlus, CalendarRange, Flag, BellRing, Trophy];
+---
+
+<ol class="submission-cycle" aria-label={locale === "ja" ? "毎月の応募・発表日程" : "Monthly submission and announcement schedule"}>
+  {cycle.map((item, index) => {
+    const Icon = icons[index];
+    return (
+      <li class:list={["submission-cycle__item", item.id === "final-deadline" && "submission-cycle__item--accent"]}>
+        <span class="submission-cycle__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+        <Icon size={22} aria-hidden="true" />
+        <div>
+          <h3>{item.title}</h3>
+          <p>{item.timing}</p>
+        </div>
+      </li>
+    );
+  })}
+</ol>

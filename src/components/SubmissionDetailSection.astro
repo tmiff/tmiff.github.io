@@ -1,0 +1,23 @@
+---
+import MonthlySubmissionSchedule from "./MonthlySubmissionSchedule.astro";
+import SubmissionFeeTable from "./SubmissionFeeTable.astro";
+import type { ContentSection, Locale } from "../types";
+
+interface Props {
+  locale: Locale;
+  section: ContentSection;
+  detail: "fees" | "schedule";
+}
+
+const { locale, section, detail } = Astro.props;
+---
+
+<section class="content-section content-section--submission-detail" id={section.id}>
+  <div class="content-section__heading">
+    <h2>{section.title}</h2>
+  </div>
+  <div class="content-section__body">
+    {section.body.map((paragraph) => <p>{paragraph}</p>)}
+    {detail === "fees" ? <SubmissionFeeTable locale={locale} /> : <MonthlySubmissionSchedule locale={locale} />}
+  </div>
+</section>

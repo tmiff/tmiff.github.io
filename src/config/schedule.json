@@ -1,9 +1,13 @@
 {
   "timezone": "Asia/Tokyo",
-  "intake": {
-    "opens": "previous-month-21T00:00:00+09:00",
-    "closes": "current-month-20T23:59:00+09:00"
-  },
+  "deadlineTimeAuthority": "FilmFreeway",
+  "submissionCycle": [
+    { "id": "opening", "monthOffset": 0, "day": 20 },
+    { "id": "regular-deadline", "monthOffset": 1, "day": "last-day" },
+    { "id": "final-deadline", "monthOffset": 2, "day": 20 },
+    { "id": "nomination-notification", "monthOffset": 2, "day": "last-day" },
+    { "id": "award-results", "monthOffset": 3, "day": 15 }
+  ],
   "milestones": [
     { "id": "preselection" },
     { "id": "human-review" },

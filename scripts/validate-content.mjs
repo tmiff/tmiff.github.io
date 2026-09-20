@@ -10,6 +10,7 @@ const errors = [];
 const en = readJson("src/content/en/pages.json");
 const ja = readJson("src/content/ja/pages.json");
 const schedule = readJson("src/config/schedule.json");
+const submissionFees = readJson("src/config/submission-fees.json");
 const awards = readJson("src/config/awards.json");
 const imageSlots = readJson("src/config/image-slots.json");
 const winners = readJson("src/content/winners/records.json");
@@ -64,6 +65,17 @@ for (const key of enKeys) {
 if (schedule.durationBoundarySeconds !== 1800) errors.push("Duration boundary must be 1800 seconds.");
 if (schedule.maxFinalistsPerDivision !== 5) errors.push("Maximum finalists per division must be 5.");
 if (schedule.timezone !== "Asia/Tokyo") errors.push("Operational timezone must be Asia/Tokyo.");
+if (schedule.deadlineTimeAuthority !== "FilmFreeway") errors.push("Deadline times must defer to FilmFreeway.");
+const expectedSubmissionCycle = [
+  { id: "opening", monthOffset: 0, day: 20 },
+  { id: "regular-deadline", monthOffset: 1, day: "last-day" },
+  { id: "final-deadline", monthOffset: 2, day: 20 },
+  { id: "nomination-notification", monthOffset: 2, day: "last-day" },
+  { id: "award-results", monthOffset: 3, day: 15 }
+];
+if (JSON.stringify(schedule.submissionCycle) !== JSON.stringify(expectedSubmissionCycle)) {
+  errors.push("Public submission cycle differs from the approved recurring schedule.");
+}
 if (awards.divisions.length !== 2) errors.push("There must be exactly two runtime divisions.");
 if (awards.categories.length !== 11) errors.push("There must be exactly eleven configured award categories.");
 const expectedMilestones = ["preselection:", "human-review:", "dual-approval:", "publication:last-day"];
@@ -71,6 +83,36 @@ const actualMilestones = schedule.milestones.map((item) => `${item.id}:${item.da
 if (JSON.stringify(actualMilestones) !== JSON.stringify(expectedMilestones)) errors.push(`Monthly milestones differ from the approved contract: ${actualMilestones.join(", ")}`);
 const expectedAwardIds = ["best-feature-film", "best-short-film", "best-documentary", "best-director", "best-cinematography", "best-producer", "best-writer", "best-actor", "best-actress", "best-supporting-actor", "best-supporting-actress"];
 if (JSON.stringify(awards.categories.map((item) => item.id)) !== JSON.stringify(expectedAwardIds)) errors.push("Award category IDs or ordering differ from the approved contract.");
+const expectedFeeRows = new Map([
+  ["best-feature-film", [39, 29, 45, 35]],
+  ["best-short-film", [29, 19, 35, 25]],
+  ["best-documentary", [39, 29, 45, 35]],
+  ["best-director", [19, 9, 25, 15]],
+  ["best-cinematography", [19, 9, 25, 15]],
+  ["best-producer", [19, 9, 25, 15]],
+  ["best-writer", [19, 9, 25, 15]],
+  ["best-actor", [19, 9, 25, 15]],
+  ["best-actress", [19, 9, 25, 15]],
+  ["best-supporting-actor", [19, 9, 25, 15]],
+  ["best-supporting-actress", [19, 9, 25, 15]],
+  ["all-categories", [150, 80, 200, 130]]
+]);
+if (submissionFees.currency !== "USD") errors.push("Submission fee currency must be USD.");
+if (!submissionFees.source || !submissionFees.verifiedAt) errors.push("Submission fee source record is incomplete.");
+if (submissionFees.categories.length !== expectedFeeRows.size) errors.push("Submission fee table must contain twelve categories.");
+if (JSON.stringify(submissionFees.categories.map((item) => item.id)) !== JSON.stringify([...expectedFeeRows.keys()])) {
+  errors.push("Submission fee category IDs or ordering differ from the FilmFreeway record.");
+}
+for (const category of submissionFees.categories) {
+  const expected = expectedFeeRows.get(category.id);
+  if (!expected) {
+    errors.push(`Unexpected submission fee category: ${category.id}`);
+    continue;
+  }
+  const actual = [category.regular.standard, category.regular.gold, category.final.standard, category.final.gold];
+  if (JSON.stringify(actual) !== JSON.stringify(expected)) errors.push(`Submission fees differ from the verified FilmFreeway record: ${category.id}`);
+  if (!String(category.en || "").trim() || !String(category.ja || "").trim()) errors.push(`Submission fee category label is incomplete: ${category.id}`);
+}
 const expectedAwardDivisions = new Map([
   ["best-feature-film", ["feature"]],
   ["best-short-film", ["short"]],
@@ -94,14 +136,16 @@ for (const award of awards.categories) {
   }
 }
 
-requireTokens(section(en.submit, "deadlines"), ["21st", "20th", "23:59"], "en.submit.deadlines");
-requireTokens(section(ja.submit, "deadlines"), ["21日", "20日", "23:59"], "ja.submit.deadlines");
+requireTokens(section(en.submit, "deadlines"), ["20th", "last day", "second following month", "15th", "FilmFreeway"], "en.submit.deadlines");
+requireTokens(section(ja.submit, "deadlines"), ["毎月20日", "末日", "翌々月20日", "15日", "FilmFreeway"], "ja.submit.deadlines");
 requireTokens(section(en.rules, "duration"), ["30:00", "30:01"], "en.rules.duration");
 requireTokens(section(ja.rules, "duration"), ["30分00秒", "30分01秒"], "ja.rules.duration");
-requireTokens(section(en.home, "monthly-cycle"), ["20th", "23:59", "end of the month"], "en.home.monthly-cycle");
-requireTokens(section(ja.home, "monthly-cycle"), ["20日", "23:59", "月末"], "ja.home.monthly-cycle");
-forbidPublicTokens(en, ["pre-release", "preview mode", "FilmFreeway CSV", "approval record", "audit record", "private operations system", "not configured", "dual approval", "35:00", "35:01", "35 minutes", "12:00 JST", "zero eligible submissions"], "English public content");
-forbidPublicTokens(ja, ["公開前", "プレビュー", "CSV", "承認記録", "監査記録", "運営システム", "連携は未設定", "2名承認", "35分", "月末12:00", "対象作品が0本"], "Japanese public content");
+requireTokens(section(en.home, "monthly-cycle"), ["20th", "last day", "15th"], "en.home.monthly-cycle");
+requireTokens(section(ja.home, "monthly-cycle"), ["毎月20日", "末日", "15日"], "ja.home.monthly-cycle");
+requireTokens(section(en.faq, "result"), ["last day", "15th"], "en.faq.result");
+requireTokens(section(ja.faq, "result"), ["末日", "15日"], "ja.faq.result");
+forbidPublicTokens(en, ["pre-release", "preview mode", "FilmFreeway CSV", "approval record", "audit record", "private operations system", "not configured", "dual approval", "35:00", "35:01", "35 minutes", "12:00 JST", "zero eligible submissions", "21st of the previous month", "USD 40 per entry", "23:59 JST"], "English public content");
+forbidPublicTokens(ja, ["公開前", "プレビュー", "CSV", "承認記録", "監査記録", "運営システム", "連携は未設定", "2名承認", "35分", "月末12:00", "対象作品が0本", "前月21日", "1作品あたり40米ドル", "20日23:59"], "Japanese public content");
 
 const allowedSlots = new Map([
   ["home-hero", [1672, 941]],

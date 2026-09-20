@@ -1,0 +1,104 @@
+---
+import { submissionFeeCategories, submissionFeeCurrency } from "../config/submissions";
+import type { Locale } from "../types";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const formatter = new Intl.NumberFormat(locale === "ja" ? "ja-JP" : "en-US", {
+  style: "currency",
+  currency: submissionFeeCurrency,
+  maximumFractionDigits: 0
+});
+const labels = locale === "ja"
+  ? {
+      caption: "カテゴリー別応募料金（米ドル）",
+      category: "応募カテゴリー",
+      regular: "通常締切",
+      final: "最終締切",
+      standard: "通常料金",
+      gold: "Gold会員料金"
+    }
+  : {
+      caption: "Submission fees by category in US dollars",
+      category: "Submission category",
+      regular: "Regular Deadline",
+      final: "Final Deadline",
+      standard: "Standard",
+      gold: "Gold member"
+    };
+
+const individualAwardIds = [
+  "best-director",
+  "best-cinematography",
+  "best-producer",
+  "best-writer",
+  "best-actor",
+  "best-actress",
+  "best-supporting-actor",
+  "best-supporting-actress"
+];
+const individualAwards = submissionFeeCategories.filter((category) => individualAwardIds.includes(category.id));
+const individualAwardFee = individualAwards[0];
+
+if (!individualAwardFee) {
+  throw new Error("Individual award fees cannot be grouped because the source categories are missing.");
+}
+
+const hasMatchingIndividualFees = individualAwards.length === individualAwardIds.length
+  && individualAwards.every((category) => JSON.stringify(category.regular) === JSON.stringify(individualAwardFee.regular)
+    && JSON.stringify(category.final) === JSON.stringify(individualAwardFee.final));
+
+if (!hasMatchingIndividualFees) {
+  throw new Error("Individual award fees cannot be grouped because their category count or prices do not match.");
+}
+
+const displayedCategories = [
+  ...submissionFeeCategories.filter((category) => [
+    "best-feature-film",
+    "best-short-film",
+    "best-documentary"
+  ].includes(category.id)),
+  {
+    ...individualAwardFee,
+    id: "individual-awards",
+    en: "8 Individual Award Categories",
+    ja: "専門賞8部門"
+  },
+  submissionFeeCategories.find((category) => category.id === "all-categories")
+].filter((category) => category !== undefined);
+---
+
+<div class="submission-fees">
+  <table class="submission-fees__table">
+    <caption class="visually-hidden">{labels.caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col" rowspan="2">{labels.category}</th>
+        <th scope="colgroup" colspan="2">{labels.regular}</th>
+        <th scope="colgroup" colspan="2">{labels.final}</th>
+      </tr>
+      <tr>
+        <th scope="col">{labels.standard}</th>
+        <th scope="col">{labels.gold}</th>
+        <th scope="col">{labels.standard}</th>
+        <th scope="col">{labels.gold}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {displayedCategories.map((category) => (
+        <tr class:list={[category.id === "all-categories" && "submission-fees__all"]}>
+          <th scope="row">{category[locale]}</th>
+          <td data-label={`${labels.regular} / ${labels.standard}`}>{formatter.format(category.regular.standard)}</td>
+          <td data-label={`${labels.regular} / ${labels.gold}`}>{formatter.format(category.regular.gold)}</td>
+          <td data-label={`${labels.final} / ${labels.standard}`}>{formatter.format(category.final.standard)}</td>
+          <td data-label={`${labels.final} / ${labels.gold}`}>{formatter.format(category.final.gold)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p class="submission-fees__note">
+    {locale === "ja"
+      ? "Gold会員料金は、FilmFreeway Goldの対象アカウントに適用されます。実際の請求額は応募時にFilmFreewayで表示される金額をご確認ください。"
+      : "Gold member fees apply to eligible FilmFreeway Gold accounts. Confirm the final amount shown by FilmFreeway when submitting."}
+  </p>
+</div>

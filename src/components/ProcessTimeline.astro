@@ -10,8 +10,8 @@ interface Props {
 const { locale, sections } = Astro.props;
 const icons = [FileUp, ClipboardCheck, Eye, BadgeCheck, Radio];
 const dates = locale === "ja"
-  ? ["毎月20日 23:59締切", "", "", "", "月末発表"]
-  : ["20th at 23:59 JST", "", "", "", "Month-end announcement"];
+  ? ["毎月20日〜翌々月20日", "最終締切後", "翌々月末日通知", "会場開催日まで", "翌月15日 会場で発表"]
+  : ["20th to the 20th two months later", "After the final deadline", "Notice on that month-end", "Before the event day", "Announced at the event on the 15th"];
 ---
 
 <ol class="process-timeline">
