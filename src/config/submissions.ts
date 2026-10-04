@@ -39,7 +39,7 @@ const cycleLabels: Record<Locale, Record<SubmissionCycleId, { title: string; tim
   en: {
     opening: { title: "Opening Date", timing: "20th of every month" },
     "regular-deadline": { title: "Regular Deadline", timing: "Last day of the following month" },
-    "final-deadline": { title: "Final Deadline", timing: "20th of the second following month" },
+    "final-deadline": { title: "Late Deadline", timing: "20th of the second following month" },
     "nomination-notification": { title: "Nomination Notification", timing: "Last day of the second following month" },
     "award-results": { title: "Award Results Announcement", timing: "Event day (the 15th of the month after the final deadline)" }
   }
