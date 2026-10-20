@@ -38,9 +38,6 @@ const tabListLabel = locale === "ja" ? "部門別の賞" : "Awards by division";
       hidden={index !== 0}
       data-award-panel={division.id}
     >
-      {"description" in division && division.description && (
-        <p class="award-tabs__description">{division.description[locale]}</p>
-      )}
       <AwardGrid locale={locale} divisionId={division.id} />
     </div>
   ))}
@@ -81,12 +78,3 @@ const tabListLabel = locale === "ja" ? "部門別の賞" : "Awards by division";
     });
   }
 </script>
-
-<style>
-  .award-tabs__description {
-    max-width: 65ch;
-    margin: 0 0 24px;
-    font-size: var(--text-body);
-    line-height: 1.8;
-  }
-</style>

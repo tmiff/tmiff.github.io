@@ -5,11 +5,7 @@
     {
       "id": "documentary-pv",
       "en": "Documentary & Promotional Video",
-      "ja": "ドキュメンタリー・PV部門",
-      "description": {
-        "ja": "ドキュメンタリーと、ミュージックビデオ、企業・商品・観光などのプロモーション映像を対象とします。どちらの賞も短編・長編に分けずに選出します。",
-        "en": "For documentaries, music videos and promotional videos for companies, products, tourism and related subjects. Neither award is divided into short and feature categories."
-      }
+      "ja": "ドキュメンタリー・PV部門"
     }
   ],
   "categories": [
