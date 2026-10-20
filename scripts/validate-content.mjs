@@ -76,12 +76,12 @@ const expectedSubmissionCycle = [
 if (JSON.stringify(schedule.submissionCycle) !== JSON.stringify(expectedSubmissionCycle)) {
   errors.push("Public submission cycle differs from the approved recurring schedule.");
 }
-if (awards.divisions.length !== 2) errors.push("There must be exactly two runtime divisions.");
-if (awards.categories.length !== 11) errors.push("There must be exactly eleven configured award categories.");
+if (JSON.stringify(awards.divisions.map((item) => item.id)) !== JSON.stringify(["short", "feature", "documentary-pv"])) errors.push("Award divisions must be short, feature and documentary-pv in that order.");
+if (awards.categories.length !== 12) errors.push("There must be exactly twelve configured award categories.");
 const expectedMilestones = ["preselection:", "human-review:", "dual-approval:", "publication:last-day"];
 const actualMilestones = schedule.milestones.map((item) => `${item.id}:${item.days || ""}`);
 if (JSON.stringify(actualMilestones) !== JSON.stringify(expectedMilestones)) errors.push(`Monthly milestones differ from the approved contract: ${actualMilestones.join(", ")}`);
-const expectedAwardIds = ["best-feature-film", "best-short-film", "best-documentary", "best-director", "best-cinematography", "best-producer", "best-writer", "best-actor", "best-actress", "best-supporting-actor", "best-supporting-actress"];
+const expectedAwardIds = ["best-feature-film", "best-short-film", "best-documentary", "best-director", "best-cinematography", "best-producer", "best-writer", "best-actor", "best-actress", "best-supporting-actor", "best-supporting-actress", "best-promotional-video"];
 if (JSON.stringify(awards.categories.map((item) => item.id)) !== JSON.stringify(expectedAwardIds)) errors.push("Award category IDs or ordering differ from the approved contract.");
 const expectedFeeRows = new Map([
   ["best-feature-film", [39, 29, 45, 35]],
@@ -116,7 +116,7 @@ for (const category of submissionFees.categories) {
 const expectedAwardDivisions = new Map([
   ["best-feature-film", ["feature"]],
   ["best-short-film", ["short"]],
-  ["best-documentary", ["short", "feature"]],
+  ["best-documentary", ["documentary-pv"]],
   ["best-director", ["short", "feature"]],
   ["best-cinematography", ["short", "feature"]],
   ["best-producer", ["short", "feature"]],
@@ -124,7 +124,8 @@ const expectedAwardDivisions = new Map([
   ["best-actor", ["short", "feature"]],
   ["best-actress", ["short", "feature"]],
   ["best-supporting-actor", ["short", "feature"]],
-  ["best-supporting-actress", ["short", "feature"]]
+  ["best-supporting-actress", ["short", "feature"]],
+  ["best-promotional-video", ["documentary-pv"]]
 ]);
 if (awards.allowMultipleAwardsPerFilm !== true) errors.push("Multiple awards per film must remain allowed.");
 if (awards.winnerRequiredPerCategory !== false) errors.push("A winner must not be required when no submitted film meets the published criteria.");

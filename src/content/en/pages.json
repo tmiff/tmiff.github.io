@@ -269,14 +269,14 @@
   "awards": {
     "seoTitle": "Awards",
     "eyebrow": "Monthly awards",
-    "title": "Ten awards in each runtime division.",
-    "intro": "Each division has its own Best Film award alongside the shared documentary and craft awards. A film may receive more than one award.",
+    "title": "Awards across three divisions.",
+    "intro": "Each short and feature division has nine awards. The Documentary & Promotional Video division offers Best Documentary and Best Promotional Video, each without a short/feature split. A film may receive more than one award.",
     "sections": [
       {
         "id": "categories",
         "title": "Award categories",
         "body": [
-          "Ten awards are offered in each of the short and feature divisions."
+          "Nine awards are offered in each of the short and feature divisions, with Best Documentary and Best Promotional Video offered in the Documentary & Promotional Video division."
         ],
         "items": []
       },
