@@ -3,6 +3,7 @@ import { ArrowRight, BadgeCheck, Building2, CalendarClock, Check, ClipboardCheck
 import EditorialImage from "../EditorialImage.astro";
 import HomeHero from "../HomeHero.astro";
 import { getPageContent, getSection } from "../../config/content";
+import { getImageSlot } from "../../config/images";
 import { pagePath } from "../../config/paths";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale } from "../../types";
@@ -15,6 +16,7 @@ const review = getSection(locale, "home", "review-standard");
 const screeningExperience = getSection(locale, "home", "screening-experience");
 const online = getSection(locale, "home", "online-program");
 const inPerson = getSection(locale, "home", "in-person-program");
+const venueSponsor = getImageSlot("home-sim-studio");
 const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
 ---
 
@@ -105,7 +107,7 @@ const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
     </div>
   </section>
 
-  <section class="band band--light" data-reveal>
+  <section class="band band--light home-formats" data-reveal>
     <div class="container">
       <div class="format-grid" aria-label={locale === "ja" ? "オンラインとオフラインの開催形式" : "Online and in-person formats"}>
         <article class="format-grid__online">
@@ -142,6 +144,15 @@ const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
     </div>
   </section>
 
+  <section id="venue-sponsor" class="home-sponsor" aria-labelledby="venue-sponsor-title">
+    <div class="container home-sponsor__inner">
+      <h2 id="venue-sponsor-title">{locale === "ja" ? "協賛" : "Sponsor"}</h2>
+      <a class="home-sponsor__link" href="https://www.sim-odaibaplus.com/est">
+        <img src={venueSponsor.file} width={venueSponsor.width} height={venueSponsor.height} alt={venueSponsor.alt[locale]} loading="lazy" decoding="async" />
+      </a>
+    </div>
+  </section>
+
   <script>
     const revealItems = document.querySelectorAll<HTMLElement>('body[data-page="home"] [data-reveal]');
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -165,3 +176,55 @@ const steps = [Film, ClipboardCheck, Eye, BadgeCheck];
     }
   </script>
 </BaseLayout>
+
+<style>
+  .home-formats {
+    padding-bottom: var(--space-phi-4);
+  }
+
+  .home-sponsor {
+    display: grid;
+    aspect-ratio: 1 / 1;
+    color: var(--white);
+    background: var(--ink);
+    scroll-margin-top: var(--header-height);
+  }
+
+  .home-sponsor__inner {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .home-sponsor h2 {
+    position: absolute;
+    inset-block-start: clamp(var(--space-phi-3), 3vw, var(--space-phi-4));
+    inset-inline-start: 0;
+    margin: 0;
+    font-size: var(--text-lead);
+  }
+
+  .home-sponsor__link {
+    position: relative;
+    display: block;
+    width: clamp(150px, 28vw, 214px);
+    min-width: 0;
+  }
+
+  .home-sponsor__link:focus-visible {
+    outline: none;
+  }
+
+  .home-sponsor__link:focus-visible::after {
+    position: absolute;
+    inset-inline: 0;
+    bottom: -6px;
+    border-bottom: 2px solid currentColor;
+    content: "";
+  }
+
+  .home-sponsor__link img {
+    width: 100%;
+    height: auto;
+  }
+</style>

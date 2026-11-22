@@ -157,6 +157,7 @@ const allowedSlots = new Map([
   ["awards-materials", [2400, 1350]],
   ["home-screening", [1942, 809]],
   ["home-in-person", [1536, 1024]],
+  ["home-sim-studio", [2371, 709]],
   ["home-online-experience", [1200, 1500]],
   ["home-production-craft", [1672, 941]],
   ["home-awards-craft", [1536, 1024]],

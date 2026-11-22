@@ -69,6 +69,29 @@
     "sourceRecord": "openai-imagegen-2026-07-30-home-awards-craft-v1"
   },
   {
+    "id": "home-sim-studio",
+    "page": "home",
+    "file": "/images/brand/sim-studio-logo.png",
+    "width": 2371,
+    "height": 709,
+    "ratio": "2371:709",
+    "safeCrop": { "x": "0%-100%", "y": "0%-100%" },
+    "display": {
+      "position": "50% 50%",
+      "mobilePosition": "50% 50%",
+      "scale": 1,
+      "mobileScale": 1
+    },
+    "alt": {
+      "en": "SIM STUDIO",
+      "ja": "SIM STUDIO"
+    },
+    "prompt": "Display the supplied white horizontal SIM STUDIO logo in full on the dark sponsorship section. Trim only the transparent outer margins.",
+    "rightsStatus": "user-provided",
+    "approvalStatus": "approved",
+    "sourceRecord": "User-supplied SIMSTUDIOlogo_white-2.png; venue sponsorship recorded in the November 15, 2026 TMIFF screening and awards ceremony run of show."
+  },
+  {
     "id": "about-editorial",
     "page": "about",
     "file": "/images/about-coast.webp",
