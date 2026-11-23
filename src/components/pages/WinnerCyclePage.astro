@@ -138,8 +138,8 @@ const noAwardSentence = (count: number) =>
     container-type: inline-size;
     --visual-w: clamp(200px, 30vw, 306px);
     --visual-h: 315px;
-    /* The title images are drawn at 48px; shown at about 54.9px (2pt smaller than 1.2 times). */
-    --title-scale: 1.144;
+    /* The title images are drawn at 48px; shown at about 50.9px. */
+    --title-scale: 1.06;
     --image-col: max(calc(var(--visual-w) + var(--space-phi-4)), calc(50cqi - var(--title-max) * .5px));
     --title-h: min(calc(var(--title-base-h) * var(--title-scale) * 1px), calc(var(--title-base-h) / var(--title-max) * (100cqi - var(--image-col))));
   }
