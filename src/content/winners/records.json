@@ -1,1 +1,87 @@
-[]
+[
+  {
+    "cycleId": "2026-11",
+    "publishedAt": "2026-11-15",
+    "localeTitles": {
+      "en": "November 2026 Award Results",
+      "ja": "2026年11月 受賞結果"
+    },
+    "awards": [
+      {
+        "divisionId": "short",
+        "categoryId": "best-short-film",
+        "tier": "winner",
+        "filmTitle": "Hope - Empower People of the Earth",
+        "still": {
+          "src": "/images/winners/2026-11/hope-empower-people-of-the-earth-poster.jpg",
+          "width": 509,
+          "height": 720,
+          "alt": { "en": "Poster for Hope - Empower People of the Earth", "ja": "『Hope - Empower People of the Earth』のポスター" },
+          "source": "Festival office file Hope.jpg",
+          "rightsStatus": "pending-confirmation"
+        },
+        "recipientName": "Federico Fontana & Andrea Scotto Rosato",
+        "recipientCredit": "director"
+      },
+      {
+        "divisionId": "documentary-pv",
+        "categoryId": "best-documentary",
+        "tier": "winner",
+        "filmTitle": "Return to My Blue",
+        "still": {
+          "src": "/images/winners/2026-11/return-to-my-blue-poster.jpg",
+          "width": 509,
+          "height": 720,
+          "alt": { "en": "Poster for Return to My Blue", "ja": "『Return to My Blue』のポスター" },
+          "source": "Festival office file Return to my Blue.jpg",
+          "rightsStatus": "pending-confirmation"
+        },
+        "recipientName": "Yuta Noguchi",
+        "recipientCredit": "director"
+      },
+      {
+        "divisionId": "documentary-pv",
+        "categoryId": "best-promotional-video",
+        "tier": "winner",
+        "filmTitle": "Gioiello",
+        "displayTitle": "“Gioiello” by Mika Kobayashi",
+        "still": {
+          "src": "/images/winners/2026-11/gioiello-still.jpg",
+          "width": 720,
+          "height": 405,
+          "alt": { "en": "Still from Gioiello", "ja": "『Gioiello』の場面写真" },
+          "source": "Festival office file Gioiello.JPG",
+          "rightsStatus": "pending-confirmation"
+        },
+        "recipientName": "Kazuya Sugeno",
+        "recipientCredit": "director"
+      },
+      {
+        "categoryId": "best-writer",
+        "tier": "winner",
+        "filmTitle": "The Mask Comes Off",
+        "recipientName": "Mary Beth McDaniel",
+        "recipientCredit": "writer"
+      },
+      {
+        "divisionId": "documentary-pv",
+        "tier": "honorable-mention",
+        "filmTitle": "STORM ON STAGE",
+        "recipientName": "Ahmet Luleci",
+        "recipientCredit": "director"
+      }
+    ],
+    "openingScreening": {
+      "filmTitle": "Toshie the Nihilist",
+      "directorName": "Matthew Chozick",
+      "still": {
+        "src": "/images/winners/2026-11/toshie-the-nihilist-poster.jpg",
+        "width": 576,
+        "height": 720,
+        "alt": { "en": "Poster for Toshie the Nihilist", "ja": "『Toshie the Nihilist』のポスター" },
+        "source": "Festival office file Toshie the Nihilist Poster-instagram.JPG",
+        "rightsStatus": "pending-confirmation"
+      }
+    }
+  }
+]
