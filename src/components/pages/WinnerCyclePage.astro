@@ -138,7 +138,8 @@ const noAwardSentence = (count: number) =>
     container-type: inline-size;
     --visual-w: clamp(200px, 30vw, 306px);
     --visual-h: 315px;
-    --title-scale: 1.2;
+    /* The title images are drawn at 48px; shown at about 54.9px (2pt smaller than 1.2 times). */
+    --title-scale: 1.144;
     --image-col: max(calc(var(--visual-w) + var(--space-phi-4)), calc(50cqi - var(--title-max) * .5px));
     --title-h: min(calc(var(--title-base-h) * var(--title-scale) * 1px), calc(var(--title-base-h) / var(--title-max) * (100cqi - var(--image-col))));
   }
@@ -160,9 +161,9 @@ const noAwardSentence = (count: number) =>
   .result-row--text .result-row__film { margin-top: calc(var(--title-h) * -0.17); }
   .result-row p { margin: 0; }
   /* The award name stays regular weight so it does not compete with the film title. */
-  .result-row__category { color: var(--white); font-size: var(--text-lead); font-weight: 400; }
+  .result-row__category { color: var(--white); font-size: clamp(24px, 2.25vw, 32px); font-weight: 400; }
   .result-row__film { margin: 0; font-size: var(--text-heading); font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
-  /* Titles are shown at 1.2 times their image size where there is room. When the title column is
+  /* Titles are shown at --title-scale times their image size where there is room. When the title column is
      narrower than the widest title, every title shrinks by the same ratio so the letters stay one size. */
   .result-row__film img { display: block; width: min(calc(var(--title-w) * var(--title-scale) * 1px), calc(var(--title-w) / var(--title-max) * (100cqi - var(--image-col)))); max-width: 100%; height: auto; }
   /* The title image already leaves room below its letters, so the credit follows it with no extra gap. */
