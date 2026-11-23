@@ -14,6 +14,7 @@ const submissionFees = readJson("src/config/submission-fees.json");
 const awards = readJson("src/config/awards.json");
 const imageSlots = readJson("src/config/image-slots.json");
 const winners = readJson("src/content/winners/records.json");
+const winnerTitleImages = readJson("src/content/winners/title-images.json");
 
 function section(page, id) {
   return page?.sections?.find((item) => item.id === id);
@@ -199,28 +200,73 @@ const certificateIds = new Set();
 const validCategoryIds = new Set(awards.categories.map((item) => item.id));
 const validDivisionIds = new Set(awards.divisions.map((item) => item.id));
 const categoryById = new Map(awards.categories.map((item) => [item.id, item]));
-const expectedOutcomeCount = awards.divisions.reduce(
-  (total, division) => total + awards.categories.filter((category) => category.divisions.includes(division.id)).length,
-  0
-);
+const validTiers = new Set(["winner", "honorable-mention"]);
+const validStillRights = new Set(["pending-confirmation", "approved"]);
+// A poster or still beside a film: the file must exist at the recorded size, carry alt text in both
+// languages, and record where it came from and whether its use has been agreed.
+async function checkStill(still, label) {
+  if (!still) return;
+  if (!still.alt?.en || !still.alt?.ja) errors.push(`Film still requires English and Japanese alt text: ${label}`);
+  if (!still.source) errors.push(`Film still requires a source: ${label}`);
+  if (!validStillRights.has(still.rightsStatus)) errors.push(`Unknown rights status for film still in ${label}: ${still.rightsStatus}`);
+  const filePath = path.join(root, "public", (still.src || "").replace(/^\//, ""));
+  if (!still.src || !fs.existsSync(filePath)) {
+    errors.push(`Film still file not found for ${label}: ${still.src}`);
+  } else {
+    const metadata = await sharp(filePath).metadata();
+    if (metadata.width !== still.width || metadata.height !== still.height) {
+      errors.push(`Film still for ${label} is ${metadata.width}x${metadata.height}; recorded as ${still.width}x${still.height}.`);
+    }
+  }
+}
+const validCredits = new Set(["director", "writer"]);
+// A published cycle lists only the awards that were given. Categories without a winner are not
+// required to appear; when they do appear under noAwards, they must not contradict a winner.
 for (const cycle of winners) {
   if (!/^\d{4}-\d{2}$/.test(cycle.cycleId)) errors.push(`Invalid cycle ID: ${cycle.cycleId}`);
   if (!cycle.localeTitles?.en || !cycle.localeTitles?.ja) errors.push(`Missing localized cycle title: ${cycle.cycleId}`);
+  if ((cycle.awards || []).length === 0) errors.push(`Published cycle ${cycle.cycleId} must list at least one award.`);
   const outcomeKeys = new Set();
   for (const award of cycle.awards || []) {
-    if (!validCategoryIds.has(award.categoryId)) errors.push(`Unknown award category: ${award.categoryId}`);
-    if (!validDivisionIds.has(award.divisionId)) errors.push(`Unknown division: ${award.divisionId}`);
-    if (validCategoryIds.has(award.categoryId) && validDivisionIds.has(award.divisionId) && !categoryById.get(award.categoryId).divisions.includes(award.divisionId)) {
-      errors.push(`Award category ${award.categoryId} does not apply to division ${award.divisionId}.`);
+    const label = `${cycle.cycleId} ${award.filmTitle || award.categoryId}`;
+    const tier = award.tier ?? "winner";
+    // A winner is given in a category; an Honorable Mention is not.
+    if (tier === "winner" && award.categoryId === undefined) errors.push(`Winner requires an award category: ${label}`);
+    if (award.categoryId !== undefined && !validCategoryIds.has(award.categoryId)) errors.push(`Unknown award category: ${award.categoryId}`);
+    if (award.divisionId !== undefined) {
+      if (!validDivisionIds.has(award.divisionId)) errors.push(`Unknown division: ${award.divisionId}`);
+      if (validCategoryIds.has(award.categoryId) && validDivisionIds.has(award.divisionId) && !categoryById.get(award.categoryId).divisions.includes(award.divisionId)) {
+        errors.push(`Award category ${award.categoryId} does not apply to division ${award.divisionId}.`);
+      }
     }
-    const outcomeKey = `${award.divisionId}:${award.categoryId}`;
-    if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
-    outcomeKeys.add(outcomeKey);
-    if (!award.filmTitle || !award.recipientName || !award.certificateId) errors.push(`Incomplete award record in ${cycle.cycleId}`);
-    if (certificateIds.has(award.certificateId)) errors.push(`Duplicate certificate ID: ${award.certificateId}`);
-    certificateIds.add(award.certificateId);
-    if (award.stillUrl && !award.stillAlt?.en) errors.push(`Winner still requires English alt text: ${award.certificateId}`);
-    if (award.stillUrl && !award.stillAlt?.ja) errors.push(`Winner still requires Japanese alt text: ${award.certificateId}`);
+    if (!validTiers.has(tier)) errors.push(`Unknown award tier in ${label}: ${tier}`);
+    if (!validCredits.has(award.recipientCredit)) errors.push(`Unknown recipient credit in ${label}: ${award.recipientCredit}`);
+    // Only one winner per category and division; Honorable Mentions may sit beside a winner.
+    if (tier === "winner") {
+      const outcomeKey = `${award.divisionId ?? "none"}:${award.categoryId}`;
+      if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
+      outcomeKeys.add(outcomeKey);
+    }
+    if (!award.filmTitle || !award.recipientName) errors.push(`Incomplete award record in ${label}`);
+    // Film titles are shown as images in the certificate typeface (npm run generate:winner-titles).
+    const titleImage = winnerTitleImages[`${cycle.cycleId}:${award.filmTitle}`];
+    if (!titleImage) errors.push(`Missing title image for ${label}; run npm run generate:winner-titles.`);
+    else if (!fs.existsSync(path.join(root, "public", titleImage.src))) errors.push(`Title image file not found for ${label}: ${titleImage.src}`);
+    if (award.certificateId !== undefined) {
+      if (!award.certificateId) errors.push(`Empty certificate ID in ${label}`);
+      if (certificateIds.has(award.certificateId)) errors.push(`Duplicate certificate ID: ${award.certificateId}`);
+      certificateIds.add(award.certificateId);
+    }
+    await checkStill(award.still, label);
+  }
+  if (cycle.openingScreening) {
+    const opening = cycle.openingScreening;
+    const label = `${cycle.cycleId} opening screening`;
+    if (!opening.filmTitle || !opening.directorName) errors.push(`Incomplete opening screening record in ${label}`);
+    const titleImage = winnerTitleImages[`${cycle.cycleId}:${opening.filmTitle}`];
+    if (!titleImage) errors.push(`Missing title image for ${label}; run npm run generate:winner-titles.`);
+    else if (!fs.existsSync(path.join(root, "public", titleImage.src))) errors.push(`Title image file not found for ${label}: ${titleImage.src}`);
+    await checkStill(opening.still, label);
   }
   for (const noAward of cycle.noAwards || []) {
     if (!validCategoryIds.has(noAward.categoryId)) errors.push(`Unknown No Award category: ${noAward.categoryId}`);
@@ -231,9 +277,6 @@ for (const cycle of winners) {
     const outcomeKey = `${noAward.divisionId}:${noAward.categoryId}`;
     if (outcomeKeys.has(outcomeKey)) errors.push(`Duplicate award outcome in ${cycle.cycleId}: ${outcomeKey}`);
     outcomeKeys.add(outcomeKey);
-  }
-  if (outcomeKeys.size !== expectedOutcomeCount) {
-    errors.push(`Published cycle ${cycle.cycleId} must define exactly ${expectedOutcomeCount} unique award outcomes; found ${outcomeKeys.size}.`);
   }
 }
 
@@ -248,4 +291,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Content validation passed: ${enKeys.length} bilingual pages, ${expectedOutcomeCount} division-specific award outcomes, ${imageSlots.length} image slots.`);
+console.log(`Content validation passed: ${enKeys.length} bilingual pages, ${winners.length} published award cycles, ${imageSlots.length} image slots.`);

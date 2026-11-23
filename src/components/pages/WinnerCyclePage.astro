@@ -3,6 +3,7 @@ import { ShieldCheck } from "lucide-astro";
 import { getPageContent } from "../../config/content";
 import { pagePath } from "../../config/paths";
 import awards from "../../config/awards.json";
+import titleImages from "../../content/winners/title-images.json";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale, WinnerRecord } from "../../types";
 
@@ -15,22 +16,30 @@ const { locale, cycle } = Astro.props;
 const base = getPageContent(locale, "winners");
 const categoryMap = new Map(awards.categories.map((item) => [item.id, item[locale]]));
 
-// Use the published category order instead of the order in which results were entered, so each
-// division remains consistent with the numbered list on the Awards page.
-const categoryOrder = new Map(awards.categories.map((item, index) => [item.id, index]));
-const byCategory = <T extends { categoryId: string }>(a: T, b: T) =>
-  (categoryOrder.get(a.categoryId) ?? Number.MAX_SAFE_INTEGER) - (categoryOrder.get(b.categoryId) ?? Number.MAX_SAFE_INTEGER);
+// Results are listed in the order recorded for the cycle, which is the order the festival announces
+// them: the category winners first, then the Honorable Mentions.
+const results = cycle.awards || [];
+// Film titles are set as images in the certificate typeface; see scripts/generate-winner-title-images.mjs.
+const titleImageFor = (filmTitle: string) =>
+  (titleImages as Record<string, { src: string; width: number; height: number }>)[`${cycle.cycleId}:${filmTitle}`];
+const unawarded = cycle.noAwards || [];
+const opening = cycle.openingScreening;
+const openingImage = opening ? titleImageFor(opening.filmTitle) : undefined;
+const openingLabel = locale === "ja" ? "オープニング上映" : "Opening Screening";
+// On a narrow screen every title shrinks by the same ratio, set by the widest title on the page, so
+// all titles keep one letter size.
+const titleWidths = [...results.map((award) => titleImageFor(award.filmTitle)), openingImage].flatMap((image) => (image ? [image.width] : []));
+const titleMax = Math.max(1, ...titleWidths);
+// Every title image shares one height (from the font's ascent to its descent).
+const titleHeight = Math.max(1, ...[...results.map((award) => titleImageFor(award.filmTitle)), openingImage].flatMap((image) => (image ? [image.height] : [])));
 
-// Results are grouped under their division: this is a results page, so the winners of a division
-// belong together, and the categories that went unawarded belong after them rather than in front.
-const groups = awards.divisions
-  .map((division) => ({
-    division,
-    won: (cycle.awards || []).filter((award) => award.divisionId === division.id).sort(byCategory),
-    unawarded: (cycle.noAwards || []).filter((item) => item.divisionId === division.id).sort(byCategory)
-  }))
-  .filter((group) => group.won.length > 0 || group.unawarded.length > 0);
-
+// A winner is shown by its award name; an Honorable Mention is not given in a category.
+const honorableMentionLabel = locale === "ja" ? "佳作" : "Honorable Mention";
+// Credits read in English in both languages, as on the certificates.
+const creditLabel = {
+  director: "Directed by ",
+  writer: "Written by "
+};
 const noAwardLabel = locale === "ja" ? "該当なし" : "No Award";
 const separator = locale === "ja" ? "／" : ", ";
 const noAwardSentence = (count: number) =>
@@ -42,55 +51,136 @@ const noAwardSentence = (count: number) =>
 <BaseLayout locale={locale} pageKey="winners" title={cycle.localeTitles[locale]} description={base.intro}>
   <header class="page-hero page-hero--compact">
     <div class="container page-hero__inner">
-      <p class="eyebrow">{cycle.cycleId}</p>
       <h1>{cycle.localeTitles[locale]}</h1>
-      <p class="page-hero__intro">{locale === "ja" ? `${cycle.localeTitles[locale]}の公式受賞結果です。` : "Official award results for this month."}</p>
     </div>
   </header>
-  <section class="band band--light">
-    <div class="container">
-      {groups.map((group) => (
-        <section class="division-results">
-          <h2 class="division-results__title">{group.division[locale]}</h2>
-          <div class="winner-results">
-            {group.won.map((award) => (
-              <article class={award.stillUrl && award.stillAlt ? "winner-card" : "winner-card winner-card--no-still"}>
-                {award.stillUrl && award.stillAlt && <img src={award.stillUrl} alt={award.stillAlt[locale]} loading="lazy" />}
-                <div>
-                  <h3>{categoryMap.get(award.categoryId)}</h3>
-                  <p class="winner-card__film">{award.filmTitle}</p>
-                  <p>{award.recipientName} · {award.recipientCredit}</p>
-                  <a class="text-link" href={`${pagePath(locale, "verify")}?id=${encodeURIComponent(award.certificateId)}`}><ShieldCheck size={17} />{award.certificateId}</a>
-                </div>
-              </article>
-            ))}
-            {group.unawarded.length > 0 && (
-              <div class="no-award-notice">
-                <p class="eyebrow">{noAwardLabel}</p>
-                <strong>{group.unawarded.map((item) => categoryMap.get(item.categoryId)).join(separator)}</strong>
-                <span>{noAwardSentence(group.unawarded.length)}</span>
+  <section class="band band--ink results-band">
+    <div class="container results" style={`--title-max: ${titleMax}; --title-base-h: ${titleHeight}`}>
+      {opening && (
+        <div class="opening-screening">
+          <div class:list={["result-row", { "result-row--text": !opening.still }]}>
+            <div class="result-row__award">
+              <p class="result-row__category">{openingLabel}</p>
+            </div>
+            {opening.still && (
+              <div class="result-row__visual">
+                <img src={opening.still.src} alt={opening.still.alt[locale]} width={opening.still.width} height={opening.still.height} style={`--ratio: ${opening.still.width} / ${opening.still.height}`} decoding="async" />
               </div>
             )}
+            <div class="result-row__work">
+              <h2 class="result-row__film">
+                {openingImage ? (
+                  <img src={openingImage.src} alt={opening.filmTitle} width={openingImage.width} height={openingImage.height} style={`--title-w: ${openingImage.width}`} />
+                ) : opening.filmTitle}
+              </h2>
+              <p class="result-row__credit">{creditLabel.director}{opening.directorName}</p>
+            </div>
           </div>
-        </section>
-      ))}
+        </div>
+      )}
+      <ol class="result-list">
+        {results.map((award) => {
+          const tier = award.tier ?? "winner";
+          const titleImage = titleImageFor(award.filmTitle);
+          return (
+            <li class:list={["result-row", `result-row--${tier}`, { "result-row--text": !award.still }]}>
+              <div class="result-row__award">
+                <p class="result-row__category">{tier === "honorable-mention" ? honorableMentionLabel : categoryMap.get(award.categoryId ?? "")}</p>
+              </div>
+              {award.still && (
+                <div class="result-row__visual">
+                  <img src={award.still.src} alt={award.still.alt[locale]} width={award.still.width} height={award.still.height} style={`--ratio: ${award.still.width} / ${award.still.height}`} loading="lazy" decoding="async" />
+                </div>
+              )}
+              <div class="result-row__work">
+                <h2 class="result-row__film">
+                  {titleImage ? (
+                    <img src={titleImage.src} alt={award.displayTitle || award.filmTitle} width={titleImage.width} height={titleImage.height} style={`--title-w: ${titleImage.width}`} />
+                  ) : (award.displayTitle || award.filmTitle)}
+                </h2>
+                <p class="result-row__credit">{creditLabel[award.recipientCredit]}{award.recipientName}</p>
+                {award.certificateId && (
+                  <a class="text-link" href={`${pagePath(locale, "verify")}?id=${encodeURIComponent(award.certificateId)}`}><ShieldCheck size={17} />{award.certificateId}</a>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      {unawarded.length > 0 && (
+        <div class="no-award-notice">
+          <p class="eyebrow">{noAwardLabel}</p>
+          <strong>{unawarded.map((item) => categoryMap.get(item.categoryId)).join(separator)}</strong>
+          <span>{noAwardSentence(unawarded.length)}</span>
+        </div>
+      )}
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .division-results + .division-results { margin-top: 55px; }
-  .division-results__title { margin-bottom: 21px; }
-  .winner-results { display: grid; gap: 18px; }
-  .winner-card { display: grid; grid-template-columns: minmax(220px, .36fr) minmax(0, .64fr); gap: 34px; padding: 28px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
-  /* Without a still there is no first column to fill, and a card that keeps one opens with a gap. */
-  .winner-card--no-still { grid-template-columns: 1fr; }
-  .winner-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-  .winner-card h3 { margin-bottom: var(--space-phi-2); font-size: var(--text-heading); font-weight: 700; }
-  .winner-card__film { font-size: var(--text-lead); font-weight: 700; }
-  .no-award-notice { display: grid; gap: 6px; padding: 20px 24px; border-left: 4px solid var(--muted); background: var(--paper); }
+  /* The whole results page is set on black with white text, from the title down to the footer. */
+  /* The title is followed directly by the results: no dividing line and no second band of space, so
+     the first line under the title is the top of the results list. */
+  .page-hero { color: var(--white); background: var(--ink); border-bottom: 0; }
+  .page-hero h1 { color: var(--white); }
+  .results-band { padding-top: 0; }
+  /* Break the Japanese title at its space ("2026年11月 受賞結果") rather than inside a word. */
+  .page-hero h1 { word-break: keep-all; overflow-wrap: anywhere; }
+  /* Film titles are white; the award and credit lines are softened white so the titles lead. */
+  .result-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid rgb(255 255 255 / 20%); }
+  /* Sizes shared by every row.
+     --visual-w / --visual-h: the box a poster or still fits inside, keeping its own shape.
+     --image-col: where titles start in rows with an image; at least the image plus a gap, and on a wide
+       screen where the widest title would sit centred.
+     --title-h: the height every title image is shown at, so all titles share one letter size. */
+  .results {
+    container-type: inline-size;
+    --visual-w: clamp(200px, 30vw, 306px);
+    --visual-h: 315px;
+    --title-scale: 1.2;
+    --image-col: max(calc(var(--visual-w) + var(--space-phi-4)), calc(50cqi - var(--title-max) * .5px));
+    --title-h: min(calc(var(--title-base-h) * var(--title-scale) * 1px), calc(var(--title-base-h) / var(--title-max) * (100cqi - var(--image-col))));
+  }
+  /* The award sits at the top left. One line lower come the image (if any) and the title and credit. */
+  .result-row { display: grid; grid-template-columns: var(--image-col) minmax(0, 1fr); row-gap: var(--space-phi-2); padding: var(--space-phi-4) 0; border-bottom: 1px solid rgb(255 255 255 / 20%); }
+  /* Rows without an image start the title about three characters (3 x 21px) in from where the widest
+     title would sit centred, but never further right than the rows with an image. */
+  .result-row--text { grid-template-columns: min(calc(max(0px, calc(50cqi - var(--title-max) * .5px)) + 63px), var(--image-col)) minmax(0, 1fr); }
+  .result-row__award { grid-column: 1 / -1; grid-row: 1; }
+  .result-row__visual { grid-column: 1; grid-row: 2; }
+  /* Each image fits inside the box at its own shape; its size is known before it loads, so nothing moves. */
+  .result-row__visual img { display: block; width: min(var(--visual-w), calc(var(--visual-h) * var(--ratio))); height: auto; aspect-ratio: var(--ratio); }
+  .result-row__work { grid-column: 2; grid-row: 2; }
+  /* Beside an image, the title and credit sit at the image's vertical middle. */
+  .result-row:has(.result-row__visual) .result-row__work { align-self: center; }
+  /* The title image carries empty space above its letters (about 17% of its height). In rows without an
+     image the title is pulled up by that much, so the award name sits as close to the letters as it does
+     to an image in the other rows. */
+  .result-row--text .result-row__film { margin-top: calc(var(--title-h) * -0.17); }
+  .result-row p { margin: 0; }
+  /* The award name stays regular weight so it does not compete with the film title. */
+  .result-row__category { color: var(--white); font-size: var(--text-lead); font-weight: 400; }
+  .result-row__film { margin: 0; font-size: var(--text-heading); font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
+  /* Titles are shown at 1.2 times their image size where there is room. When the title column is
+     narrower than the widest title, every title shrinks by the same ratio so the letters stay one size. */
+  .result-row__film img { display: block; width: min(calc(var(--title-w) * var(--title-scale) * 1px), calc(var(--title-w) / var(--title-max) * (100cqi - var(--image-col)))); max-width: 100%; height: auto; }
+  /* The title image already leaves room below its letters, so the credit follows it with no extra gap. */
+  .result-row__credit { margin-top: 0 !important; color: rgb(255 255 255 / 72%); }
+  .result-row__work .text-link { margin-top: var(--space-phi-2); }
+  .no-award-notice { display: grid; gap: 6px; margin-top: var(--space-phi-5); padding: 20px 24px; border-left: 4px solid var(--muted); background: var(--paper); }
   .no-award-notice .eyebrow { margin: 0; }
   .no-award-notice strong { font-size: var(--text-body); }
   .no-award-notice span { color: var(--muted); }
-  @media (max-width: 680px) { .winner-card { grid-template-columns: 1fr; padding: 20px; } }
+  /* The opening screening opened the event, so it comes first; it is not an award, so it sits apart
+     from the results. */
+  .opening-screening { margin-bottom: var(--space-phi-5); border-top: 1px solid rgb(255 255 255 / 20%); }
+  /* On a phone everything stacks: award, image, title, credit. */
+  @media (max-width: 560px) {
+    .results { --title-h: min(calc(var(--title-base-h) * var(--title-scale) * 1px), calc(var(--title-base-h) / var(--title-max) * 100cqi)); }
+    .result-row, .result-row--text { grid-template-columns: 1fr; padding: var(--space-phi-3) 0; }
+    .result-row__visual, .result-row__work { grid-column: 1; grid-row: auto; }
+    .result-row__visual img { width: min(100%, calc(360px * var(--ratio))); }
+    .result-row__film img { width: min(calc(var(--title-w) * var(--title-scale) * 1px), calc(var(--title-w) / var(--title-max) * 100cqi)); }
+  }
 </style>
