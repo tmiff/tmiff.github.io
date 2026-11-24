@@ -1,6 +1,5 @@
 ---
 import { CalendarX2 } from "lucide-astro";
-import SectionBlock from "../SectionBlock.astro";
 import { getPageContent } from "../../config/content";
 import { navigationLabels, pagePath } from "../../config/paths";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -57,7 +56,4 @@ const editionTitle = (edition: number) => (locale === "ja" ? `第${edition}回 �
       )}
     </div>
   </section>
-  <div class="container content-sections winners-notes">
-    {content.sections.filter((section) => section.id === "archive").map((section, index) => <SectionBlock section={section} index={index} />)}
-  </div>
 </BaseLayout>
