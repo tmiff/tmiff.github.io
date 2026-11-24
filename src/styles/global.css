@@ -1794,6 +1794,11 @@ body[data-page="home"] .site-header {
   display: none;
 }
 
+/* Extra room between the last entry and the footer: 172px in total on a wide screen, 117px on a phone. */
+.winners-index {
+  padding-bottom: var(--space-phi-5);
+}
+
 .winners-hero {
   padding: 86px 0 72px;
   border-bottom: 1px solid var(--line);
@@ -2695,6 +2700,10 @@ body[data-page="home"] .site-header {
 
   .winners-hero {
     padding: 64px 0 52px;
+  }
+
+  .winners-index {
+    padding-bottom: var(--space-phi-4);
   }
 
     .process-timeline li {
