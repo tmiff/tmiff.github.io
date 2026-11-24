@@ -1794,10 +1794,6 @@ body[data-page="home"] .site-header {
   display: none;
 }
 
-.winners-index {
-  max-width: var(--content);
-}
-
 .winners-hero {
   padding: 86px 0 72px;
   border-bottom: 1px solid var(--line);
@@ -1836,13 +1832,24 @@ body[data-page="home"] .site-header {
   list-style: none;
 }
 
+/* The list starts at the same left edge as the page title. Each entry is one link: the month and the
+   edition title together, underlined only as wide as the text. */
 .cycle-list li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
   padding: 28px 0;
+}
+
+.cycle-link {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding-bottom: var(--space-phi-2);
+  color: var(--ink);
+  text-decoration: none;
   border-bottom: 1px solid var(--line);
+}
+
+.cycle-link:hover h2 {
+  color: var(--red);
 }
 
 .cycle-list span {
