@@ -322,14 +322,6 @@
           "There is no published cycle yet."
         ],
         "items": []
-      },
-      {
-        "id": "archive",
-        "title": "Monthly archive",
-        "body": [
-          "View past award-winning films here."
-        ],
-        "items": []
       }
     ]
   },
